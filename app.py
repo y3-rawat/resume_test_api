@@ -16,13 +16,13 @@ def submit():
     experience = request.args.get('experience', '')
 
     # Create a response dictionary
-    response = {
+    response ={"res": {
         'fileName': file_name,
         'fileType': file_type,
         'job_description': job_description,
         'additional_information': additional_information,
         'experience': experience
-    }
+    }}
 
     # Return a JSON response
     return jsonify(response)
