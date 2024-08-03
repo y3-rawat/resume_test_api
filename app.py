@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
@@ -13,15 +14,6 @@ def submit():
     job_description = request.form.get('job_description', '')
     additional_information = request.form.get('additional_information', '')
     experience = request.form.get('experience', '')
-
-    # Optionally handle the file upload
-    if 'file' in request.files:
-        uploaded_file = request.files['file']
-        if uploaded_file.filename != '':
-            # Save the file or process it as needed
-            file_name = uploaded_file.filename
-            # For demonstration, you can save the file to a directory
-            uploaded_file.save(f"./uploads/{file_name}")
 
     # Create a response dictionary
     response = {
@@ -37,4 +29,3 @@ def submit():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
