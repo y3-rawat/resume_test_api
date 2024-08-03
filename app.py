@@ -6,14 +6,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['GET'])
 def submit():
-    # Extract data from the request
-    file_name = request.form.get('fileName', '')
-    file_type = request.form.get('fileType', '')
-    job_description = request.form.get('job_description', '')
-    additional_information = request.form.get('additional_information', '')
-    experience = request.form.get('experience', '')
+    # Extract data from the URL parameters
+    file_name = request.args.get('fileName', '')
+    file_type = request.args.get('fileType', '')
+    job_description = request.args.get('job_description', '')
+    additional_information = request.args.get('additional_information', '')
+    experience = request.args.get('experience', '')
 
     # Create a response dictionary
     response = {
