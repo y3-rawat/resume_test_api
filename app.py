@@ -13,7 +13,7 @@ cors = CORS(app, resources={
 def index():
     return render_template('index.html')
 
-@app.route('/submit', methods=['GET'])
+@app.route('/submit', methods=['POST'])
 def submit():
     # Extract data from the URL parameters
     file_name = request.args.get('fileName', '')
