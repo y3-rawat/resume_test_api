@@ -17,11 +17,11 @@ def submit():
 
     # Create a response dictionary
     response ={"res": {
-        'fileName': file_name,
+       """ 'fileName': file_name,
         'fileType': file_type,
         'job_description': job_description,
         'additional_information': additional_information,
-        'experience': experience
+        'experience': experience"""
     }}
 
     # Return a JSON response
