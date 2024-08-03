@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
+
+
+app = Flask(__name__)
 # Configure CORS with specific options
 cors = CORS(app, resources={
     r"/submit": {"origins": "*"}  # Allow all origins for the /submit endpoint
 })
-
-
-app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
