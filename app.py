@@ -21,6 +21,7 @@ def submit():
     job_description = request.args.get('job_description', '')
     additional_information = request.args.get('additional_information', '')
     experience = request.args.get('experience', '')
+    extreacted_text = request.args.get('text', '')
 
     # Create a response dictionary
     response ={
@@ -28,7 +29,8 @@ def submit():
         'fileType': file_type,
         'job_description': job_description,
         'additional_information': additional_information,
-        'experience': experience
+        'experience': experience,
+        'extracted_text':extreacted_text,
     }
     
     # Return a JSON response
