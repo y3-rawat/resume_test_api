@@ -16,22 +16,22 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     # Extract data from the URL parameters
-    file_name = request.args.get('fileName', '')
-    file_type = request.args.get('fileType', '')
-    job_description = request.args.get('job_description', '')
-    additional_information = request.args.get('additional_information', '')
-    experience = request.args.get('experience', '')
-    extreacted_text = request.args.get('text', '')
+    # file_name = request.args.get('fileName', '')
+    # file_type = request.args.get('fileType', '')
+    # job_description = request.args.get('job_description', '')
+    # additional_information = request.args.get('additional_information', '')
+    # experience = request.args.get('experience', '')
+    # extreacted_text = request.args.get('text', '')
 
-    # Create a response dictionary
-    response ={
-       'fileName': file_name,
-        'fileType': file_type,
-        'job_description': job_description,
-        'additional_information': additional_information,
-        'experience': experience,
-        'extracted_text':extreacted_text,
-    }
+    # # Create a response dictionary
+    # response ={
+    #    'fileName': file_name,
+    #     'fileType': file_type,
+    #     'job_description': job_description,
+    #     'additional_information': additional_information,
+    #     'experience': experience,
+    #     'extracted_text':extreacted_text,
+    # }
     
     data = {'score_card': {'ats': {'score': 42,
     'description': 'Moderate ATS compatibility potential',
