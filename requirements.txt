@@ -1,8 +1,2 @@
-
-flask
-flask-core
-
-
-
-numpy
-
+Flask
+flask-cors
