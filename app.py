@@ -44,16 +44,16 @@ def run_parallel_tasks(final_resume, job_description):
 
 def get_data(job_description,additional_information,experience,extreacted_text):
     
-
+    print("resume text",extreacted_text)
     final_resume = calculations.resume_final(extreacted_text,additional_information)
 
     results = run_parallel_tasks(final_resume, job_description)
 
-    print(results)
+    
     skills = results['skills']
     projects = results['projects']
     courses = results['courses']
-    experience = results['experience']
+    experiencee = results['experience']
     
     data = {
         "score_card": {
@@ -93,8 +93,8 @@ def get_data(job_description,additional_information,experience,extreacted_text):
         "skill_Score": skills["output"]["skill_Score"],
         "recommendations": skills["output"]["recommendations"],
         "course_impact": courses["output"]["course_impact"],
-        "experience_relevance": experience["output"]["experience_relevance"],
-        "Actionable Recommendations": experience["output"]["Actionable Recommendations"],
+        "experience_relevance": experiencee["output"]["experience_relevance"],
+        "Actionable Recommendations": experiencee["output"]["Actionable Recommendations"],
         
                 "Strengths":{
                         "Relevant Education":" The candidate is pursuing a Bachelor's degree in AI & DS, which aligns with the job requirements.",
