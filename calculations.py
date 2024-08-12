@@ -16,6 +16,7 @@ def fetch_data_with_retry(prompt, index, retry_count):
     for attempt in range(retry_count):
         try:
             response = apis.final(prompt)
+            print("this is from responce ",response)
             data = response.split("```")[1]
             with results_lock:
                 results[index] = data
