@@ -1,8 +1,8 @@
 
-Flask==3.0.3
-flask-core==2.9.0
+flask
+flask-core
 
-langchain-groq==0.1.9
+langchain-groq
 
-numpy==2.0.1
-Werkzeug==3.0.3
+numpy
+
