@@ -2,7 +2,7 @@
 flask
 flask-core
 
-langchain-groq
+
 
 numpy
 
