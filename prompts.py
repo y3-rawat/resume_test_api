@@ -177,7 +177,7 @@ Please return the extracted data in the correct JSON format:
 {
 "skills": "{only return the section of Skills of the Candidate}",
 "projects": "{only return the section of Projects of the Candidate}",
-"courses": "{only return the course   of the Candidate like degree, other certifications}"
+"courses": "{only return the course of the Candidate }"# this includes His Graduation , Education, Certification, Courses.
 "role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
 "education": "{only return the section of Education of the Candidate}",
 }
