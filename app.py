@@ -270,7 +270,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     
     }
 
-    return jsonify(data)
+    return data
 
 
 
@@ -292,7 +292,7 @@ def submit():
     output = get_data(job_description,additional_information,experience,extreacted_text)
 
 
-    return output
+    return jsonify(output)
 
 
     # # Create a response dictionary
