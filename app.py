@@ -53,7 +53,9 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     projects = results['projects']
     courses = results['courses']
     experiencee = results['experience']
-    
+    print("skills",skills)
+    print("projects",projects)
+    print(projects["output"],"---output of projectr")
     data = {
         "score_card": {
             "ats": {
