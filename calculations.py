@@ -111,7 +111,7 @@ def skills_taken(resume_text,job_description):
   'advice': 'An error Occured At this function'},
  'recommendations': [Please Tell the author There is something wrong in this code']}}"""
     # Return None or a default value if all attempts fail
-    return error_json
+    return json.loads(error_json)
 
 def projects_done(resume_text,job_description):
     project = f"""{prompts.project_prompt}
@@ -140,7 +140,7 @@ def projects_done(resume_text,job_description):
             'suggestion2': 'Something Went Wrong!.',
             'suggestion3': "Something Went Wrong!."}}
             }"""
-    return project_error
+    return json.loads(project_error)
 
 def courses_done(resume_text,job_description):
     course = f"""{prompts.course_prompt}
@@ -170,7 +170,7 @@ def courses_done(resume_text,job_description):
             'suggestion3': "An Error Occured At the course part please share the information to developer."}}
             }"""
     
-    return course_error
+    return json.loads(course_error)
 
 def experience_done(resume_text,job_description):
     experience = f"""{prompts.exp_prompt}
@@ -200,7 +200,7 @@ def experience_done(resume_text,job_description):
         
     """
     
-    return experience_error
+    return json.loads(experience_error)
 
 
 
