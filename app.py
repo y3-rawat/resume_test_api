@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 
 import calculations
 
@@ -25,7 +25,8 @@ def run_parallel_tasks(final_resume, job_description):
     }
     
     # Create a ProcessPoolExecutor
-    with ProcessPoolExecutor() as executor:
+    with ThreadPoolExecutor() as executor:
+
         # Submit tasks and get futures
         futures = {executor.submit(task): key for key, task in tasks.items()}
         
