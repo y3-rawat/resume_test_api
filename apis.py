@@ -3,15 +3,15 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 import os
 load_dotenv()
-# a = os.getenv('g1')
-# b = os.getenv('g2')
-# c = os.getenv('g3')
-# d = os.getenv('g4')
-# e = os.getenv('g5')
-# f = os.getenv('g6')
-# g = os.getenv('g7')
-# h = os.getenv('g8')
-# i = os.getenv('g9')
+a = os.getenv('g1')
+b = os.getenv('g2')
+c = os.getenv('g3')
+d = os.getenv('g4')
+e = os.getenv('g5')
+f = os.getenv('g6')
+g = os.getenv('g7')
+h = os.getenv('g8')
+i = os.getenv('g9')
 
 
 
@@ -33,7 +33,7 @@ def groq(input,key):
         temperature=0,
         # model="llama3-70b-8192",
         model = "llama-3.1-70b-versatile",
-        api_key=groq_keys[keys()[0]], # Optional if not set as an environment variable
+        # api_key=groq_keys[keys()[0]], # Optional if not set as an environment variable
     )
     return chat.invoke(input)
 def final(Input):
