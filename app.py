@@ -12,7 +12,60 @@ cors = CORS(app, resources={
 
 
 
-
+extreacted_text = """
+Yash Rawat
+Bhopal, Madhya Pradesh|+91-9131200357|y3rwt.vercel.app|y3rawat@gmail.com|www.linkedin.com/in/y3rawat
+PROFESSIONAL SUMMARY
+AI and Data science enthusiast with a passion for solving problems, working with new technology, from design to deploying
+solutions driving informed decision-making with an Agile Methodology. Seeking an opportunity to apply my skills and
+knowledge
+AWARDS AND CERTIfiCATIONS
+AI&DS Certification|CybromFebruary 2023
+Data Analysis|L&TNovember 2023
+Career Edge - Young Professional|TCSDecember 2021
+TECHNICAL SKILLS
+Languages: Python, C++, SQL
+Frameworks: TensorFlow, PyTorch, Scikit-Learn, LangChain, LlamaIndex, Flask, CrewAI
+Cloud Services: AWS, GCP
+Others: Machine Learning, Data Warehousing, LLM, Statistics, Data Analysis, ETL, Automation, Deeplearning
+INTERNSHIP
+Query Solving System without Chatgpt API:|Vector Database,Python,LLMJanuary 2024
+–Created an Architecture using Past User Queries and Topics Relevant to the Queries and Designed the flow to get the
+desired responses or information from Client Queries without Any GPT costing.
+Diffrent Chatbots with AI|Python, LLM, Googlesearch, FlaskNovember 2023
+–Created a Fitness chat-Bot and Fitness chat-Bot with personal Recommendations, car encyclopedia Chat-bot, etc.
+Question Generation System|Semantic Kernel, Python, FlaskOctober 2023
+–Implemented a question generation algorithm capable of generating contextually relevant interview questions,
+contributing to a 30% reduction in interview time by using a Semantic kernel.
+Resume Parsing Module|PythonSeptember 2023
+–Developed an AI& ML-driven system dedicated to the interview process, focusing on reducing H.R time by 30%. The system
+extracts key information from resumes to enhance candidate selection efficiency.
+PROJECTS
+HEALTH-RELATED PROBLEM’S SOLUTION CHAT-BOT|VoiceFlow
+–Created a revolutionary ChatGPT-powered system that takes Patient information and deliver comprehensive solutions.
+This AI solution is able to deliver good results in three key stages:
+1. PINPOINTING ROOT CAUSES OF PROBLEM: aims on Boasting a 40% reduction in patient complaints, our system
+identifies the core issues on the Cause, leading to faster resolutions and happier Patients.
+2. OFFERING IMMEDIATE ASSISTANCE: It gives easy and temporary fixes of patient problems, to minimize disruption and
+maximizing satisfaction.
+3. PROACTIVE PROBLEM-SOLVING: this Chat-bot dose not just react, it predicts future issues with good accuracy.
+Microsoft Points Generator Program|Python
+–Gain rewards on search and earning to redeem points. It provides an efficient and engaging system for different profiles to
+earn points:
+1. BOOSTED EFFICIENCY: Experience a 95% reduction in time spent earning points across multiple profiles, freeing up your
+time for other things.
+2. SEAMLESS EXPERIENCE: Launch program participation with a single click.
+3. CROSS-PLATFORM ACCESSIBILITY: Enjoy earning rewards even on Linux systems thanks to our versatile shell script
+support.
+Instagram Reels to YouTube Shorts Uploader|Python
+–Bridged the gap between Instagram Reels and YouTube Shorts with a magical auto video taker and uploader system which
+helped me to:
+1. REDUCED CONTENT CREATION TIME: Reduce 95% time on manually selecting videos from Instagram and uploading to
+YouTube.
+2. INCREASED ENGAGEMENT: Spark deeper connections with My viewers - igniting a 12% increase in audience engagement.
+EDUCATION
+Sam Global University (RGPV)B.tech in AI&DS| GPA : 7.73 & SGPA : 8.25 6th-SemMarch 2021 – March 2025
+"""
 
 def run_parallel_tasks(final_resume, job_description):
     tasks = {
@@ -233,7 +286,8 @@ def submit():
     job_description = request.args.get('job_description', '')
     additional_information = request.args.get('additional_information', '')
     experience = request.args.get('experience', '')
-    extreacted_text = request.args.get('ext-text', '')
+    # extreacted_text = request.args.get('ext-text', '')
+    
     
     output = get_data(job_description,additional_information,experience,extreacted_text)
 
