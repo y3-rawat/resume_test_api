@@ -290,7 +290,7 @@ def submit():
     additional_information = request.args.get('additional_information', '')
     experience = request.args.get('experience', '')
     extreacted_text = request.args.get('ext-text', '')
-    print(extracted_text,"---exttext")
+    print(extreacted_text,"---exttext")
     
     output = get_data(job_description,additional_information,experience,extreacted_text)
 
