@@ -1,5 +1,118 @@
 
 
+resume_prompt1 = """
+###Instruction###
+Act as an expert in the field of ATS (Applicant Tracking Systems).
+Your Task is to Saprate every thing from the resume 
+you have to saprate these sections 
+1. skills.
+3. projects.
+4. courses.
+5. education.
+
+###FORMAT###
+
+Please return the extracted data in the correct JSON format:
+```
+
+{
+"skills": "{only return the section of Skills of the Candidate}",
+"projects": "{only return the section of Projects of the Candidate}",
+"courses": "{only return the course of the Candidate }"# this includes His Graduation , Education, Certification, Courses.
+"role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
+"education": "{only return the section of Education of the Candidate}",
+}
+
+```
+#remember json output should be correctly into json because it will be used in the code further
+###Resume###
+
+"""
+
+resume_prompt2 = """
+###Instruction###
+Act as an expert in the field of ATS (Applicant Tracking Systems).
+Your Task is to Saprate experience from the resume 
+you have to saprate ONLY experience 
+
+
+2. experience.
+
+###FORMAT###
+
+Please return the extracted data in the correct JSON format:
+```
+{
+
+"experience": "{only return the section of Experience of the Candidate}",
+}
+```
+#remember json output should be correctly into json because it will be used in the code further
+
+###Resume###
+
+"""
+
+score_card_prompt = """
+###Instruction###
+You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide genuine scores based on the resume.
+
+Conduct a deep-dive review of the existing resume and job description.
+Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
+you are the part of process so do not give any thing else it do not give any value to that project 
+###FORMAT###
+The output should be in the following format:
+```
+{ "output":
+{
+           "ats_score": {
+            "title": "Ats Score",
+            "description": "What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+            "type": "integer"
+        },
+        "ats_description": {
+            "title": "Ats Description",
+            "description": "what is the potential of this resume for ATS ex ('Strong ATS compatibility potential') under 12 words",
+            "type": "string"
+        },
+        "ats_reason": {
+            "title": "Ats Reason",
+            "description": "what is the reason for this score under 12 words",
+            "type": "string"
+        },
+        "ats_improvementTip": {
+            "title": "Ats Improvementtip",
+            "description": "what is the improvement tip under 12 words",
+            "type": "string"
+        },
+        "jd_score": {
+            "title": "Jd Score",
+            "description": "How much Job description is aligning with the resume (Score Number ex- 30, 40, 50)",
+            "type": "integer"
+        },
+        "jd_description": {
+            "title": "Jd Description",
+            "description": "what is the potential of this ex ('High alignment with job description') under 12 words",
+            "type": "string"
+        },
+        "jd_reason": {
+            "title": "Jd Reason",
+            "description": "what is the reason for this score for job description under 12 words",
+            "type": "string"
+        },
+        "jd_improvementTip": {
+            "title": "Jd Improvementtip",
+            "description": "what is the improvement tip for resume which align with job description under 12 words",
+            "type": "string"
+        }
+        }
+            }
+            ```
+"""
+
+
+
+
 project_prompt = """
 ###Instruction###
 You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide excellent advice and genuine scores based on the resume, focusing on the impacts on the project as outlined in the job description.
@@ -157,57 +270,3 @@ The output should be in the following format:
         ```
         json format should be valid json
         """
-
-
-resume_prompt1 = """
-###Instruction###
-Act as an expert in the field of ATS (Applicant Tracking Systems).
-Your Task is to Saprate every thing from the resume 
-you have to saprate these sections 
-1. skills.
-3. projects.
-4. courses.
-5. education.
-
-###FORMAT###
-
-Please return the extracted data in the correct JSON format:
-```
-
-{
-"skills": "{only return the section of Skills of the Candidate}",
-"projects": "{only return the section of Projects of the Candidate}",
-"courses": "{only return the course of the Candidate }"# this includes His Graduation , Education, Certification, Courses.
-"role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
-"education": "{only return the section of Education of the Candidate}",
-}
-
-```
-#remember json output should be correctly into json because it will be used in the code further
-###Resume###
-
-"""
-
-resume_prompt2 = """
-###Instruction###
-Act as an expert in the field of ATS (Applicant Tracking Systems).
-Your Task is to Saprate experience from the resume 
-you have to saprate ONLY experience 
-
-
-2. experience.
-
-###FORMAT###
-
-Please return the extracted data in the correct JSON format:
-```
-{
-
-"experience": "{only return the section of Experience of the Candidate}",
-}
-```
-#remember json output should be correctly into json because it will be used in the code further
-
-###Resume###
-
-"""

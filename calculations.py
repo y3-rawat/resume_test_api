@@ -204,3 +204,71 @@ def experience_done(resume_text,job_description):
 
 
 
+def Score_cards(resume_text,job_description):
+    Score_card = f"""{prompts.score_card_prompt}
+        ###Job Description###
+        {job_description}
+        ###Experience_Presented_In_Resume###
+        {resume_text}"""
+    for attempt in range(MAX_RETRIES):
+        try:
+            score_cards_output = apis.final(Score_card)
+            # Extract the relevant data
+            exp = score_cards_output.split("```")[1]
+            d = json.loads(exp)
+            return d  # Return the result if successful
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed with error: {e}")
+            time.sleep(1)  # Optional: delay before retrying
+
+
+    experience_error = """
+{ "output":
+{
+           "ats_score": {
+            "title": "Ats Score",
+            "description": "504",
+            "type": "integer"
+        },
+        "ats_description": {
+            "title": "Ats Description",
+            "description": "Error Occured!",
+            "type": "string"
+        },
+        "ats_reason": {
+            "title": "Ats Reason",
+            "description": "Please Report this problem! :(",
+            "type": "string"
+        },
+        "ats_improvementTip": {
+            "title": "Ats Improvementtip",
+            "description": "Error Occurred!",
+            "type": "string"
+        },
+        "jd_score": {
+            "title": "Jd Score",
+            "description": "504",
+            "type": "integer"
+        },
+        "jd_description": {
+            "title": "Jd Description",
+            "description": "Error Occured!",
+            "type": "string"
+        },
+        "jd_reason": {
+            "title": "Jd Reason",
+            "description": "Please Report this problem! :(",
+            "type": "string"
+        },
+        "jd_improvementTip": {
+            "title": "Jd Improvementtip",
+            "description": "Error Occurred!",
+            "type": "string"
+        }
+        }
+            }
+        
+    """
+    
+    return json.loads(experience_error)
+
