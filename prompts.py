@@ -105,12 +105,11 @@ The output should be in the correct json  format which follow this format:
             ...
             "couse n ": (Score Number ex- 14
         }, # This course dosen't mean the languages it means courses like b.tech or any choching etc.
-        "course_advice": "advice on the course which skills will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
-            "suggestion1": "what needs to be done to get selected for this job description ",
-            "suggestion2":"which project is not making any sense for this job description",
-            "suggestion3": "what keywords you should add in this projects "
-        },
-        #keep it short and clear
+        "course_advice": "A very Sort Advice on skills.",
+        "suggestion1": "what needs to be done to get selected for this job description ",
+        "suggestion2":"which project is not making any sense for this job description",
+        "suggestion3": "what keywords you should add in this projects "
+        }
         }
         }
         ```
