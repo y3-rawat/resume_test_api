@@ -89,15 +89,16 @@ def resume_final(resume_text,additional_information):
 
 
 def skills_taken(resume_text,job_description):
-    skill = f"""{prompts.skills_prompt}
-        ###Job Description###
-        {job_description}
-        ###Resume###
-        {resume_text["skills"]}
-    """
-
+ 
     for attempt in range(MAX_RETRIES):
         try:
+            skill = f"""{prompts.skills_prompt}
+                ###Job Description###
+                {job_description}
+                ###Resume###
+                {resume_text["skills"]}
+            """
+
             skills_t = apis.final(skill)
             # Extract the relevant data
             skill_splited = skills_t.split("```")[1]
@@ -122,16 +123,17 @@ def skills_taken(resume_text,job_description):
     return json.loads(error_json)
 
 def projects_done(resume_text,job_description):
-    project = f"""{prompts.project_prompt}
-        ###Job Description###
-        {job_description}
-        ###Resume###
-        {resume_text["projects"]}
-"""
-
+   
     
     for attempt in range(MAX_RETRIES):
         try:
+            project = f"""{prompts.project_prompt}
+                ###Job Description###
+                {job_description}
+                ###Resume###
+                {resume_text["projects"]}
+            """
+
             Projects = apis.final(project)
             # Extract the relevant data
             projects_splitted = Projects.split("```")[1]
@@ -157,16 +159,17 @@ def projects_done(resume_text,job_description):
     return json.loads(project_error)
 
 def courses_done(resume_text,job_description):
-    course = f"""{prompts.course_prompt}
-        ###Job Description###
-        {job_description}
-        ###Course_Presented_In_Resume###
-        {resume_text["courses"]}
-    """
     
 
     for attempt in range(MAX_RETRIES):
         try:
+            course = f"""{prompts.course_prompt}
+                ###Job Description###
+                {job_description}
+                ###Course_Presented_In_Resume###
+                {resume_text["courses"]}
+            """
+            
             Courses = apis.final(course)
             # Extract the relevant data
             projects_splitted = Courses.split("```")[1]
@@ -193,13 +196,14 @@ def courses_done(resume_text,job_description):
     return json.loads(course_error)
 
 def experience_done(resume_text,job_description):
-    experience = f"""{prompts.exp_prompt}
-        ###Job Description###
-        {job_description}
-        ###Experience_Presented_In_Resume###
-        {resume_text["experience"]}"""
+    
     for attempt in range(MAX_RETRIES):
         try:
+            experience = f"""{prompts.exp_prompt}
+                ###Job Description###
+                {job_description}
+                ###Experience_Presented_In_Resume###
+                {resume_text["experience"]}"""
             experience1 = apis.final(experience)
             # Extract the relevant data
             exp = experience1.split("```")[1]
@@ -232,13 +236,14 @@ def experience_done(resume_text,job_description):
 
 
 def Score_cards(resume_text,job_description):
-    Score_card = f"""{prompts.score_card_prompt}
+    
+    for attempt in range(MAX_RETRIES):
+        try:
+            Score_card = f"""{prompts.score_card_prompt}
         ###Job Description###
         {job_description}
         ###Experience_Presented_In_Resume###
         {resume_text}"""
-    for attempt in range(MAX_RETRIES):
-        try:
             score_cards_output = apis.final(Score_card)
             # Extract the relevant data
             exp = score_cards_output.split("```")[1]
