@@ -110,7 +110,7 @@ def skills_taken(resume_text,job_description):
     error_json = """{
         "output": {
             "skill_Score": {
-            "skills_ratio": {"Please Put the Complaint there is some error on this function. Skill function is not working correctly": 500},
+            "skills_ratio": {"Please Put the Complaint there is some error on this function. Skill function is not working correctly": 5,"Error Continue":0,"Error Continue":0},
             "advice": "An error Occurred At this function"
             },
             "recommendations": [
@@ -146,7 +146,7 @@ def projects_done(resume_text,job_description):
     "output": {
         "project_impact": {
         "impact": {
-            "An Error Occurred": "404"
+            "An Error Occurred": "5","Error Continue":0,"Error Continue":0
         },
         "advice": "An Error Occurred At this part.",
         "suggestion1": "Something Went Wrong!",
