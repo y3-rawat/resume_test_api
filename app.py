@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from concurrent.futures import ThreadPoolExecutor
-
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import calculations
 
 
@@ -16,7 +15,6 @@ cors = CORS(app, resources={
 
 
 def run_parallel_tasks(final_resume, job_description):
-    # Define the tasks
     tasks = {
         'skills': lambda: calculations.skills_taken(final_resume, job_description=job_description),
         'projects': lambda: calculations.projects_done(final_resume, job_description),
