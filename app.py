@@ -107,10 +107,10 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     courses = results['courses']
     experiencee = results['experience']
     
-    print("skills",str(skills[:20]))
-    print("proj",str(projects[:20]))
-    print("course",str(courses[:20]))
-    print("exp",str(experience[:20]))
+    print("skills",skills)
+    print("proj",str(projects)[:20])
+    print("course",str(courses)[:20])
+    print("exp",str(experiencee))
     
     data = {
         "score_card": {

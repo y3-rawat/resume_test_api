@@ -14,7 +14,7 @@ you are the part of process so do not give any thing else it do not give any val
 ###FORMAT###
 The output should be in the following format:
 ```
-{ output:
+{ "output":
 {
             "project_impact": {
                 "impact": {
@@ -48,11 +48,10 @@ Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 you are the part of process so do not give any thing else it do not give any value to that project 
 ###FORMAT###
-The output should be in the following format:
+The result should be in the following format:
 ```
-{ output:
 {
-"skill_Score": {
+ "output":{"skill_Score": {
         #list every skills which user has presented in resume 
         #do not add any skill which is not present in resume 
         #do not involve the skills which is present in Job description but not in the resume
@@ -96,7 +95,7 @@ you are the part of process so do not give any thing else it do not give any val
 ###FORMAT###
 The output should be in the correct json  format which follow this format:
 ```
-{ output:
+{ "output":
 {
 "course_impact":{ 
             "impt":{
@@ -136,7 +135,7 @@ you are the part of process so do not give any thing else it do not give any val
 ###FORMAT###
 The output should be in the following format:
 ```
-{ output: {
+{ "output": {
 "experience_relevance": {
             "imp":{
             "expeience1": (Score Number ex- 11),
