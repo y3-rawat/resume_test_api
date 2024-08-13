@@ -288,8 +288,8 @@ def submit():
     file_type = request.args.get('fileType', '')
     job_description = request.args.get('job_description', '')
     additional_information = request.args.get('additional_information', '')
-    experience = request.args.get('ext-text', '')
-    # extreacted_text = request.args.get('ext-text', '')
+    experience = request.args.get('experience', '')
+    extreacted_text = request.args.get('ext-text', '')
     
     
     output = get_data(job_description,additional_information,experience,extreacted_text)
