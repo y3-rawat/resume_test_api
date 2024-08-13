@@ -183,7 +183,7 @@ def courses_done(resume_text,job_description):
         "output": {
             "course_impact": {
             "impt": {
-                "An Error Occurred": 60
+                "An Error Occurred": 0
             },
             "course_advice": "An Error Occurred At the course part please share the information with the developer.",
             "suggestion1": "An Error Occurred At the course part please share the information with the developer.",
@@ -217,7 +217,7 @@ def experience_done(resume_text,job_description):
             "output": {
                 "experience_relevance": {
                 "imp": {
-                    "An Error Occurred": 500
+                    "An Error Occurred": 0
                 },
                 "advice": "An Error Occurred At the course part please share the information with the developer."
                 },
