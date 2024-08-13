@@ -96,7 +96,7 @@ def run_parallel_tasks(final_resume, job_description):
 
 def get_data(job_description,additional_information,experience,extreacted_text):
     
-    print("resume text",extreacted_text)
+    
     final_resume = calculations.resume_final(extreacted_text,additional_information)
 
     results = run_parallel_tasks(final_resume, job_description)
@@ -108,7 +108,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     experiencee = results['experience']
     
     
-    print(skills,"---skils")
+    
     data = {
         "score_card": {
             "ats": {
