@@ -253,39 +253,41 @@ def Score_cards(resume_text,job_description):
             print(f"Attempt {attempt + 1} failed with error: {e}")
             time.sleep(1)  # Optional: delay before retrying
     experience_error = """{
-        "output": {
-            "ats": {
-            "score": 500,
-            "description": "Error Occurred!",
-            "reason": "An Error occurred ",
-            "improvementTip": "An Error occurred "
-            },
-            "jd": {
-            "score": 500,,
-            "description": "Error Occurred!",
-            "reason": "Error Occurred!",
-            "improvementTip": "Error Occurred!"
-            },
-            "overall": {
-            "score": 500,
-            "description": "Error Occurred!",
-            "reason": "Error Occurred!",
-            "improvementTip": "Error Occurred!"
-            },
-            "ranking": {
-            "score": 500,
-            "description": "Error Occurred!",
-            "reason": "Error Occurred!",
-            "improvementTip": "Error Occurred!"
-            },
-            "keywords": {
-            "score": 500,
-            "description": "Error Occurred!",
-            "reason": "Error Occurred!",
-            "improvementTip": "Error Occurred!"
+                {
+            "output": {
+                "ats": {
+                "score": 500,
+                "description": "Error Occurred!",
+                "reason": "An Error occurred",
+                "improvementTip": "An Error occurred"
+                },
+                "jd": {
+                "score": 500,
+                "description": "Error Occurred!",
+                "reason": "Error Occurred!",
+                "improvementTip": "Error Occurred!"
+                },
+                "overall": {
+                "score": 500,
+                "description": "Error Occurred!",
+                "reason": "Error Occurred!",
+                "improvementTip": "Error Occurred!"
+                },
+                "ranking": {
+                "score": 500,
+                "description": "Error Occurred!",
+                "reason": "Error Occurred!",
+                "improvementTip": "Error Occurred!"
+                },
+                "keywords": {
+                "score": 500,
+                "description": "Error Occurred!",
+                "reason": "Error Occurred!",
+                "improvementTip": "Error Occurred!"
+                }
             }
-        }
-        }
+            }
+
         """
     return json.loads(experience_error)
 
