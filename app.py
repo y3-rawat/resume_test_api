@@ -53,7 +53,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     experiencee = results['experience']
     score_cards = results['score']
     
-    print(score_cards)
+    print("skills--------",score_cards)
     
     
     data = {
