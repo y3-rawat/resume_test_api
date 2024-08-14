@@ -255,52 +255,52 @@ def Score_cards(resume_text,job_description):
 
 
     experience_error = """
-{ "output":
-{
-           "ats_score": {
-            "title": "Ats Score",
-            "description": "504",
-            "type": "integer"
-        },
-        "ats_description": {
-            "title": "Ats Description",
-            "description": "Error Occured!",
-            "type": "string"
-        },
-        "ats_reason": {
-            "title": "Ats Reason",
-            "description": "Please Report this problem! :(",
-            "type": "string"
-        },
-        "ats_improvementTip": {
-            "title": "Ats Improvementtip",
-            "description": "Error Occurred!",
-            "type": "string"
-        },
-        "jd_score": {
-            "title": "Jd Score",
-            "description": "504",
-            "type": "integer"
-        },
-        "jd_description": {
-            "title": "Jd Description",
-            "description": "Error Occured!",
-            "type": "string"
-        },
-        "jd_reason": {
-            "title": "Jd Reason",
-            "description": "Please Report this problem! :(",
-            "type": "string"
-        },
-        "jd_improvementTip": {
-            "title": "Jd Improvementtip",
-            "description": "Error Occurred!",
-            "type": "string"
-        }
-        }
-            }
-        
-    """
-    
-    return json.loads(experience_error)
+        { "output":
+        {
+                "ats_score": {
+                    "title": "Ats Score",
+                    "description": "504",
+                    "type": "integer"
+                },
+                "ats_description": {
+                    "title": "Ats Description",
+                    "description": "Error Occured!",
+                    "type": "string"
+                },
+                "ats_reason": {
+                    "title": "Ats Reason",
+                    "description": "Please Report this problem! :(",
+                    "type": "string"
+                },
+                "ats_improvementTip": {
+                    "title": "Ats Improvementtip",
+                    "description": "Error Occurred!",
+                    "type": "string"
+                },
+                "jd_score": {
+                    "title": "Jd Score",
+                    "description": "504",
+                    "type": "integer"
+                },
+                "jd_description": {
+                    "title": "Jd Description",
+                    "description": "Error Occured!",
+                    "type": "string"
+                },
+                "jd_reason": {
+                    "title": "Jd Reason",
+                    "description": "Please Report this problem! :(",
+                    "type": "string"
+                },
+                "jd_improvementTip": {
+                    "title": "Jd Improvementtip",
+                    "description": "Error Occurred!",
+                    "type": "string"
+                }
+                }
+                    }
+                
+            """
+            
+            return json.loads(experience_error)
 

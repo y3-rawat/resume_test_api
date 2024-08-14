@@ -18,7 +18,8 @@ def run_parallel_tasks(final_resume, job_description):
         'skills': lambda: calculations.skills_taken(final_resume, job_description=job_description),
         'projects': lambda: calculations.projects_done(final_resume, job_description),
         'courses': lambda: calculations.courses_done(final_resume, job_description=job_description),
-        'experience': lambda: calculations.experience_done(final_resume, job_description)
+        'experience': lambda: calculations.experience_done(final_resume, job_description),
+        'score' : lambda: calculations.Score_cards(final_resume, job_description)
     }
     
     # Create a ProcessPoolExecutor
@@ -52,6 +53,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     projects = results['projects']
     courses = results['courses']
     experiencee = results['experience']
+    score_cards = results['score']
     
     print("skills",skills)
     print("proj",str(projects)[:20])
@@ -60,36 +62,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     
     data = {
         "score_card": {
-            "ats": {
-                "score": 42,
-                "description": "Moderate ATS compatibility potential",
-                "reason": "Lack of direct keyword matches",
-                "improvementTip": "Use more job-specific keywords"
-            },
-            "jd": {
-                "score": 51,
-                "description": "Fair job description alignment",
-                "reason": "Insufficient experience in data engineering",
-                "improvementTip": "Highlight relevant data engineering experience"
-            },
-            "overall": {
-                "score": 46,
-                "description": "Average overall potential",
-                "reason": "Limited direct experience in required skills",
-                "improvementTip": "Emphasize transferable skills and education"
-            },
-            "ranking": {
-                "score": 38,
-                "description": "Below-average ranking potential",
-                "reason": "Lack of strong mathematical modeling experience",
-                "improvementTip": "Develop and showcase mathematical modeling skills"
-            },
-            "keywords": {
-                "score": 55,
-                "description": "Good keyword presence",
-                "reason": "Some relevant technical skills mentioned",
-                "improvementTip": "Use more specific and relevant keywords"
-            }
+           score_cards["output"],
         },
         "project_impact": projects["output"]["project_impact"],
         
