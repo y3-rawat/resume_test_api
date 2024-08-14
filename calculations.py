@@ -252,40 +252,40 @@ def Score_cards(resume_text,job_description):
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
             time.sleep(1)  # Optional: delay before retrying
-    experience_error = """
-           {output: {    "ats": {
-                "score": 500,
-                "description": "Moderate ATS compatibility potential",
-                "reason": "Lack of direct keyword matches",
-                "improvementTip": "Use more job-specific keywords"
+    experience_error = """{
+        "output": {
+            "ats": {
+            "score": 500,
+            "description": "Error Occurred!",
+            "reason": "An Error occurred ",
+            "improvementTip": "An Error occurred "
             },
             "jd": {
-                "score": 51,
-                "description": "Fair job description alignment",
-                "reason": "Insufficient experience in data engineering",
-                "improvementTip": "Highlight relevant data engineering experience"
+            "score": 500,,
+            "description": "Error Occurred!",
+            "reason": "Error Occurred!",
+            "improvementTip": "Error Occurred!"
             },
             "overall": {
-                "score": 46,
-                "description": "Average overall potential",
-                "reason": "Limited direct experience in required skills",
-                "improvementTip": "Emphasize transferable skills and education"
+            "score": 500,
+            "description": "Error Occurred!",
+            "reason": "Error Occurred!",
+            "improvementTip": "Error Occurred!"
             },
             "ranking": {
-                "score": 38,
-                "description": "Below-average ranking potential",
-                "reason": "Lack of strong mathematical modeling experience",
-                "improvementTip": "Develop and showcase mathematical modeling skills"
+            "score": 500,
+            "description": "Error Occurred!",
+            "reason": "Error Occurred!",
+            "improvementTip": "Error Occurred!"
             },
             "keywords": {
-                "score": 55,
-                "description": "Good keyword presence",
-                "reason": "Some relevant technical skills mentioned",
-                "improvementTip": "Use more specific and relevant keywords"
+            "score": 500,
+            "description": "Error Occurred!",
+            "reason": "Error Occurred!",
+            "improvementTip": "Error Occurred!"
             }
-            } }
-                        
-            """
-            
+        }
+        }
+        """
     return json.loads(experience_error)
 
