@@ -252,55 +252,39 @@ def Score_cards(resume_text,job_description):
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
             time.sleep(1)  # Optional: delay before retrying
-
-
     experience_error = """
-      {
-  "output": {
-    "ats_score": {
-      "title": "Ats Score",
-      "description": "504",
-      "type": "integer"
-    },
-    "ats_description": {
-      "title": "Ats Description",
-      "description": "Error Occurred!",
-      "type": "string"
-    },
-    "ats_reason": {
-      "title": "Ats Reason",
-      "description": "Please Report this problem! :(",
-      "type": "string"
-    },
-    "ats_improvementTip": {
-      "title": "Ats Improvement Tip",
-      "description": "Error Occurred!",
-      "type": "string"
-    },
-    "jd_score": {
-      "title": "Jd Score",
-      "description": "504",
-      "type": "integer"
-    },
-    "jd_description": {
-      "title": "Jd Description",
-      "description": "Error Occurred!",
-      "type": "string"
-    },
-    "jd_reason": {
-      "title": "Jd Reason",
-      "description": "Please Report this problem! :(",
-      "type": "string"
-    },
-    "jd_improvementTip": {
-      "title": "Jd Improvement Tip",
-      "description": "Error Occurred!",
-      "type": "string"
-    }
-  }
-}
-
-                
+           {output: {    "ats": {
+                "score": 500,
+                "description": "Moderate ATS compatibility potential",
+                "reason": "Lack of direct keyword matches",
+                "improvementTip": "Use more job-specific keywords"
+            },
+            "jd": {
+                "score": 51,
+                "description": "Fair job description alignment",
+                "reason": "Insufficient experience in data engineering",
+                "improvementTip": "Highlight relevant data engineering experience"
+            },
+            "overall": {
+                "score": 46,
+                "description": "Average overall potential",
+                "reason": "Limited direct experience in required skills",
+                "improvementTip": "Emphasize transferable skills and education"
+            },
+            "ranking": {
+                "score": 38,
+                "description": "Below-average ranking potential",
+                "reason": "Lack of strong mathematical modeling experience",
+                "improvementTip": "Develop and showcase mathematical modeling skills"
+            },
+            "keywords": {
+                "score": 55,
+                "description": "Good keyword presence",
+                "reason": "Some relevant technical skills mentioned",
+                "improvementTip": "Use more specific and relevant keywords"
+            }
+            } }
+                        
             """
             
     return json.loads(experience_error)
