@@ -45,21 +45,19 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     
     
     final_resume = calculations.resume_final(extreacted_text,additional_information)
-
     results = run_parallel_tasks(final_resume, job_description)
 
-    
     skills = results['skills']
     projects = results['projects']
     courses = results['courses']
     experiencee = results['experience']
     score_cards = results['score']
     
-
     print(score_cards)
     
+    
     data = {
-        "score_card":score_cards["output"] ,
+        "score_card":score_cards["output"],
         "project_impact": projects["output"]["project_impact"],
         
         "skill_Score": skills["output"]["skill_Score"],
