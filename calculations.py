@@ -293,7 +293,7 @@ def Score_cards(resume_text,job_description):
     return json.loads(experience_error)
 
 
-def Strenths(resume_Text,job_description):
+def Strenths(resume_text,job_description):
     for attempt in range(MAX_RETRIES):
         try:
             Strent_prompts = f"""{prompts.Strengths}
@@ -323,7 +323,7 @@ def Strenths(resume_Text,job_description):
     return json.loads(Strenths_error)
 
 
-def Worst_point(resume_Text,job_description):
+def Worst_point(resume_text,job_description):
     for attempt in range(MAX_RETRIES):
         try:
             weekness_ponts = f"""{prompts.Weekness}

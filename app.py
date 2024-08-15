@@ -13,15 +13,15 @@ cors = CORS(app, resources={
 
 
 
-def run_parallel_tasks(final_resume, job_description):
+def run_parallel_tasks(final_resume, job_description,extrected_text):
     tasks = {
         'skills': lambda: calculations.skills_taken(final_resume, job_description=job_description),
         'projects': lambda: calculations.projects_done(final_resume, job_description),
         'courses': lambda: calculations.courses_done(final_resume, job_description=job_description),
         'experience': lambda: calculations.experience_done(final_resume, job_description),
-        'score' : lambda: calculations.Score_cards(final_resume, job_description),
-        'Strenths': lambda: calculations.Strenths(final_resume, job_description),
-        'weekness': lambda: calculations.Worst_point(final_resume, job_description)
+        'score' : lambda: calculations.Score_cards(extrected_text, job_description),
+        'Strenths': lambda: calculations.Strenths(extrected_text, job_description),
+        'weekness': lambda: calculations.Worst_point(extrected_text, job_description)
     }
     
     # Create a ProcessPoolExecutor
@@ -47,7 +47,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     
     
     final_resume = calculations.resume_final(extreacted_text,additional_information)
-    results = run_parallel_tasks(final_resume, job_description)
+    results = run_parallel_tasks(final_resume, job_description,extrected_text)
 
     skills = results['skills']
     projects = results['projects']
