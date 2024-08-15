@@ -256,31 +256,31 @@ def Score_cards(resume_text,job_description):
             {
         "output": {
             "ats": {
-            "score": 500,
+            "score": 505,
             "description": "Error Occurred!",
             "reason": "An Error occurred",
             "improvementTip": "An Error occurred"
             },
             "jd": {
-            "score": 500,
+            "score": 505,
             "description": "Error Occurred!",
             "reason": "Error Occurred!",
             "improvementTip": "Error Occurred!"
             },
             "overall": {
-            "score": 500,
+            "score": 505,
             "description": "Error Occurred!",
             "reason": "Error Occurred!",
             "improvementTip": "Error Occurred!"
             },
             "ranking": {
-            "score": 500,
+            "score": 505,
             "description": "Error Occurred!",
             "reason": "Error Occurred!",
             "improvementTip": "Error Occurred!"
             },
             "keywords": {
-            "score": 500,
+            "score": 505,
             "description": "Error Occurred!",
             "reason": "Error Occurred!",
             "improvementTip": "Error Occurred!"
