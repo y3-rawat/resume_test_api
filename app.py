@@ -56,7 +56,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     score_cards = results['score']
     Strenth = results['Strenths']
     week = results['weekness']
-    
+    print("st---",Strenth)
     
     data = {
         "score_card":score_cards["output"],
@@ -69,6 +69,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
         "Actionable Recommendations": experiencee["output"]["Actionable Recommendations"],
         "Strengths":Strenth["output"],
         "Weaknesses":week["output"],
+        
 
         
         "recommended_People_linkdin": [
