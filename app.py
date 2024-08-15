@@ -19,7 +19,9 @@ def run_parallel_tasks(final_resume, job_description):
         'projects': lambda: calculations.projects_done(final_resume, job_description),
         'courses': lambda: calculations.courses_done(final_resume, job_description=job_description),
         'experience': lambda: calculations.experience_done(final_resume, job_description),
-        'score' : lambda: calculations.Score_cards(final_resume, job_description)
+        'score' : lambda: calculations.Score_cards(final_resume, job_description),
+        'Strenths': lambda: calculations.Strenths(final_resume, job_description),
+        'weekness': lambda: calculations.Worst_point(final_resume, job_description)
     }
     
     # Create a ProcessPoolExecutor
@@ -52,8 +54,8 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     courses = results['courses']
     experiencee = results['experience']
     score_cards = results['score']
-    
-    print("skills--------",score_cards)
+    Strenth = results['Strenths']
+    week = result['weekness']
     
     
     data = {
@@ -66,16 +68,8 @@ def get_data(job_description,additional_information,experience,extreacted_text):
         "experience_relevance": experiencee["output"]["experience_relevance"],
         "Actionable Recommendations": experiencee["output"]["Actionable Recommendations"],
         
-                "Strengths":{
-                        "Relevant Education":" The candidate is pursuing a Bachelor's degree in AI & DS, which aligns with the job requirements.",
-                        "AI/ML Experience":"The candidate has experience in AI/ML through various projects, internships, and certifications, which is a significant strength for this role.",
-                        "Technical Skills":"The candidate has a good foundation in technical skills required for the job, including ML, NLP, LLM, Python, SciKit Learn, Pandas, and Matplotlib.",
-                        },
-                    "Weaknesses":{
-                        "Lack of Direct Experience": "Although the candidate has experience in AI/ML, they lack direct experience in Gen AI development, deployment, and pipeline creation, which is a critical requirement for the job.",
-                        "Limited Industry Experience" : "The candidate's experience is mostly limited to internships and personal projects, which may not be sufficient to meet the job's requirements.",
-                        "No Mention of Model Development or Evaluation" : "The candidate's resume does not explicitly mention experience in model development, evaluation, or deployment, which are essential skills for the job."
-                    },
+                "Strengths":Strenth["output"],
+                    "Weaknesses":week["output"],
 
         
         "recommended_People_linkdin": [

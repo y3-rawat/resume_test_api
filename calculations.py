@@ -280,7 +280,7 @@ def Score_cards(resume_text,job_description):
             "improvementTip": "Error Occurred!"
             },
             "keywords": {
-            "score": 505,
+            "score": 50,
             "description": "Error Occurred!",
             "reason": "Error Occurred!",
             "improvementTip": "Error Occurred!"
@@ -291,4 +291,64 @@ def Score_cards(resume_text,job_description):
 
         """
     return json.loads(experience_error)
+
+
+def Strenths(resume_Text,job_description):
+    for attempt in range(MAX_RETRIES):
+        try:
+            Strent_prompts = f"""{prompts.Strengths}
+        ###Job Description###
+        {job_description}
+        ###Resume###
+        {resume_text}"""
+            Strenths = apis.final(Strent_prompts)
+            # Extract the relevant data
+            exp = Strenths.split("```")[1]
+            d = json.loads(exp)
+            return d  # Return the result if successful
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed with error: {e}")
+            time.sleep(1)  # Optional: delay before retrying
+    Strenths_error = """
+            {
+        "output": {
+"Error point 1":"An Error Occurred, Please Informed to the auther",
+"Error point 2":"An Error Occurred, Please Informed to the auther",
+"Error point 3":"An Error Occurred, Please Informed to the auther",
+}
+        }
+
+
+        """
+    return json.loads(Strenths_error)
+
+
+def Worst_point(resume_Text,job_description):
+    for attempt in range(MAX_RETRIES):
+        try:
+            weekness_ponts = f"""{prompts.Weekness}
+        ###Job Description###
+        {job_description}
+        ###Resume###
+        {resume_text}"""
+            worst_point = apis.final(weekness_ponts)
+            # Extract the relevant data
+            exp = worst_point.split("```")[1]
+            d = json.loads(exp)
+            return d  # Return the result if successful
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed with error: {e}")
+            time.sleep(1)  # Optional: delay before retrying
+    worst_error = """
+            {
+        "output": {
+"Error point 1":"An Error Occurred, Please Informed to the auther",
+"Error point 2":"An Error Occurred, Please Informed to the auther",
+"Error point 3":"An Error Occurred, Please Informed to the auther",
+}
+        }
+
+
+        """
+    return json.loads(worst_error)
 
