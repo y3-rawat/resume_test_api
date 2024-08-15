@@ -340,13 +340,13 @@ def Worst_point(resume_Text,job_description):
             print(f"Attempt {attempt + 1} failed with error: {e}")
             time.sleep(1)  # Optional: delay before retrying
     worst_error = """
-            {
-        "output": {
-"Error point 1":"An Error Occurred, Please Informed to the auther",
-"Error point 2":"An Error Occurred, Please Informed to the auther",
-"Error point 3":"An Error Occurred, Please Informed to the auther",
+           {
+  "output": {
+    "Error point 1": "An error occurred. Please inform the author.",
+    "Error point 2": "An error occurred. Please inform the author.",
+    "Error point 3": "An error occurred. Please inform the author."
+  }
 }
-        }
 
 
         """
