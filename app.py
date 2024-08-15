@@ -47,7 +47,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     
     
     final_resume = calculations.resume_final(extreacted_text,additional_information)
-    results = run_parallel_tasks(final_resume, job_description,extrected_text)
+    results = run_parallel_tasks(final_resume, job_description,extreacted_text)
 
     skills = results['skills']
     projects = results['projects']
