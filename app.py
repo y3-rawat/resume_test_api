@@ -55,7 +55,7 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     experiencee = results['experience']
     score_cards = results['score']
     Strenth = results['Strenths']
-    week = result['weekness']
+    week = results['weekness']
     
     
     data = {
