@@ -280,7 +280,7 @@ def Score_cards(resume_text,job_description):
             "improvementTip": "Error Occurred!"
             },
             "keywords": {
-            "score": 50,
+            "score": 505,
             "description": "Error Occurred!",
             "reason": "Error Occurred!",
             "improvementTip": "Error Occurred!"
