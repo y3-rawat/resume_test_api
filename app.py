@@ -67,9 +67,8 @@ def get_data(job_description,additional_information,experience,extreacted_text):
         "course_impact": courses["output"]["course_impact"],
         "experience_relevance": experiencee["output"]["experience_relevance"],
         "Actionable Recommendations": experiencee["output"]["Actionable Recommendations"],
-        
-                "Strengths":Strenth["output"],
-                    "Weaknesses":week["output"],
+        "Strengths":Strenth["output"],
+        "Weaknesses":week["output"],
 
         
         "recommended_People_linkdin": [
