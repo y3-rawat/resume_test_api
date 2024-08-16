@@ -242,7 +242,7 @@ def Score_cards(resume_text,job_description):
             Score_card = f"""{prompts.score_card_prompt}
         ###Job Description###
         {job_description}
-        ###Experience_Presented_In_Resume###
+        ###Resume###
         {resume_text}"""
             score_cards_output = apis.final(Score_card)
             # Extract the relevant data

@@ -59,57 +59,48 @@ You are an expert in the field of ATS (Applicant Tracking Systems) and job descr
 
 Conduct a deep-dive review of the existing resume and job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
+so do not give the random scores because candidate is come to improve his resume not for getting appriciation 
+if resume needs much improvement give him less score with the keywords
 you are the part of process so do not give any thing else it do not give any value to that project 
 ###FORMAT###
 The output should be in the following format:
 ```
+          {
+  "score_card": {
+    "ats": {
+      "score": What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+      "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+      "reason": "Reasion under 12 words",
+      "improvementTip": "Small tip under 12 words"
+    },
+    "jd": {
+      "score": What is the Job Description match Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+      "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+      "reason": "Reasion under 12 words",
+      "improvementTip": "Small tip on aligning resume with jd under 12 words"
+    },
+    "overall": {
+      "score": What is the Overall Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+      "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+      "reason": "Reasion under 12 words",
+      "improvementTip": "Small tip on aligning everything under 12 words"
+    },
+    "ranking": {
+      "score": What is the Resume Ranking Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+      "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+      "reason": "Reasion under 12 words",
+      "improvementTip": "Small tip on Ranking under 12 words"
+    },
+    "keywords": {
+      "score": What is the Keywords Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+      "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+      "reason": "Reasion under 12 words",
+      "improvementTip": "Small tip on keywords under 12 words"
+    }
+  }
+}
 
-{ "output":
-{
-           "ats_score": {
-            "title": "Ats Score",
-            "description": "What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
-            "type": "integer"
-        },
-        "ats_description": {
-            "title": "Ats Description",
-            "description": "what is the potential of this resume for ATS ex ('Strong ATS compatibility potential') under 12 words",
-            "type": "string"
-        },
-        "ats_reason": {
-            "title": "Ats Reason",
-            "description": "what is the reason for this score under 12 words",
-            "type": "string"
-        },
-        "ats_improvementTip": {
-            "title": "Ats Improvementtip",
-            "description": "what is the improvement tip under 12 words",
-            "type": "string"
-        },
-        "jd_score": {
-            "title": "Jd Score",
-            "description": "How much Job description is aligning with the resume (Score Number ex- 30, 40, 50)",
-            "type": "integer"
-        },
-        "jd_description": {
-            "title": "Jd Description",
-            "description": "what is the potential of this ex ('High alignment with job description') under 12 words",
-            "type": "string"
-        },
-        "jd_reason": {
-            "title": "Jd Reason",
-            "description": "what is the reason for this score for job description under 12 words",
-            "type": "string"
-        },
-        "jd_improvementTip": {
-            "title": "Jd Improvementtip",
-            "description": "what is the improvement tip for resume which align with job description under 12 words",
-            "type": "string"
-        }
-        }
-            }
-            
-            ```
+```
 """
 
 
