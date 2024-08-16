@@ -138,7 +138,7 @@ The output should be in the following format:
                 "suggestion3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
             },}
             }
-            # advice and suggestions should be very short and clear try to put that into 12-15 words
+            # advice and suggestions should be very short and clear try to put that into 30-45 words
             ```
 """
 
@@ -178,7 +178,7 @@ The result should be in the following format:
             "recommendation3 on the Skills  ( with the telling about market demand",
             
         ],
-        }# advice and recommendations should be very short and clear try to put that into 12-15 words
+        }# advice and recommendations should be very short and clear try to put that into 30-45 words
 }
 
         ```
@@ -216,13 +216,13 @@ The output should be in the correct json  format which follow this format:
         "suggestion1": "what needs to be done to get selected for this job description ",
         "suggestion2":"which project is not making any sense for this job description",
         "suggestion3": "what keywords you should add in this projects "
-        }
+        } #focus only on courses not in projects
         }
         }
         ```
         if courses are not found then do not give any advice and courses will be None empty
         here are thge courses 
-        # advice and suggestions should be very short and clear try to put that into 12-15 words
+        # advice and suggestions should be very short and clear try to put that into 30-45 words
         """
 
 
@@ -258,7 +258,7 @@ The output should be in the following format:
             "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             
         ],
-        # advice and suggestions should be very short and clear try to put that into 12-15 words
+        # advice and suggestions should be very short and clear try to put that into 30-45 words
 }
 }
         ```
