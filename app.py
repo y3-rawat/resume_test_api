@@ -36,7 +36,7 @@ def get_data(job_description, additional_information, extracted_text):
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
 
     return {
-        "score_card": results['score_card'],
+        "score_card": results['score']["score_card"],
         "project_impact": results['projects']["output"]["project_impact"],
         "skill_Score": results['skills']["output"]["skill_Score"],
         "recommendations": results['skills']["output"]["recommendations"],
