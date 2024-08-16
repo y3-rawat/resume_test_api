@@ -48,12 +48,19 @@ def get_data(job_description,additional_information,experience,extreacted_text):
     results = run_parallel_tasks(final_resume, job_description,extreacted_text)
 
     skills = results['skills']
+    print("skills")
     projects = results['projects']
+    print("projects")
     courses = results['courses']
+    print("courses")
     experiencee = results['experience']
+    print("experience")
     score_cards = results['score']
+    print("score_cards")
     Strenth = results['Strenths']
+    print("strents")
     week = results['weekness']
+    print("week")
     
     
     data = {
