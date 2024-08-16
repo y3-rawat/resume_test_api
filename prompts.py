@@ -65,7 +65,7 @@ you are the part of process so do not give any thing else it do not give any val
 ###FORMAT###
 The output should be in the following format:
 ```
-          {
+     {    "output":   {
   "score_card": {
     "ats": {
       "score": What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50),
@@ -99,7 +99,7 @@ The output should be in the following format:
     }
   }
 }
-
+}
 ```
 """
 
