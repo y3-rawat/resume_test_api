@@ -17,7 +17,8 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'experience': lambda: calculations.experience_done(final_resume, job_description),
         'score': lambda: calculations.Score_cards(extracted_text, job_description),
         'strengths': lambda: calculations.Strenths(extracted_text, job_description),
-        'weakness': lambda: calculations.Worst_point(extracted_text, job_description)
+        'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
+        'twitter_peoples': lambda: calculations.twitter_search(extracted_text, job_description)
     }
     
     futures = {executor.submit(task): key for key, task in tasks.items()}
@@ -50,32 +51,6 @@ def get_data(job_description, additional_information, extracted_text):
         "title": "Senior Soft... ",
         "link": "https://example.com/john-doe"
         },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "John Doe",
-        "title": "Senior Soft....",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "John Doe",
-        "title": "Senior Software Engineer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-
         
     ],
 
@@ -85,33 +60,7 @@ def get_data(job_description, additional_information, extracted_text):
         "name": "John Doe",
         "title": "Senior Soft... ",
         "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "John Doe",
-        "title": "Senior Soft....",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "John Doe",
-        "title": "Senior Software Engineer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        
+        }
         
     ],
     "recommendedPeople_instagram": [
@@ -119,33 +68,7 @@ def get_data(job_description, additional_information, extracted_text):
         "name": "John ",
         "title": "Senior Soft... ",
         "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "John Doe",
-        "title": "Senior Soft....",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "John Doe",
-        "title": "Senior Software Engineer",
-        "link": "https://example.com/john-doe"
-        },
-        {
-        "name": "Jane Smith",
-        "title": "UX Designer",
-        "link": "https://example.com/john-doe"
-        },
-        
+        }       
         
     ],
     }
