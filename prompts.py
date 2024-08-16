@@ -1,5 +1,3 @@
-
-
 resume_prompt1 = """
 ###Instruction###
 Act as an expert in the field of ATS (Applicant Tracking Systems).
@@ -22,7 +20,7 @@ Please return the extracted data in the correct JSON format:
 "role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
 "education": "{only return the section of Education of the Candidate}",
 }
-
+#you are in a process so do not give anything else  and json should be between ``` quotes
 ```
 #remember json output should be correctly into json because it will be used in the code further
 ###Resume###
@@ -48,7 +46,7 @@ Please return the extracted data in the correct JSON format:
 }
 ```
 #remember json output should be correctly into json because it will be used in the code further
-
+#you are in a process so do not give anything else  and json should be between ``` quotes
 ###Resume###
 
 """
@@ -101,6 +99,7 @@ The output should be in the following format:
 }
 
 ```
+#you are in a process so do not give anything else  and json should be between ``` quotes
 """
 
 

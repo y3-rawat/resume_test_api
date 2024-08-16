@@ -316,8 +316,8 @@ def Strenths(resume_text,job_description):
     "Error point 1": "An error occurred. Please inform the author.",
     "Error point 2": "An error occurred. Please inform the author.",
     "Error point 3": "An error occurred. Please inform the author."
-  }
-}
+    }
+    }
 
 
         """
@@ -342,12 +342,12 @@ def Worst_point(resume_text,job_description):
             time.sleep(1)  # Optional: delay before retrying
     worst_error = """
            {
-  "output": {
-    "Error point 1": "An error occurred. Please inform the author.",
-    "Error point 2": "An error occurred. Please inform the author.",
-    "Error point 3": "An error occurred. Please inform the author."
-  }
-}
+    "output": {
+        "Error point 1": "An error occurred. Please inform the author.",
+        "Error point 2": "An error occurred. Please inform the author.",
+        "Error point 3": "An error occurred. Please inform the author."
+    }
+    }
 
 
         """
