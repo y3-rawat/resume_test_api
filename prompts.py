@@ -138,6 +138,7 @@ The output should be in the following format:
                 "suggestion3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
             },}
             }
+            # advice and suggestions should be very short and clear try to put that into 12-15 words
             ```
 """
 
@@ -176,8 +177,8 @@ The result should be in the following format:
             "recommendation2 on the Skills  ( with the telling about market demand",
             "recommendation3 on the Skills  ( with the telling about market demand",
             
-        ],#keep it short and clear
-}
+        ],
+        }# advice and recommendations should be very short and clear try to put that into 12-15 words
 }
 
         ```
@@ -221,7 +222,7 @@ The output should be in the correct json  format which follow this format:
         ```
         if courses are not found then do not give any advice and courses will be None empty
         here are thge courses 
-        
+        # advice and suggestions should be very short and clear try to put that into 12-15 words
         """
 
 
@@ -257,7 +258,7 @@ The output should be in the following format:
             "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             
         ],
-        #keep it short and clear
+        # advice and suggestions should be very short and clear try to put that into 12-15 words
 }
 }
         ```
@@ -290,7 +291,7 @@ The output should be in the following format:
 }
             
             
-            }
+            }#it should be very short and clear try to put every point into 12-15 words
             ```
 """
 
@@ -319,6 +320,6 @@ The output should be in the following format:
 "Worst point 2":"Brief on Worst point 2 (it should be very clear, Sort ,Valid).",
 "Worst point 3":"Brief on Worst point 3 (it should be very clear, Sort ,Valid)."
 }            
-}
+}#it should be very short and clear try to put every point into 12-15 words
             ```
 """

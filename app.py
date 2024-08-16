@@ -34,7 +34,6 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
 def get_data(job_description, additional_information, extracted_text):
     final_resume = calculations.resume_final(extracted_text, additional_information)
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
-
     return {
         "score_card": results['score']["score_card"],
         "project_impact": results['projects']["output"]["project_impact"],
@@ -45,7 +44,6 @@ def get_data(job_description, additional_information, extracted_text):
         "Actionable Recommendations": results['experience']["output"]["Actionable Recommendations"],
         "Strengths": results['strengths']["output"],
         "Weaknesses": results['weakness']["output"],
-        
         "recommended_People_linkdin": [
         {
         "name": " Doe",
