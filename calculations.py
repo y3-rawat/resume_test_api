@@ -248,6 +248,7 @@ def Score_cards(resume_text,job_description):
             # Extract the relevant data
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
+            print(d)
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
