@@ -33,7 +33,7 @@ def groq(input,key):
         temperature=0,
         # model="llama3-70b-8192",
         model = "llama-3.1-70b-versatile",
-        api_key=groq_keys[keys()[0]], # Optional if not set as an environment variable
+        # api_key=groq_keys[keys()[0]], # Optional if not set as an environment variable
     )
     return chat.invoke(input)
 def final(Input):
