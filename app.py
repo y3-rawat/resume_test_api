@@ -53,9 +53,7 @@ def get_data(job_description, additional_information, extracted_text):
         },
         
     ],
-
-    
-        "recommendedPeople_twitter": [
+    "recommendedPeople_twitter": [
         {
         "name": "John Doe",
         "title": "Senior Soft... ",
