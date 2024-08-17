@@ -274,15 +274,14 @@ you are the part of process so do not give any thing else it do not give any val
 The output should be in the following format:
 ```
 { "output":
-
-{
-"Strenght point 1":"Brief on Strenght point 1 (it should be very clear, Sort ,Valid).",
-"Strenght point 2":"Brief on Strenght point 2 (it should be very clear, Sort ,Valid).",
-"Strenght point 3":"Brief on Strenght point 3 (it should be very clear, Sort ,Valid)."
+      {
+        "Strenght point 1":"Brief on Strenght point 1 (it should be very clear, Sort ,Valid).",
+        "Strenght point 2":"Brief on Strenght point 2 (it should be very clear, Sort ,Valid).",
+        "Strenght point 3":"Brief on Strenght point 3 (it should be very clear, Sort ,Valid)."
+      }
 }
-            
-            
-            }#it should be very short and clear try to put every point into 12-15 words
+
+#it should be very short and clear try to put every point into 12-15 words
             ```
 """
 
