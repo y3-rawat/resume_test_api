@@ -115,6 +115,10 @@ def resume_final(resume_text, additional_information):
 def skills_taken(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None or "skills" not in resume_text:
+                print("Invalid resume_text or missing skills")
+                return None
+
             skill = f"""{prompts.skills_prompt}
                 ###Job Description###
                 {job_description}
@@ -123,7 +127,8 @@ def skills_taken(resume_text, job_description):
             """
 
             skills_t = apis.final(skill)
-            add_to_outputs("skills_name", skills_t)  # Log the output to MongoDB
+            add_to_outputs("skills_name", skills_t)
+            print("Raw API response:", skills_t)  # Log raw response
             skill_splited = skills_t.split("```")[1]
             d = json.loads(skill_splited)
             return d
@@ -133,6 +138,7 @@ def skills_taken(resume_text, job_description):
     error_json = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
     return json.loads(error_json)
 
+    
 def projects_done(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
