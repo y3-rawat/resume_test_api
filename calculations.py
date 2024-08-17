@@ -36,7 +36,7 @@ def log_to_mongodb_batch(outputs):
         print(f"Failed to log to MongoDB: {e}")
 
 def add_to_outputs(prompt, response):
-    document = ['response': response, 'timestamp': datetime.now()]
+    document = [response]
     with all_outputs_lock:
         all_outputs.append(document)
 
