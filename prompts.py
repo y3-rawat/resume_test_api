@@ -3,6 +3,8 @@ resume_prompt1 = """
 Act as an expert in the field of ATS (Applicant Tracking Systems).
 Your Task is to Saprate every thing from the resume 
 you have to saprate these sections 
+# points should be saprerated by (,)
+
 1. skills.
 3. projects.
 4. courses.
@@ -11,6 +13,8 @@ you have to saprate these sections
 ###FORMAT###
 
 Please return the extracted data in the correct JSON format:
+# points should be saprerated by (,)
+
 ```
 
 {

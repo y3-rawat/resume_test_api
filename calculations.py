@@ -126,6 +126,12 @@ def resume_final(resume_text, additional_information):
         res2 = json.loads(res2) if res2 else None
         if res1 and res2:
             res1["experience"] = res2["experience"]
+
+        res1["skills"]
+        res1["projects"]
+        res1["courses"]
+        res1["role_user_candidate"]
+        res1["education"]
     except json.JSONDecodeError as e:
         print("getting problem in resume")
         print(f"JSON decoding error: {e}")
@@ -155,6 +161,7 @@ def skills_taken(resume_text, job_description):
             print("Raw API response:", skills_t)  # Log raw response
             skill_splited = skills_t.split("```")[1]
             d = json.loads(skill_splited)
+            d["output"]
             return d
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
@@ -177,6 +184,7 @@ def projects_done(resume_text, job_description):
             add_to_outputs("project_name", Projects)  # Log the output to MongoDB
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
+            d["output"]
             return d
         except Exception as e:
             print(f"Attempt from projects {attempt + 1} failed with error: {e}")
@@ -196,8 +204,9 @@ def courses_done(resume_text, job_description):
             
             Courses = apis.final(course)
             add_to_outputs("course_name", Courses)  # Log the output to MongoDB
-            projects_splitted = Courses.split("```")[1]
-            d = json.loads(projects_splitted)
+            course_splitted = Courses.split("```")[1]
+            d = json.loads(course_splitted)
+            d["output"]
             return d
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
@@ -217,6 +226,7 @@ def experience_done(resume_text, job_description):
             add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
+            d["output"]
             return d
         except Exception as e:
             print(f"Attempt experience {attempt + 1} failed with error: {e}")
@@ -228,14 +238,15 @@ def Score_cards(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
             Score_card = f"""{prompts.score_card_prompt}
-        ###Job Description###
-        {job_description}
-        ###Resume###
-        {resume_text}"""
+            ###Job Description###
+            {job_description}
+            ###Resume###
+            {resume_text}"""
             score_cards_output = apis.final(Score_card)
             add_to_outputs("Score_card_name", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
+            d["score_card"] #testing the work
             return d
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")
@@ -254,6 +265,7 @@ def Strenths(resume_text, job_description):
             add_to_outputs("Strent_prompts_name", Strenths)  # Log the output to MongoDB
             exp = Strenths.split("```")[1]
             d = json.loads(exp)
+            d["output"]
             return d
         except Exception as e:
             print(f"Attempt strenths {attempt + 1} failed with error: {e}")
@@ -273,6 +285,7 @@ def Worst_point(resume_text, job_description):
             add_to_outputs("weekness_ponts_name", worst_point)  # Log the output to MongoDB
             exp = worst_point.split("```")[1]
             d = json.loads(exp)
+            d["output"]
             return d
         except Exception as e:
             print(f"Attempt weekness {attempt + 1} failed with error: {e}")
