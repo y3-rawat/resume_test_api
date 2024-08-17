@@ -3,7 +3,7 @@ import json
 import apis
 import prompts
 import threading
-import time
+
 
 # Shared list to store results
 results = [None, None]
@@ -23,7 +23,7 @@ def fetch_data_with_retry(prompt, index, retry_count):
             return True
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
+            
     return False
 
 def resume_input1(resume_text1,additional_information, index):
@@ -106,7 +106,6 @@ def skills_taken(resume_text,job_description):
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
     error_json = """{
         "output": {
             "skill_Score": {
@@ -141,7 +140,7 @@ def projects_done(resume_text,job_description):
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
+            
     project_error = """{
     "output": {
         "project_impact": {
@@ -177,7 +176,7 @@ def courses_done(resume_text,job_description):
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
+            
 
     course_error = """{
         "output": {
@@ -211,7 +210,6 @@ def experience_done(resume_text,job_description):
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
 
     experience_error ="""{
             "output": {
@@ -248,11 +246,9 @@ def Score_cards(resume_text,job_description):
             # Extract the relevant data
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
-            print(d)
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
     experience_error = """
             {
         "output": {
@@ -309,7 +305,6 @@ def Strenths(resume_text,job_description):
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
     Strenths_error = """
           {
   "output": {
@@ -339,7 +334,6 @@ def Worst_point(resume_text,job_description):
             return d  # Return the result if successful
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
-            time.sleep(1)  # Optional: delay before retrying
     worst_error = """
            {
     "output": {

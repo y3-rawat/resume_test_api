@@ -32,8 +32,6 @@ resume_prompt2 = """
 Act as an expert in the field of ATS (Applicant Tracking Systems).
 Your Task is to Saprate experience from the resume 
 you have to saprate ONLY experience 
-
-
 2. experience.
 
 ###FORMAT###
@@ -58,7 +56,6 @@ You are an expert in the field of ATS (Applicant Tracking Systems) and job descr
 Conduct a deep-dive review of the existing resume and job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 so do not give the random scores because candidate is come to improve his resume not for getting appriciation 
-if resume needs much improvement give him less score with the keywords
 you are the part of process so do not give any thing else it do not give any value to that project 
 ###FORMAT###
 The output should be in the following format:

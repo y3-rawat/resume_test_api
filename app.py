@@ -27,6 +27,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     for future in futures:
         key = futures[future]
         try:
+            
             results[key] = future.result()
         except Exception as exc:
             results[key] = f'Error: {exc}'
