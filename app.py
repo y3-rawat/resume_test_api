@@ -1,3 +1,4 @@
+import time
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from concurrent.futures import ThreadPoolExecutor
@@ -22,13 +23,35 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     }
     
     futures = {executor.submit(task): key for key, task in tasks.items()}
+    
+
+    # Dictionary to store results and the time taken
     results = {}
+    times = {}
+
     for future in futures:
         key = futures[future]
+        
+        start_time = time.time()  # Start time
         try:
-            results[key] = future.result()
+            # Wait for the future to complete and get the result
+            result = future.result()
+            end_time = time.time()  # End time
+            
+            # Store the result and the time taken
+            
+            results[key] = result
+            times[key] = end_time - start_time  # Time taken for the future to complete
+            
         except Exception as exc:
+            end_time = time.time()  # End time even if there is an exception
+            # Store the error message and the time taken
             results[key] = f'Error: {exc}'
+            times[key] = end_time - start_time  # Time taken for the future to complete
+
+    # Print results and times
+    for key in results:
+        print(f"Key: {key}, Result: {results[key]}, Time taken: {times[key]:.2f} seconds")
 
     return results
 
