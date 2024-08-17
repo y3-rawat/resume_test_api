@@ -54,7 +54,7 @@ def fetch_data_with_retry(prompt, index, retry_count):
                 results[index] = data
             return True
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt from resume {attempt + 1} failed with error: {e}")
     return False
 
 
@@ -128,7 +128,7 @@ def skills_taken(resume_text, job_description):
             d = json.loads(skill_splited)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt from skills {attempt + 1} failed with error: {e}")
     
     error_json = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
     return json.loads(error_json)
@@ -149,7 +149,7 @@ def projects_done(resume_text, job_description):
             d = json.loads(projects_splitted)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt from projects {attempt + 1} failed with error: {e}")
             
     project_error = """{ "output": { "project_impact": { "impact": { "An Error Occurred": "5","Error Continue":0,"Error Continue":0 }, "advice": "An Error Occurred At this part.", "suggestion1": "Something Went Wrong!", "suggestion2": "Something Went Wrong!", "suggestion3": "Something Went Wrong!" } } }"""
     return json.loads(project_error)
@@ -170,7 +170,7 @@ def courses_done(resume_text, job_description):
             d = json.loads(projects_splitted)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt course {attempt + 1} failed with error: {e}")
             
     course_error = """{ "output": { "course_impact": { "impt": { "An Error Occurred": 0 }, "course_advice": "An Error Occurred At the course part please share the information with the developer.", "suggestion1": "An Error Occurred At the course part please share the information with the developer.", "suggestion2": "An Error Occurred At the course part please share the information with the developer.", "suggestion3": "An Error Occurred At the course part please share the information with the developer." } } }"""
     return json.loads(course_error)
@@ -189,7 +189,7 @@ def experience_done(resume_text, job_description):
             d = json.loads(exp)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt experience {attempt + 1} failed with error: {e}")
 
     experience_error = """{ "output": { "experience_relevance": { "imp": { "An Error Occurred": 0 }, "advice": "An Error Occurred At the course part please share the information with the developer." }, "Actionable Recommendations": [ "An Error Occurred At the course part please share the information with the developer.", "An Error Occurred At the course part please share the information with the developer.", "An Error Occurred At the course part please share the information with the developer.", "An Error Occurred At the course part please share the information with the developer." ] } }"""
     return json.loads(experience_error)
@@ -208,7 +208,7 @@ def Score_cards(resume_text, job_description):
             d = json.loads(exp)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt score {attempt + 1} failed with error: {e}")
     experience_error = """{ "output": { "ats": { "score": 505, "description": "Error Occurred!", "reason": "An Error occurred", "improvementTip": "An Error occurred" }, "jd": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "overall": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "ranking": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "keywords": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" } } }"""
     return json.loads(experience_error)
 
@@ -226,7 +226,7 @@ def Strenths(resume_text, job_description):
             d = json.loads(exp)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt strenths {attempt + 1} failed with error: {e}")
     Strenths_error = """{ "output": { "Error point 1": "An error occurred. Please inform the author.", "Error point 2": "An error occurred. Please inform the author.", "Error point 3": "An error occurred. Please inform the author." } }"""
     return json.loads(Strenths_error)
 
@@ -245,7 +245,7 @@ def Worst_point(resume_text, job_description):
             d = json.loads(exp)
             return d
         except Exception as e:
-            print(f"Attempt {attempt + 1} failed with error: {e}")
+            print(f"Attempt weekness {attempt + 1} failed with error: {e}")
     worst_error = """{ "output": { "Error point 1": "An error occurred. Please inform the author.", "Error point 2": "An error occurred. Please inform the author.", "Error point 3": "An error occurred. Please inform the author." } }"""
     return json.loads(worst_error)
 
