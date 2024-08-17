@@ -127,11 +127,12 @@ def resume_final(resume_text, additional_information):
         if res1 and res2:
             res1["experience"] = res2["experience"]
     except json.JSONDecodeError as e:
+        print("getting problem in resume")
         print(f"JSON decoding error: {e}")
         res1 = None
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-        res1 = None
+        res1 = resume_text
         
     return res1
 
