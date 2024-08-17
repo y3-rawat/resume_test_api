@@ -7,6 +7,8 @@ from pymongo import MongoClient
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import uuid
+from pymongo.errors import BulkWriteError
 
 load_dotenv()
 db = os.getenv('mongo')
@@ -30,14 +32,32 @@ all_outputs_lock = threading.Lock()
 def log_to_mongodb_batch(outputs):
     try:
         if outputs:
-            collection.insert_many(outputs)
-            print(f"Successfully inserted {len(outputs)} documents into MongoDB")
+            # Generate unique IDs for each document
+            for output in outputs:
+                output['_id'] = str(uuid.uuid4())
+
+            # Use bulk write with ordered=False to continue processing on error
+            result = collection.bulk_write([
+                pymongo.UpdateOne(
+                    {'_id': output['_id']},
+                    {'$set': output},
+                    upsert=True
+                ) for output in outputs
+            ], ordered=False)
+
+            print(f"Successfully processed {result.upserted_count + result.modified_count} documents")
+            if result.bulk_api_result.get('writeErrors'):
+                print(f"Encountered {len(result.bulk_api_result['writeErrors'])} write errors")
+    except BulkWriteError as bwe:
+        print(f"Bulk write error: {bwe.details}")
     except Exception as e:
         print(f"Failed to log to MongoDB: {e}")
 
+
 def add_to_outputs(name, response):
     document = {
-        "name":name,
+        "_id": str(uuid.uuid4()),
+        "name": name,
         "result": response,
         'timestamp': datetime.now()
     }
@@ -138,7 +158,7 @@ def skills_taken(resume_text, job_description):
     error_json = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
     return json.loads(error_json)
 
-    
+
 def projects_done(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
