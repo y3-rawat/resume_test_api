@@ -242,7 +242,7 @@ The output should be in the following format:
             "expeience2":  (Score Number ex- 32),
             ...
             "expeience n":  (Score Number ex- 39)
-                    }, #experience is a work done in the company 
+                    }, }, #experience is a work done in the company 
         "Actionable Recommendations": [
             "Recommendation1  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             "Recommendation2  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
