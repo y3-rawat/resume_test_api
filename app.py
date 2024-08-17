@@ -26,7 +26,6 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     for future in futures:
         key = futures[future]
         try:
-            print("key",results[key])
             results[key] = future.result()
         except Exception as exc:
             results[key] = f'Error: {exc}'
@@ -54,7 +53,9 @@ def get_data(job_description, additional_information, extracted_text):
         },
         
     ],
-    "recommendedPeople_twitter": [
+
+
+        "recommendedPeople_twitter": [
         {
         "name": "John Doe",
         "title": "Senior Soft... ",
