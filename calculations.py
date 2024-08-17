@@ -37,7 +37,8 @@ def log_to_mongodb_batch(outputs):
 
 def add_to_outputs(name, response):
     document = {
-        name: response,
+        "name":name,
+        "result": response,
         'timestamp': datetime.now()
     }
     with all_outputs_lock:
@@ -230,7 +231,7 @@ def Strenths(resume_text, job_description):
     return json.loads(Strenths_error)
 
 def Worst_point(resume_text, job_description):
-    log_to_mongodb_batch(all_outputs)
+    
     for attempt in range(MAX_RETRIES):
         try:
             weekness_ponts = f"""{prompts.Weekness}
@@ -248,10 +249,6 @@ def Worst_point(resume_text, job_description):
     worst_error = """{ "output": { "Error point 1": "An error occurred. Please inform the author.", "Error point 2": "An error occurred. Please inform the author.", "Error point 3": "An error occurred. Please inform the author." } }"""
     return json.loads(worst_error)
 
-# Main execution function (if needed)
-def main():
-    # Add your main execution logic here
-    pass
+def end():
+    log_to_mongodb_batch(all_outputs)
 
-if __name__ == "__main__":
-    main()

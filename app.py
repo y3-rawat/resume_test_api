@@ -24,6 +24,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     
     futures = {executor.submit(task): key for key, task in tasks.items()}
     results = {}
+    calculations.end()
     for future in futures:
         key = futures[future]
         try:
