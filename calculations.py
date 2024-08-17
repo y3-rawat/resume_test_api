@@ -132,7 +132,7 @@ def resume_final(resume_text, additional_information):
         res1 = None
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-        res1 = resume_text
+        res1 = None
         
     return res1
 

@@ -36,11 +36,12 @@ you have to saprate ONLY experience
 
 ###FORMAT###
 
-Please return the extracted data in the correct JSON format:
+Please return the extracted data in the correct JSON format do not put any points add comma insted of points :
 ```
 {
 
-"experience": "{only return the section of Experience of the Candidate}",
+"experience": "{only return the section of Experience of the Candidate saprated with (,) every point will be saprated by ,  }",
+
 }
 ```
 #remember json output should be correctly into json because it will be used in the code further
