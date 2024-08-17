@@ -123,7 +123,7 @@ def skills_taken(resume_text, job_description):
             """
 
             skills_t = apis.final(skill)
-            log_to_mongodb(skill, skills_t)  # Log the output to MongoDB
+            add_to_outputs(skill, skills_t)  # Log the output to MongoDB
             skill_splited = skills_t.split("```")[1]
             d = json.loads(skill_splited)
             return d
@@ -144,7 +144,7 @@ def projects_done(resume_text, job_description):
             """
 
             Projects = apis.final(project)
-            log_to_mongodb(project, Projects)  # Log the output to MongoDB
+            add_to_outputs(project, Projects)  # Log the output to MongoDB
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
             return d
@@ -165,7 +165,7 @@ def courses_done(resume_text, job_description):
             """
             
             Courses = apis.final(course)
-            log_to_mongodb(course, Courses)  # Log the output to MongoDB
+            add_to_outputs(course, Courses)  # Log the output to MongoDB
             projects_splitted = Courses.split("```")[1]
             d = json.loads(projects_splitted)
             return d
@@ -184,7 +184,7 @@ def experience_done(resume_text, job_description):
                 ###Experience_Presented_In_Resume###
                 {resume_text["experience"]}"""
             experience1 = apis.final(experience)
-            log_to_mongodb(experience, experience1)  # Log the output to MongoDB
+            add_to_outputs(experience, experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
             return d
@@ -203,7 +203,7 @@ def Score_cards(resume_text, job_description):
         ###Resume###
         {resume_text}"""
             score_cards_output = apis.final(Score_card)
-            log_to_mongodb(Score_card, score_cards_output)  # Log the output to MongoDB
+            add_to_outputs(Score_card, score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
             return d
@@ -221,7 +221,7 @@ def Strenths(resume_text, job_description):
         ###Resume###
         {resume_text}"""
             Strenths = apis.final(Strent_prompts)
-            log_to_mongodb(Strent_prompts, Strenths)  # Log the output to MongoDB
+            add_to_outputs(Strent_prompts, Strenths)  # Log the output to MongoDB
             exp = Strenths.split("```")[1]
             d = json.loads(exp)
             return d
@@ -240,7 +240,7 @@ def Worst_point(resume_text, job_description):
         ###Resume###
         {resume_text}"""
             worst_point = apis.final(weekness_ponts)
-            log_to_mongodb(weekness_ponts, worst_point)  # Log the output to MongoDB
+            add_to_outputs(weekness_ponts, worst_point)  # Log the output to MongoDB
             exp = worst_point.split("```")[1]
             d = json.loads(exp)
             return d
