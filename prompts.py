@@ -24,6 +24,7 @@ Please return the extracted data in the correct JSON format:
 "role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
 "education": "{only return the section of Education of the Candidate}",
 }
+#if there is something which is not present just give the "__":"Not present" in json
 #you are in a process so do not give anything else  and json should be between ``` quotes
 ```
 #remember json output should be correctly into json because it will be used in the code further
@@ -57,7 +58,6 @@ Please return the extracted data in the correct JSON format do not put any point
 score_card_prompt = """
 ###Instruction###
 You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide genuine scores based on the resume.
-
 Conduct a deep-dive review of the existing resume and job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 so do not give the random scores because candidate is come to improve his resume not for getting appriciation 
@@ -110,14 +110,13 @@ The output should be in the following format:
 project_prompt = """
 ###Instruction###
 You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide excellent advice and genuine scores based on the resume, focusing on the impacts on the project as outlined in the job description.
-
 Conduct a deep-dive review of the existing resume and job description.
 Provide feedback that balances solving the immediate problem with long-term improvement.
-
 Discuss trade-offs and implementation options if there are choices to be made.
 Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 you are the part of process so do not give any thing else it do not give any value to that project 
+#if project is not present in the resume you have to say "Project Not preset":0 and at the section of suggestion = No Suggestions for project 
 ###FORMAT###
 The output should be in the following format:
 ```
@@ -155,6 +154,7 @@ Discuss trade-offs and implementation options if there are choices to be made.
 Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 you are the part of process so do not give any thing else it do not give any value to that project 
+#if you didn't find any skill on resume just tell in json that "No skill found":0 
 ###FORMAT###
 The result should be in the following format:
 ```
@@ -200,6 +200,7 @@ Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 
 you are the part of process so do not give any thing else it do not give any value to that project 
+#if you didn't find any courses on resume just give in json "No courses found" : 0 
 ###FORMAT###
 The output should be in the correct json  format which follow this format:
 ```
@@ -237,6 +238,7 @@ Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 
 you are the part of process so do not give any thing else it do not give any value to that project 
+if you didn't find any experience on resume just give in json "No expereince found":0
 ###FORMAT###
 The output should be in the following format:
 ```
