@@ -7,6 +7,7 @@ from pymongo import MongoClient
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 db = os.getenv('mongo')
 
@@ -22,22 +23,32 @@ results_lock = threading.Lock()  # Lock to ensure thread-safe access to results
 # Maximum retry attempts
 MAX_RETRIES = 2
 
-def log_to_mongodb(prompt, response):
+# List to store all outputs for batch insertion
+all_outputs = []
+all_outputs_lock = threading.Lock()
+
+def log_to_mongodb_batch(outputs):
+    try:
+        if outputs:
+            collection.insert_many(outputs)
+            print(f"Successfully inserted {len(outputs)} documents into MongoDB")
+    except Exception as e:
+        print(f"Failed to log to MongoDB: {e}")
+
+def add_to_outputs(prompt, response):
     document = {
         'prompt': prompt,
         'response': response,
         'timestamp': datetime.now()
     }
-    try:
-        collection.insert_one(document)
-    except Exception as e:
-        print(f"Failed to log to MongoDB: {e}")
+    with all_outputs_lock:
+        all_outputs.append(document)
 
 def fetch_data_with_retry(prompt, index, retry_count):
     for attempt in range(retry_count):
         try:
             response = apis.final(prompt)
-            log_to_mongodb(prompt, response)  # Log the output to MongoDB
+            add_to_outputs(prompt, response)  # Add to batch instead of immediate insertion
             data = response.split("```")[1]
             with results_lock:
                 results[index] = data
@@ -45,6 +56,8 @@ def fetch_data_with_retry(prompt, index, retry_count):
         except Exception as e:
             print(f"Attempt {attempt + 1} failed with error: {e}")
     return False
+
+
 
 def resume_input1(resume_text1, additional_information, index):
     resume_content_prompt1 = f"""{prompts.resume_prompt1}
@@ -218,6 +231,7 @@ def Strenths(resume_text, job_description):
     return json.loads(Strenths_error)
 
 def Worst_point(resume_text, job_description):
+    log_to_mongodb_batch(all_outputs)
     for attempt in range(MAX_RETRIES):
         try:
             weekness_ponts = f"""{prompts.Weekness}
