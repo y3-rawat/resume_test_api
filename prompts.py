@@ -128,13 +128,13 @@ The output should be in the following format:
                     "project n": (Score Number ex- 99)
                 }, #only give the name of project and number nothting  and those which are less relevent to the job description give them less values and which are not giving any value give them 0 you can apply negetive too
                 
-                "advice": "advice on the projects which will make the resume out stnading from others.", # this should be consise and easy to understand 
+               
                 "suggestion1": "What needs to be done to get selected for this job description? Highlight the business impact of specific projects.", #suggestion should be seem like candidate get know something new and valueable
                 "suggestion2": "Which project is not making any sense for this job description? Highlight the business impact of specific projects.",
                 "suggestion3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
             },}
             }
-            # advice and suggestions should be very short and clear try to put that into 30-45 words
+            suggestions should be very short and clear try to put that into 30-45 words do not repeat things this part should be strongly focus on projects
             ```
 """
 
@@ -166,7 +166,7 @@ The result should be in the following format:
                 ...
                 "skill n": (Score Number ex- 23)
             }, 
-            "advice": "advice on the Skills which skills will make the resume stand out  from others on the job at future (with the telling about market demand)." #keep it short and clear, 
+            
         },
         "recommendations": [
             "recommendation1 on the Skills  ( with the telling about market demand",
@@ -174,7 +174,7 @@ The result should be in the following format:
             "recommendation3 on the Skills  ( with the telling about market demand",
             
         ],
-        }# advice and recommendations should be very short and clear try to put that into 30-45 words
+        }#recommendations should be very short and clear try to put that into 30-45 words it should be focused on skills
 }
 
         ```
@@ -208,7 +208,7 @@ The output should be in the correct json  format which follow this format:
             ...
             "couse n ": (Score Number ex- 14
         }, # This course dosen't mean the languages it means courses like b.tech or any choching etc.
-        "course_advice": "A very Sort Advice on skills.",
+        
         "suggestion1": "what needs to be done to get selected for this job description ",
         "suggestion2":"which project is not making any sense for this job description",
         "suggestion3": "what keywords you should add in this projects "
@@ -216,9 +216,7 @@ The output should be in the correct json  format which follow this format:
         }
         }
         ```
-        if courses are not found then do not give any advice and courses will be None empty
-        here are thge courses 
-        # advice and suggestions should be very short and clear try to put that into 30-45 words
+        
         """
 
 
@@ -245,16 +243,13 @@ The output should be in the following format:
             ...
             "expeience n":  (Score Number ex- 39)
                     }, #experience is a work done in the company 
-        "advice": " advice on the Experiences which part on this will make the resume stand out from others on the job at future ( with the telling about market demand on future)."
-                },#those experience which are not in resume do that add in this 
-
         "Actionable Recommendations": [
             "Recommendation1  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             "Recommendation2  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             
         ],
-        # advice and suggestions should be very short and clear try to put that into 30-45 words
+        #suggestions should be very short and clear try to put that into 30-45 words and it should be focused on what can be achive in short period nothing should sound ideal
 }
 }
         ```
