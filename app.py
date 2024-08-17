@@ -24,7 +24,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     
     futures = {executor.submit(task): key for key, task in tasks.items()}
     results = {}
-    calculations.end()
+    
     for future in futures:
         key = futures[future]
         try:
@@ -39,6 +39,7 @@ def get_data(job_description, additional_information, extracted_text):
     final_resume = calculations.resume_final(extracted_text, additional_information)
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
     time.sleep(1)
+    calculations.end()
     return {
         "score_card": results['score']["score_card"],
         "project_impact": results['projects']["output"]["project_impact"],
