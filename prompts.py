@@ -243,10 +243,10 @@ The output should be in the following format:
 { "output": {
 "experience_relevance": {
             "imp":{
-            "expeience1": (Score Number ex- 11),
-            "expeience2":  (Score Number ex- 32),
+            "expeience name 1": (Score Number ex- 11),
+            "expeience name 2":  (Score Number ex- 32),
             ...
-            "expeience n":  (Score Number ex- 39)
+            "expeience name  n":  (Score Number ex- 39)
                     }, }, #experience is a work done in the company 
         "Actionable Recommendations": [
             "Recommendation1  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
