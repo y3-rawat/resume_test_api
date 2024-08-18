@@ -162,11 +162,13 @@ def skills_taken(resume_text, job_description):
             skill_splited = skills_t.split("```")[1]
             d = json.loads(skill_splited)
             d["output"]
+            print("--------calling from output from skills-score--",d)
             return d
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
     
     error_json = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
+    
     return json.loads(error_json)
 
 
