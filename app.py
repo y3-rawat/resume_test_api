@@ -28,10 +28,11 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     for future in futures:
         key = futures[future]
         try:
-            
             results[key] = future.result()
+            print("Result",results[key])
         except Exception as exc:
             results[key] = f'Error: {exc}'
+            print("getting error --35")
 
     return results
 
