@@ -10,6 +10,7 @@ cors = CORS(app, resources={r"/submit": {"origins": "*"}, r"/status/<task_id>": 
 
 # Create a global ThreadPoolExecutor
 executor = ThreadPoolExecutor(max_workers=4)
+tasks = {}
 
 def run_parallel_tasks(final_resume, job_description, extracted_text):
     tasks = {
