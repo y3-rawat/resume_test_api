@@ -3,9 +3,8 @@ from flask_cors import CORS
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import uuid
 from calculations import *
-app = Flask(__name__)
 
-# Enable CORS for all routes and origins
+app = Flask(__name__)
 CORS(app)
 
 executor = ThreadPoolExecutor(max_workers=4)
@@ -15,6 +14,14 @@ tasks = {}
 def submit():
     data = request.get_json() if request.is_json else request.form.to_dict()
     
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    required_fields = ['job_description', 'additional_information', 'extractedText']
+    missing_fields = [field for field in required_fields if field not in data]
+    if missing_fields:
+        return jsonify({'error': f'Missing required fields: {", ".join(missing_fields)}'}), 400
+
     task_id = str(uuid.uuid4())
     tasks[task_id] = {'status': 'processing'}
     
@@ -28,11 +35,7 @@ def get_status(task_id):
     if not task:
         return jsonify({'error': 'Task not found'}), 404
     
-    return jsonify({
-        'status': task['status'],
-        'result': task.get('result'),
-        'error': task.get('error')
-    })
+    return jsonify(task)
 
 def process_task(task_id, data):
     try:
@@ -106,7 +109,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
                 results[key] = future.result()
             except Exception as exc:
                 print(f'{key} generated an exception: {exc}')
-                results[key] = f'Error: {exc}'
+                results[key] = {'error': str(exc)}
     
     return results
 
