@@ -34,7 +34,7 @@ def groq(input,key):
         # model="llama3-70b-8192",
         model = "llama-3.1-70b-versatile",
         # api_key=groq_keys[keys()[0]], # Optional if not set as an environment variable
-        api_key = "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",
+        # api_key = "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",
     )
     return chat.invoke(input)
 def final(Input):

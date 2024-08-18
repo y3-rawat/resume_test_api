@@ -87,7 +87,8 @@ def submit():
     job_description = request.args.get('job_description', '')
     additional_information = request.args.get('additional_information', '')
     extracted_text = request.args.get('ext-text', '')
-    
+    api = request.args.get('api','')
+    print("api code",api)
     output = get_data(job_description, additional_information, extracted_text)
     return jsonify(output)
 

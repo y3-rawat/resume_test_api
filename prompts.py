@@ -173,7 +173,7 @@ The result should be in the following format:
                 "skill4": (Score Number ex- 36),
                 ...
                 "skill n": (Score Number ex- 23)
-            }, 
+            }
             
         },
         "recommendations": [
