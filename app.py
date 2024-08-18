@@ -9,10 +9,13 @@ CORS(app)
 
 executor = ThreadPoolExecutor(max_workers=4)
 tasks = {}
-
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.json
+    if request.is_json:
+        data = request.json
+    else:
+        data = request.form.to_dict()
+    
     task_id = str(uuid.uuid4())
     tasks[task_id] = {'status': 'processing'}
     
