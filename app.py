@@ -19,7 +19,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'score': lambda: calculations.Score_cards(extracted_text, job_description),
         'strengths': lambda: calculations.Strenths(extracted_text, job_description),
         'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
-        'twitter_peoples': lambda: calculations.twitter_search(extracted_text, job_description)
+        
     }
     
     futures = {executor.submit(task): key for key, task in tasks.items()}
