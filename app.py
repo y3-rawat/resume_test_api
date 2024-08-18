@@ -1,11 +1,12 @@
-import time 
-from flask import Flask, request, jsonify, render_template
+import time
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from concurrent.futures import ThreadPoolExecutor
 import calculations
+import uuid
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/submit": {"origins": "*"}})
+cors = CORS(app, resources={r"/submit": {"origins": "*"}, r"/status/<task_id>": {"origins": "*"}})
 
 # Create a global ThreadPoolExecutor
 executor = ThreadPoolExecutor(max_workers=4)
@@ -81,6 +82,12 @@ def get_data(job_description, additional_information, extracted_text):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+def process_task(task_id, job_description, additional_information, extracted_text):
+    try:
+        result = get_data(job_description, additional_information, extracted_text)
+        tasks[task_id] = {'status': 'completed', 'result': result}
+    except Exception as e:
+        tasks[task_id] = {'status': 'failed', 'error': str(e)}
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -88,8 +95,26 @@ def submit():
     additional_information = request.args.get('additional_information', '')
     extracted_text = request.args.get('ext-text', '')
     
-    output = get_data(job_description, additional_information, extracted_text)
-    return jsonify(output)
+    task_id = str(uuid.uuid4())
+    tasks[task_id] = {'status': 'processing'}
+    
+    # Queue the task for processing
+    executor.submit(process_task, task_id, job_description, additional_information, extracted_text)
+    
+    return jsonify({'task_id': task_id, 'status': 'processing'})
+
+@app.route('/status/<task_id>', methods=['GET'])
+def get_status(task_id):
+    task = tasks.get(task_id)
+    if not task:
+        return jsonify({'error': 'Task not found'}), 404
+    
+    if task['status'] == 'completed':
+        return jsonify({'status': 'completed', 'result': task['result']})
+    elif task['status'] == 'failed':
+        return jsonify({'status': 'failed', 'error': task['error']})
+    else:
+        return jsonify({'status': 'processing'})
 
 if __name__ == '__main__':
     app.run(debug=True)
