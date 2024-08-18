@@ -24,6 +24,7 @@ Please return the extracted data in the correct JSON format:
 "role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
 "education": "{only return the section of Education of the Candidate}",
 }
+#remember json should be closed properly
 #if there is something which is not present just give the "__":"Not present" in json
 #you are in a process so do not give anything else  and json should be between ``` quotes
 ```
@@ -101,6 +102,7 @@ The output should be in the following format:
 }
 
 ```
+#remember json should be closed properly
 #you are in a process so do not give anything else  and json should be between ``` quotes
 """
 
@@ -138,8 +140,9 @@ The output should be in the following format:
                 "suggestion3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
             },}
             }
-            suggestions should be very short and clear try to put that into 30-45 words do not repeat things this part should be strongly focus on projects
+            #suggestions should be very short and clear try to put that into 30-45 words do not repeat things this part should be strongly focus on projects
             ```
+            #remember json should be closed properly
 """
 
 
@@ -184,6 +187,7 @@ The result should be in the following format:
 }
 #remember json should be closed properly
 
+
         ```
         
         
@@ -224,7 +228,7 @@ The output should be in the correct json  format which follow this format:
         }
         }
         ```
-        
+        #remember json should be closed properly
         """
 
 
@@ -262,7 +266,7 @@ The output should be in the following format:
 }
 }
         ```
-        json format should be valid json
+        #json format should be valid json
         """
 
 Strengths = """
@@ -291,6 +295,7 @@ The output should be in the following format:
 }
 
 #it should be very short and clear try to put every point into 12-15 words
+#remember json should be closed properly
             ```
 """
 
@@ -320,5 +325,6 @@ The output should be in the following format:
 "Worst point 3":"Brief on Worst point 3 (it should be very clear, Sort ,Valid)."
 }            
 }#it should be very short and clear try to put every point into 12-15 words
+#remember json should be closed properly
             ```
 """
