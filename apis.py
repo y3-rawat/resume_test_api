@@ -15,10 +15,10 @@ i = os.getenv('g9')
 
 
 
-groq_keys = [a,b,c,d,e,f,g,h,i]
+groq_keys = [a,c,e,f,g,h,i]
 
-#542,eurotech ,y3,c2c,y1sh,billionare,jugad,03872,trillion
-
+#542, ,y3,y1sh,billionare,jugad,03872,trillion
+# eurotech,c2c
 import numpy as np
 def keys():
     number = np.random.randint(len(groq_keys))
