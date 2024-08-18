@@ -5,7 +5,8 @@ import calculations
 import uuid
 
 app = Flask(__name__)
-CORS(app)
+
+cors = CORS(app, resources={r"/submit": {"origins": "*"}, r"/status/<task_id>": {"origins": "*"}})
 
 executor = ThreadPoolExecutor(max_workers=4)
 tasks = {}
