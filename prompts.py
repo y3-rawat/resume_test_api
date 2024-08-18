@@ -181,6 +181,8 @@ The result should be in the following format:
         ],
         }#recommendations should be very short and clear try to put that into 30-45 words it should be focused on skills
 }
+}
+#remember json should be closed properly
 
         ```
         
