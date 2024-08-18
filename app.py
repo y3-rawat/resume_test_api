@@ -1,15 +1,16 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from concurrent.futures import ThreadPoolExecutor
-import calculations
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import uuid
 
 app = Flask(__name__)
 
-cors = CORS(app, resources={r"/submit": {"origins": "*"}, r"/status/<task_id>": {"origins": "*"}})
+# Enable CORS for all routes and origins
+CORS(app)
 
 executor = ThreadPoolExecutor(max_workers=4)
 tasks = {}
+
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json() if request.is_json else request.form.to_dict()
@@ -27,19 +28,12 @@ def get_status(task_id):
     if not task:
         return jsonify({'error': 'Task not found'}), 404
     
-    return jsonify(task)
-
-@app.route('/status/<task_id>', methods=['GET'])
-def get_status(task_id):
-    task = tasks.get(task_id)
-    if not task:
-        return jsonify({'error': 'Task not found'}), 404
-    
     return jsonify({
         'status': task['status'],
         'result': task.get('result'),
         'error': task.get('error')
     })
+
 def process_task(task_id, data):
     try:
         result = run_calculations(data)
