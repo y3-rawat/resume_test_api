@@ -140,7 +140,7 @@ The output should be in the following format:
                 "suggestion3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
             },}
             }
-            #suggestions should be very short and clear try to put that into 30-45 words do not repeat things this part should be strongly focus on projects
+            #suggestions should be very short and clear try to put that into 15-20 words do not repeat things this part should be strongly focus on projects
             ```
             #remember json should be closed properly
 """
@@ -183,7 +183,7 @@ The result should be in the following format:
             
         ],
         }
-        #recommendations should be very short and clear try to put that into 30-45 words it should be focused on skills
+        #recommendations should be very short and clear try to put that into 15-20 words it should be focused on skills
 }
 }
 #remember json should be closed properly
@@ -263,7 +263,7 @@ The output should be in the following format:
             "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
             
         ],
-        #suggestions should be very short and clear try to put that into 30-45 words and it should be focused on what can be achive in short period nothing should sound ideal
+        #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
 }
 }
         ```
