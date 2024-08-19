@@ -119,6 +119,7 @@ Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 you are the part of process so do not give any thing else it do not give any value to that project 
 #if project is not present in the resume you have to say "Project Not preset":0 and at the section of suggestion = No Suggestions for project 
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
 ```
@@ -158,6 +159,7 @@ Ensure that all feedback accurately reflects the job description.
 Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 you are the part of process so do not give any thing else it do not give any value to that project 
 #if you didn't find any skill on resume just tell in json that "No skill found":0 
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The result should be in the following format:
 ```
@@ -208,6 +210,7 @@ Your goal is to help improve the resume, making it exceptional and removing any 
 
 you are the part of process so do not give any thing else it do not give any value to that project 
 #if you didn't find any courses on resume just give in json "No courses found" : 0 
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the correct json  format which follow this format:
 ```
@@ -246,6 +249,7 @@ Your goal is to help improve the resume, making it exceptional and removing any 
 
 you are the part of process so do not give any thing else it do not give any value to that project 
 if you didn't find any experience on resume just give in json "No expereince found":0
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
 ```
@@ -284,6 +288,7 @@ Discuss trade-offs and implementation options if there are choices to be made.
 Ensure that all feedback accurately reflects the job description.
 Your goal is to give the best part of resume for the job desciption.
 you are the part of process so do not give any thing else it do not give any value to that project 
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
 ```
@@ -316,6 +321,7 @@ Discuss trade-offs and implementation options if there are choices to be made.
 Ensure that all feedback accurately reflects the job description.
 Your goal is to give the Worst part of resume for the job desciption.
 you are the part of process so do not give any thing else it do not give any value to that project 
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
 ```
