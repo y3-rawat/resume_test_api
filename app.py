@@ -80,9 +80,9 @@ def get_data(job_description, additional_information, extracted_text):
          ],
     }
 
-
-def API_fucn():
+def API_func():
     global api
+    print(f"API key: {api}")  # Debug print
     return api
 
 @app.route('/submit', methods=['POST'])
@@ -90,7 +90,11 @@ def submit():
     job_description = request.args.get('job_description', '')
     additional_information = request.args.get('additional_information', '')
     extracted_text = request.args.get('ext-text', '')
-    api = request.args.get('api','')
+    api_key = request.args.get('api', '')  # Use api_key for clarity
+
+    global api
+    api = api_key  # Assign the API key correctly
+
     
     output = get_data(job_description, additional_information, extracted_text)
 

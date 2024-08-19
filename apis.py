@@ -27,8 +27,9 @@ def keys():
 # def gemini(input,key):
 #     llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest",google_api_key=key, temperature=0)
 #     return llm.invoke(input)
-import app
-api = app.API_fucn()
+from app import API_func
+
+api = API_func()
 
 def groq(input):
     chat = ChatGroq(
