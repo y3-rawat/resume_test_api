@@ -30,7 +30,6 @@ def keys():
 import app
 api = app.API_fucn()
 
-
 def groq(input):
     chat = ChatGroq(
         temperature=0,
