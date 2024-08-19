@@ -88,7 +88,7 @@ def submit():
     extracted_text = request.args.get('ext-text', '')
     api_key = request.args.get('api', '')  # Use api_key for clarity
     apis.API_func(api_key)
-    output = get_data(job_description, additional_information, extracted_text,api_key)
+    output = get_data(job_description, additional_information, extracted_text)
 
     return jsonify(output)
 
