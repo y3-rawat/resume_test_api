@@ -6,10 +6,12 @@ import calculations
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/submit": {"origins": "*"}})
-
+api =None
 # Create a global ThreadPoolExecutor
 executor = ThreadPoolExecutor(max_workers=4)
-
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
 def run_parallel_tasks(final_resume, job_description, extracted_text):
     tasks = {
         'skills': lambda: calculations.skills_taken(final_resume, job_description),
@@ -78,9 +80,10 @@ def get_data(job_description, additional_information, extracted_text):
          ],
     }
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template('index.html')
+
+def API_fucn():
+    global api
+    return api
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -88,9 +91,9 @@ def submit():
     additional_information = request.args.get('additional_information', '')
     extracted_text = request.args.get('ext-text', '')
     api = request.args.get('api','')
-    print("api code",api)
-    output = get_data(job_description, additional_information, extracted_text)
     
+    output = get_data(job_description, additional_information, extracted_text)
+
     return jsonify(output)
 
 if __name__ == '__main__':

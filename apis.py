@@ -27,14 +27,18 @@ def keys():
 # def gemini(input,key):
 #     llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest",google_api_key=key, temperature=0)
 #     return llm.invoke(input)
+import app
+api = app.API_fucn()
 
-def groq(input,key):
+
+def groq(input):
     chat = ChatGroq(
         temperature=0,
         # model="llama3-70b-8192",
         model = "llama-3.1-70b-versatile",
         # api_key=groq_keys[keys()[0]], # Optional if not set as an environment variable
         # api_key = "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",
+        api_key = api
     )
     return chat.invoke(input)
 def final(Input):
@@ -42,7 +46,9 @@ def final(Input):
     # random_num = keys()
     if 1 == 1:
         print("calling from groq")
-        return groq(Input,groq_keys[keys()[0]]).content
+        # return groq(Input,groq_keys[keys()[0]]).content
+        return groq(Input).content
+        print("api code",api)
     else:
         print("calling from gemini")
         # return gemini(Input,gemmini_api_key[keys()[1]]).content
