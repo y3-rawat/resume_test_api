@@ -80,8 +80,6 @@ def fetch_data_with_retry(prompt, index, retry_count):
             print(f"Attempt from resume {attempt + 1} failed with error: {e}")
     return False
 
-
-
 def resume_input1(resume_text1, additional_information, index):
     resume_content_prompt1 = f"""{prompts.resume_prompt1}
     {resume_text1}
@@ -108,7 +106,7 @@ def resume_input2(resume_text, additional_information, index):
     else:
         print("Failed to process resume_text")
 
-def resume_final(resume_text, additional_information):
+def resume_final(resume_text, additional_information,api_key):
     thread1 = threading.Thread(target=resume_input1, args=(resume_text, additional_information, 0))
     thread2 = threading.Thread(target=resume_input2, args=(resume_text, additional_information, 1))
 

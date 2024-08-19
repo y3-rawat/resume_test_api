@@ -19,6 +19,7 @@ groq_keys = [a,c,e,f,g,h,i]
 
 #542, ,y3,y1sh,billionare,jugad,03872,trillion
 # eurotech,c2c
+api = None
 import numpy as np
 def keys():
     number = np.random.randint(len(groq_keys))
@@ -27,9 +28,11 @@ def keys():
 # def gemini(input,key):
 #     llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest",google_api_key=key, temperature=0)
 #     return llm.invoke(input)
-from app import API_func
+def API_func(api_key):
+    global api
+    api = api_key
+    return api
 
-api = API_func()
 
 def groq(input):
     chat = ChatGroq(

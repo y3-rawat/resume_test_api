@@ -79,11 +79,7 @@ def get_data(job_description, additional_information, extracted_text):
         
          ],
     }
-
-def API_func():
-    global api
-    print(f"API key: {api}")  # Debug print
-    return api
+import apis
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -91,12 +87,8 @@ def submit():
     additional_information = request.args.get('additional_information', '')
     extracted_text = request.args.get('ext-text', '')
     api_key = request.args.get('api', '')  # Use api_key for clarity
-
-    global api
-    api = api_key  # Assign the API key correctly
-
-    
-    output = get_data(job_description, additional_information, extracted_text)
+    apis.API_func(api_key)
+    output = get_data(job_description, additional_information, extracted_text,api_key)
 
     return jsonify(output)
 
