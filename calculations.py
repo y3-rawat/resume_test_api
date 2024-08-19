@@ -106,7 +106,7 @@ def resume_input2(resume_text, additional_information, index):
     else:
         print("Failed to process resume_text")
 
-def resume_final(resume_text, additional_information,api_key):
+def resume_final(resume_text, additional_information):
     thread1 = threading.Thread(target=resume_input1, args=(resume_text, additional_information, 0))
     thread2 = threading.Thread(target=resume_input2, args=(resume_text, additional_information, 1))
 
