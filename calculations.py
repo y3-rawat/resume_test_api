@@ -250,7 +250,7 @@ def Score_cards(resume_text, job_description):
             return d
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")
-    experience_error = """{ "output": { "ats": { "score": 505, "description": "Error Occurred!", "reason": "An Error occurred", "improvementTip": "An Error occurred" }, "jd": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "overall": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "ranking": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "keywords": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" } } }"""
+    experience_error = """{ "score_card": { "ats": { "score": 505, "description": "Error Occurred!", "reason": "An Error occurred", "improvementTip": "An Error occurred" }, "jd": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "overall": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "ranking": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "keywords": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" } } }"""
     return json.loads(experience_error)
 
 def Strenths(resume_text, job_description):
