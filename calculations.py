@@ -165,7 +165,18 @@ def skills_taken(resume_text, job_description):
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
     
-    skills_taken_error = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
+    skills_taken_error = """{
+        "output": {
+            "skill_Score": {
+            "skills_ratio": {"Please Put the Complaint there is some error on this function. Skill function is not working correctly": 5,"Error Continue":0,"Error Occured":0},
+            "advice": "An error Occurred At this function"
+            },
+            "recommendations": [
+            "Please Tell the author There is something wrong in this code"
+            ]
+        }
+        }
+        """
     return json.loads(skills_taken_error)
 
 
@@ -188,7 +199,20 @@ def projects_done(resume_text, job_description):
         except Exception as e:
             print(f"Attempt from projects {attempt + 1} failed with error: {e}")
             
-    project_error = """{ "output": { "project_impact": { "impact": { "An Error Occurred": "5","Error Continue":0,"Error Continue":0 }, "advice": "An Error Occurred At this part.", "suggestion1": "Something Went Wrong!", "suggestion2": "Something Went Wrong!", "suggestion3": "Something Went Wrong!" } } }"""
+    project_error = """{
+    "output": {
+        "project_impact": {
+        "impact": {
+            "An Error Occurred": "5","Error Continue":0,"Error Continue1":0
+        },
+        "advice": "An Error Occurred At this part.",
+        "suggestion1": "Something Went Wrong1!",
+        "suggestion2": "Something Went Wrong2!",
+        "suggestion3": "Something Went Wrong3!"
+        }
+    }
+    }
+    """
     return json.loads(project_error)
 
 def courses_done(resume_text, job_description):
@@ -210,7 +234,21 @@ def courses_done(resume_text, job_description):
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
             
-    course_error = """{ "output": { "course_impact": { "impt": { "An Error Occurred": 0 }, "course_advice": "An Error Occurred At the course part please share the information with the developer.", "suggestion1": "An Error Occurred At the course part please share the information with the developer.", "suggestion2": "An Error Occurred At the course part please share the information with the developer.", "suggestion3": "An Error Occurred At the course part please share the information with the developer." } } }"""
+    course_error = """{
+        "output": {
+            "course_impact": {
+            "impt": {
+                "An Error Occurred": 5,
+                "An Error Occurred1": 0,
+                "An Error Occurred2": 0
+            },
+            "course_advice": "An Error Occurred At the course part please share the information with the developer1.",
+             "suggestion1": "Something Went Wrong1!",
+            "suggestion2": "Something Went Wrong2!",
+            "suggestion3": "Something Went Wrong3!"
+            }
+        }
+        }"""
     return json.loads(course_error)
 
 def experience_done(resume_text, job_description):
@@ -230,7 +268,25 @@ def experience_done(resume_text, job_description):
         except Exception as e:
             print(f"Attempt experience {attempt + 1} failed with error: {e}")
 
-    experience_error = """{ "output": { "experience_relevance": { "imp": { "An Error Occurred": 0 }, "advice": "An Error Occurred At the course part please share the information with the developer." }, "Actionable Recommendations": [ "An Error Occurred At the course part please share the information with the developer.", "An Error Occurred At the course part please share the information with the developer.", "An Error Occurred At the course part please share the information with the developer.", "An Error Occurred At the course part please share the information with the developer." ] } }"""
+    experience_error ="""{
+        "output": {
+            "experience_relevance": {
+            "imp": {
+                "An Error Occurred": 0,
+                "An Error Occurred": 0,
+                "An Error Occurred": 0
+
+            },
+            "advice": "An Error Occurred At the course part please share the information with the developer."
+            },
+            "Actionable Recommendations": [
+            "An Error Occurred in the course part please share the information with the developer.",
+            "An Error Occurred At the course part please share  information with the developer.",
+            "An Error Occurred on the course part please share the information with the developer.",
+            "An Error Occurred At the course part please share the information with  developer."
+            ]
+        }
+        }"""
     return json.loads(experience_error)
 
 def Score_cards(resume_text, job_description):
