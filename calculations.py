@@ -70,7 +70,7 @@ def add_to_outputs(name, response):
 def fetch_data_with_retry(prompt, index, retry_count):
     for attempt in range(retry_count):
         try:
-            response = apis.final(prompt)
+            response = apis.final(prompt,"resume")
             add_to_outputs("resume", response)  # Add to batch instead of immediate insertion
             data = response.split("```")[1]
             with results_lock:
@@ -154,7 +154,7 @@ def skills_taken(resume_text, job_description):
                 {resume_text["skills"]}
             """
 
-            skills_t = apis.final(skill)
+            skills_t = apis.final(skill,"skills")
             add_to_outputs("skills_name", skills_t)
             print("Raw API response:", skills_t)  # Log raw response
             skill_splited = skills_t.split("```")[1]
@@ -180,7 +180,7 @@ def projects_done(resume_text, job_description):
                 {resume_text["projects"]}
             """
 
-            Projects = apis.final(project)
+            Projects = apis.final(project,"projects")
             add_to_outputs("project_name", Projects)  # Log the output to MongoDB
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
@@ -202,7 +202,7 @@ def courses_done(resume_text, job_description):
                 {resume_text["courses"]}
             """
             
-            Courses = apis.final(course)
+            Courses = apis.final(course,"course")
             add_to_outputs("course_name", Courses)  # Log the output to MongoDB
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
@@ -222,7 +222,7 @@ def experience_done(resume_text, job_description):
                 {job_description}
                 ###Experience_Presented_In_Resume###
                 {resume_text["experience"]}"""
-            experience1 = apis.final(experience)
+            experience1 = apis.final(experience,"experience")
             add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
@@ -242,7 +242,7 @@ def Score_cards(resume_text, job_description):
             {job_description}
             ###Resume###
             {resume_text}"""
-            score_cards_output = apis.final(Score_card)
+            score_cards_output = apis.final(Score_card,"scores")
             add_to_outputs("Score_card_name", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
@@ -261,7 +261,7 @@ def Strenths(resume_text, job_description):
         {job_description}
         ###Resume###
         {resume_text}"""
-            Strenths = apis.final(Strent_prompts)
+            Strenths = apis.final(Strent_prompts,"strength")
             add_to_outputs("Strent_prompts_name", Strenths)  # Log the output to MongoDB
             exp = Strenths.split("```")[1]
             d = json.loads(exp)
@@ -281,7 +281,7 @@ def Worst_point(resume_text, job_description):
         {job_description}
         ###Resume###
         {resume_text}"""
-            worst_point = apis.final(weekness_ponts)
+            worst_point = apis.final(weekness_ponts,"weekness")
             add_to_outputs("weekness_ponts_name", worst_point)  # Log the output to MongoDB
             exp = worst_point.split("```")[1]
             d = json.loads(exp)
