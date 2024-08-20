@@ -8,7 +8,7 @@ import concurrent.futures
 app = Flask(__name__)
 cors = CORS(app, resources={r"/submit": {"origins": "*"}})
 api = None
-executor = ThreadPoolExecutor(max_workers=6)
+executor = ThreadPoolExecutor(max_workers=9)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

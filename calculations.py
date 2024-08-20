@@ -95,7 +95,7 @@ def resume_input1(resume_text1, additional_information, index):
 def resume_input2(resume_text, additional_information, index):
     resume_content_prompt = f"""{prompts.resume_prompt2}
     {resume_text}
-    #Additional information of candidate
+    #Additional information of candidate#
     {additional_information}
     ###Important Notice###
     # Only add experience which user has taken from the company not from projects"""
