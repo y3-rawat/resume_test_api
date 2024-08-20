@@ -16,6 +16,7 @@ you have to saprate these sections
 Please return the extracted data in the correct JSON format:
 # points should be saprerated by (,)
 
+Json should be under (```)
 ```
 
 {
@@ -45,6 +46,7 @@ you have to saprate ONLY experience
 ###FORMAT###
 
 Please return the extracted data in the correct JSON format do not put any points add comma insted of points :
+Json should be under (```)
 ```
 {
 
@@ -68,6 +70,7 @@ so do not give the random scores
 you are the part of process so do not give any thing else it do not give any value to that project 
 ###FORMAT###
 The output should be in the following format:
+Json should be under (```)
 ```
 {
   "score_card": 
@@ -132,6 +135,7 @@ you are the part of process so do not give any thing else it do not give any val
 do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
+Json should be under (```)
 ```
 {
     "output": {
@@ -174,6 +178,7 @@ you are the part of process so do not give any thing else it do not give any val
 #if you didn't find any skill on resume just tell in json that "No skill found":0 
 ###FORMAT###
 The result should be in the following format:
+Json should be under (```)
 ```
 {
     "output": {
@@ -219,6 +224,7 @@ Your goal is to help improve the resume, making it exceptional and removing any 
 
 ###FORMAT###
 The output should be in the correct json  format which follow this format:
+Json should be under (```)
 ```
 {
     "output": {
@@ -259,6 +265,7 @@ if you didn't find any experience on resume just give in json "No expereince fou
 do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
+Json should be under (```)
 ```
 {
     "output": {
@@ -300,6 +307,7 @@ you are the part of process so do not give any thing else it do not give any val
 do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
+Json should be under (```)
 ```
 {
     "output": {
@@ -333,6 +341,7 @@ you are the part of process so do not give any thing else it do not give any val
 do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
+Json should be under (```)
 ```
 {
     "output": {
