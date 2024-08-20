@@ -60,7 +60,7 @@ Json should be under (```)
 
 """
 
-score_card_prompt = """
+score_card_prompt1 = """
 ###Instruction###
 
 You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide genuine scores based on the resume.
@@ -73,39 +73,19 @@ The output should be in the following format:
 Json should be under (```)
 ```
 {
-  "score_card": 
+  "score_card1": 
   {
-    "ats":
-        {
-          "score": What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50),
-          "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip under 12 words"
-        },
-    "jd": 
-        {
-          "score": What is the Job Description match Score of this resume compared to job description (Score Number ex- 30, 40, 50),
-          "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip on aligning resume with jd under 12 words"
-        },
-    "overall": 
-        {
-          "score": What is the Overall Score of this resume compared to job description (Score Number ex- 30, 40, 50),
-          "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip on aligning everything under 12 words"
-        },
+
   "ranking": 
         {
-          "score": What is the Resume Ranking Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+          "score": "What is the Resume Ranking Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
           "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
           "reason": "Reasion under 12 words",
           "improvementTip": "Small tip on Ranking under 12 words"
         },
   "keywords":
         {
-          "score": What is the Keywords Score of this resume compared to job description (Score Number ex- 30, 40, 50),
+          "score": "What is the Keywords Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
           "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
           "reason": "Reasion under 12 words",
           "improvementTip": "Small tip on keywords under 12 words"
@@ -113,6 +93,52 @@ Json should be under (```)
   }
 }
 
+
+```
+#remember json should be closed properly
+#you are in a process so do not give anything else  and json should be between ``` quotes
+"""
+
+score_card_prompt2 = """
+###Instruction###
+
+You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide genuine scores based on the resume.
+Conduct a deep-dive review of the existing resume and job description.
+Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
+so do not give the random scores 
+you are the part of process so do not give any thing else it do not give any value to that project 
+###FORMAT###
+The output should be in the following format:
+Json should be under (```)
+```
+ 
+
+{
+  "score_card2": 
+  {
+    "ats":
+        {
+          "score":" What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+          "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+          "reason": "Reasion under 12 words",
+          "improvementTip": "Small tip under 12 words"
+        },
+    "jd": 
+        {
+          "score": "What is the Job Description match Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+          "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+          "reason": "Reasion under 12 words",
+          "improvementTip": "Small tip on aligning resume with jd under 12 words"
+        },
+    "overall": 
+        {
+          "score": "What is the Overall Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+          "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+          "reason": "Reasion under 12 words",
+          "improvementTip": "Small tip on aligning everything under 12 words"
+        }
+  }
+}
 ```
 #remember json should be closed properly
 #you are in a process so do not give anything else  and json should be between ``` quotes

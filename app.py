@@ -20,7 +20,8 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'projects': lambda: calculations.projects_done(final_resume, job_description),
         'courses': lambda: calculations.courses_done(final_resume, job_description),
         'experience': lambda: calculations.experience_done(final_resume, job_description),
-        'score': lambda: calculations.Score_cards(extracted_text, job_description),
+        'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
+        'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
         'strengths': lambda: calculations.Strenths(extracted_text, job_description),
         'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
     }
@@ -65,10 +66,19 @@ def get_data(job_description, additional_information, extracted_text):
             else:
                 return None
         return dict_obj
+    score_card1 = safe_get(results, 'score1', 'output') or {}
+    score_card2 = safe_get(results, 'score2', 'output') or {}
 
+    score_card = {
+        "ats": score_card2.get('ats', {}),
+        "jd": score_card2.get('jd', {}),
+        "overall": score_card2.get('overall', {}),
+        "ranking": score_card1.get('ranking', {}),
+        "keywords": score_card1.get('keywords', {})
+    }
     # Populate the response, using error messages for any missing data
     response = {
-        "score_card": safe_get(results, 'score', "score_card") or error_response["details"].setdefault("score_card", "Failed to calculate score"),
+        "score_card": score_card,
         "project_impact": safe_get(results, 'projects', "output", "project_impact") or error_response["details"].setdefault("project_impact", "Failed to analyze projects"),
         "skill_Score": safe_get(results, 'skills', "output", "skill_Score") or error_response["details"].setdefault("skill_Score", "Failed to analyze skills"),
         "recommendations": safe_get(results, 'skills', "output", "recommendations") or error_response["details"].setdefault("recommendations", "No recommendations available"),

@@ -289,24 +289,90 @@ def experience_done(resume_text, job_description):
         }"""
     return json.loads(experience_error)
 
-def Score_cards(resume_text, job_description):
+def Score_cards1(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
-            Score_card = f"""{prompts.score_card_prompt}
+            Score_card = f"""{prompts.score_card_prompt1}
             ###Job Description###
             {job_description}
             ###Resume###
             {resume_text}"""
-            score_cards_output = apis.final(Score_card,"scores")
-            add_to_outputs("Score_card_name", score_cards_output)  # Log the output to MongoDB
+            score_cards_output = apis.final(Score_card,"scores1")
+            add_to_outputs("Score_card_name1", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
-            d["score_card"] #testing the work
+            d["score_card1"] #testing the work
             return d
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")
-    experience_error = """{ "score_card": { "ats": { "score": 505, "description": "Error Occurred!", "reason": "An Error occurred", "improvementTip": "An Error occurred" }, "jd": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "overall": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "ranking": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" }, "keywords": { "score": 505, "description": "Error Occurred!", "reason": "Error Occurred!", "improvementTip": "Error Occurred!" } } }"""
+    experience_error = """
+            {
+                "score_card1": 
+                {
+
+                    "ranking": {
+                        "score": 505,
+                        "description": "Error Occurred!",
+                        "reason": "Error Occurred!",
+                        "improvementTip": "Error Occurred!"
+                    },
+                    "keywords": {
+                        "score": 505,
+                        "description": "Error Occurred!",
+                        "reason": "Error Occurred!",
+                        "improvementTip": "Error Occurred!"
+                    }
+                }
+            }"""
     return json.loads(experience_error)
+
+
+def Score_cards2(resume_text, job_description):
+    for attempt in range(MAX_RETRIES):
+        try:
+            Score_card = f"""{prompts.score_card_prompt2}
+            ###Job Description###
+            {job_description}
+            ###Resume###
+            {resume_text}"""
+            score_cards_output = apis.final(Score_card,"scores2")
+            add_to_outputs("Score_card_name2", score_cards_output)  # Log the output to MongoDB
+            exp = score_cards_output.split("```")[1]
+            d = json.loads(exp)
+            d["score_card2"] #testing the work
+            return d
+        except Exception as e:
+            print(f"Attempt score {attempt + 1} failed with error: {e}")
+    experience_error = """
+        {
+            "score_card2": {
+                "ats": {
+                    "score": 505,
+                    "description": "Error Occurred!",
+                    "reason": "An Error occurred",
+                    "improvementTip": "An Error occurred"
+                },
+                "jd": {
+                    "score": 505,
+                    "description": "Error Occurred!",
+                    "reason": "Error Occurred!",
+                    "improvementTip": "Error Occurred!"
+                },
+                "overall": {
+                    "score": 505,
+                    "description": "Error Occurred!",
+                    "reason": "Error Occurred!",
+                    "improvementTip": "Error Occurred!"
+                }
+                
+            }
+        }"""
+    return json.loads(experience_error)
+
+
+
+
+
 
 def Strenths(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
