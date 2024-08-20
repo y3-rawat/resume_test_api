@@ -165,9 +165,8 @@ def skills_taken(resume_text, job_description):
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
     
-    error_json = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
-    
-    return json.loads(error_json)
+    skills_taken_error = """{ "output": { "skill_Score": { "skills_ratio": {"Something wrong": 5,"Error Continue":0,"Error Continue":0}, "advice": "An error Occurred At this function" }, "recommendations": [ "Please Tell the author There is something wrong in this code" ] } }"""
+    return json.loads(skills_taken_error)
 
 
 def projects_done(resume_text, job_description):
