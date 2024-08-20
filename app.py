@@ -67,8 +67,8 @@ def get_data(job_description, additional_information, extracted_text):
                 return None
         return dict_obj
     
-    a = results["score1"]
-    b = results["score2"]
+    b = results["score1"]
+    a = results["score2"]
     merged = {
             "score_card": {
                 **a["score_card2"],
