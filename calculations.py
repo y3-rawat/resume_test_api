@@ -215,21 +215,54 @@ def projects_done(resume_text, job_description):
     """
     return json.loads(project_error)
 
-def courses_done(resume_text, job_description):
+def courses_done1(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
-            course = f"""{prompts.course_prompt}
+            course = f"""{prompts.course_prompt1}
                 ###Job Description###
                 {job_description}
                 ###Course_Presented_In_Resume###
                 {resume_text["courses"]}
             """
             
-            Courses = apis.final(course,"course")
-            add_to_outputs("course_name", Courses)  # Log the output to MongoDB
+            Courses = apis.final(course,"course1")
+            add_to_outputs("course_name1", Courses)  # Log the output to MongoDB
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
-            d["output"]
+            d["course_impact"]
+            return d
+        except Exception as e:
+            print(f"Attempt course {attempt + 1} failed with error: {e}")
+            
+    course_error = """
+    {
+    "course_impact": {
+            "impt": {
+                "An Error Occurred": 5,
+                "An Error Occurred1": 0,
+                "An Error Occurred2": 4
+            }
+        }
+    }
+    """
+    return json.loads(course_error)
+
+
+def courses_done2(resume_text, job_description):
+    for attempt in range(MAX_RETRIES):
+        try:
+            course = f"""{prompts.course_prompt2}
+                ###Job Description###
+                {job_description}
+                ###Course_Presented_In_Resume###
+                {resume_text["courses"]}
+            """
+            
+            Courses = apis.final(course,"course2")
+            add_to_outputs("course_name2", Courses)  # Log the output to MongoDB
+            course_splitted = Courses.split("```")[1]
+            d = json.loads(course_splitted)
+            d["sugg"]
             return d
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")

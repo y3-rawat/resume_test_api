@@ -18,7 +18,8 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     tasks = {
         'skills': lambda: calculations.skills_taken(final_resume, job_description),
         'projects': lambda: calculations.projects_done(final_resume, job_description),
-        'courses': lambda: calculations.courses_done(final_resume, job_description),
+        'courses1': lambda: calculations.courses_done1(final_resume, job_description),
+        'courses2': lambda: calculations.courses_done2(final_resume, job_description),
         'experience': lambda: calculations.experience_done(final_resume, job_description),
         'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
         'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
@@ -67,21 +68,31 @@ def get_data(job_description, additional_information, extracted_text):
                 return None
         return dict_obj
     
-    b = results["score1"]
-    a = results["score2"]
-    merged = {
+    sc1 = results["score1"]
+    sc2 = results["score2"]
+    merged_score = {
             "score_card": {
-                **a["score_card2"],
-                **b["score_card1"]
+                **sc1["score_card2"],
+                **sc2["score_card1"]
                 }
             }
+    co1 = results["courses1"]
+    co2 = results["courses2"]
+    merged_course = {
+        "output": {
+            "course_impact": co1["course_impact"],
+            **co2["sugg"]
+        }
+        }
+
     # Populate the response, using error messages for any missing data
     response = {
-        "score_card":merged["score_card"],
+        "score_card":merged_score["score_card"],
+
         "project_impact": safe_get(results, 'projects', "output", "project_impact") or error_response["details"].setdefault("project_impact", "Failed to analyze projects"),
         "skill_Score": safe_get(results, 'skills', "output", "skill_Score") or error_response["details"].setdefault("skill_Score", "Failed to analyze skills"),
         "recommendations": safe_get(results, 'skills', "output", "recommendations") or error_response["details"].setdefault("recommendations", "No recommendations available"),
-        "course_impact": safe_get(results, 'courses', "output", "course_impact") or error_response["details"].setdefault("course_impact", "Failed to analyze courses"),
+        "course_impact": merged_course["output"]["course_impact"],
         "experience_relevance": safe_get(results, 'experience', "output", "experience_relevance") or error_response["details"].setdefault("experience_relevance", "Failed to analyze experience"),
         "Actionable Recommendations": safe_get(results, 'experience', "output", "Actionable Recommendations") or error_response["details"].setdefault("Actionable Recommendations", "No actionable recommendations available"),
         "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
