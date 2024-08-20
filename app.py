@@ -1,17 +1,22 @@
-import time 
+import time
+import threading
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from concurrent.futures import ThreadPoolExecutor
 import calculations
+import apis
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/submit": {"origins": "*"}})
-api =None
-# Create a global ThreadPoolExecutor
 executor = ThreadPoolExecutor(max_workers=4)
+
+# Global variable to keep track of the server start time
+start_time = time.time()
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
 def run_parallel_tasks(final_resume, job_description, extracted_text):
     tasks = {
         'skills': lambda: calculations.skills_taken(final_resume, job_description),
@@ -21,7 +26,6 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'score': lambda: calculations.Score_cards(extracted_text, job_description),
         'strengths': lambda: calculations.Strenths(extracted_text, job_description),
         'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
-        
     }
     
     futures = {executor.submit(task): key for key, task in tasks.items()}
@@ -31,7 +35,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         key = futures[future]
         try:
             results[key] = future.result()
-            print("Result",key)
+            print("Result of -> ", key)
         except Exception as exc:
             results[key] = f'Error: {exc}'
             print("getting error --35")
@@ -55,31 +59,27 @@ def get_data(job_description, additional_information, extracted_text):
         "Strengths": results['strengths']["output"],
         "Weaknesses": results['weakness']["output"],
         "recommended_People_linkdin": [
-        {
-        "name": "Doe",
-        "title": "Senior Soft... ",
-        "link": "https://example.com/john-doe"
-        },
-        
-         ],
+            {
+                "name": "Doe",
+                "title": "Senior Soft... ",
+                "link": "https://example.com/john-doe"
+            },
+        ],
         "recommendedPeople_twitter": [
-        {
-        "name": "John Doe",
-        "title": "Senior Soft... ",
-        "link": "https://example.com/john-doe"
-        }
-        
-         ],
+            {
+                "name": "John Doe",
+                "title": "Senior Soft... ",
+                "link": "https://example.com/john-doe"
+            }
+        ],
         "recommendedPeople_instagram": [
-        {
-        "name": "John",
-        "title": "Senior Soft... ",
-        "link": "https://example.com/john-doe"
-        }       
-        
-         ],
+            {
+                "name": "John",
+                "title": "Senior Soft... ",
+                "link": "https://example.com/john-doe"
+            }
+        ],
     }
-import apis
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -89,8 +89,15 @@ def submit():
     api_key = request.args.get('api', '')  # Use api_key for clarity
     apis.API_func(api_key)
     output = get_data(job_description, additional_information, extracted_text)
-
     return jsonify(output)
 
+def print_elapsed_time():
+    while True:
+        elapsed_time = time.time() - start_time
+        print(f"Server running for: {elapsed_time:.2f} seconds")
+        time.sleep(1)
+
 if __name__ == '__main__':
+    # Start the elapsed time printing in a separate thread
+    threading.Thread(target=print_elapsed_time, daemon=True).start()
     app.run(debug=True)

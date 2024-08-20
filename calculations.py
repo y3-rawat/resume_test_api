@@ -156,11 +156,11 @@ def skills_taken(resume_text, job_description):
 
             skills_t = apis.final(skill,"skills")
             add_to_outputs("skills_name", skills_t)
-            print("Raw API response:", skills_t)  # Log raw response
+            
             skill_splited = skills_t.split("```")[1]
             d = json.loads(skill_splited)
             d["output"]
-            print("--------calling from output from skills-score--",d)
+            
             return d
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
