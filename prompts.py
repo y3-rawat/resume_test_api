@@ -50,7 +50,7 @@ Json should be under (```)
 ```
 {
 
-"experience": "{only return the section of Experience of the Candidate saprated with (,) every point will be saprated by ,  }",
+"experience": "{only return the section of Experience of the Candidate saprated with (,) every point will be saprated by , and if exprence is not present give None in this value }",
 
 }
 ```
