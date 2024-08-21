@@ -92,7 +92,7 @@ def get_data(job_description, additional_information, extracted_text):
         "project_impact": safe_get(results, 'projects', "output", "project_impact") or error_response["details"].setdefault("project_impact", "Failed to analyze projects"),
         "skill_Score": safe_get(results, 'skills', "output", "skill_Score") or error_response["details"].setdefault("skill_Score", "Failed to analyze skills"),
         "recommendations": safe_get(results, 'skills', "output", "recommendations") or error_response["details"].setdefault("recommendations", "No recommendations available"),
-        "course_impact": merged_course["output"]["course_impact"],
+        "course_impact": merged_course["output"],
         "experience_relevance": safe_get(results, 'experience', "output", "experience_relevance") or error_response["details"].setdefault("experience_relevance", "Failed to analyze experience"),
         "Actionable Recommendations": safe_get(results, 'experience', "output", "Actionable Recommendations") or error_response["details"].setdefault("Actionable Recommendations", "No actionable recommendations available"),
         "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
