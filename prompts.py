@@ -1,24 +1,18 @@
 resume_prompt1 = """
 ###Instruction###
+You are an expert in Applicant Tracking Systems (ATS). Your task is to extract specific sections from a provided resume. The extracted sections should be formatted in JSON, following the exact structure outlined below.
 
-Act as an expert in the field of ATS (Applicant Tracking Systems).
-Your Task is to Saprate every thing from the resume 
-you have to saprate these sections 
-# points should be saprerated by (,)
+###Sections to Extract###
+Separate and extract the following sections from the resume:
 
-1. skills.
-3. projects.
-4. courses.
-5. education.
-
-###FORMAT###
-
-Please return the extracted data in the correct JSON format:
-# points should be saprerated by (,)
-
-Json should be under (```)
+Skills: Extract all of the technical skills which you can see in the resume.
+Projects: Only return the candidate's projects section.
+Courses: This includes the candidate's graduation details, education, certifications, and courses.
+Role_User_Candidate: Only return the roles or positions held by the candidate in various companies.
+Education: Only return the candidate's education section.
+Output Format
+Please return the extracted data in the correct JSON format. Ensure the JSON is enclosed within triple backticks (```), like this:
 ```
-
 {
 "skills": "{only return the section of Skills of the Candidate}",
 "projects": "{only return the section of Projects of the Candidate}",
@@ -27,11 +21,7 @@ Json should be under (```)
 "education": "{only return the section of Education of the Candidate}",
 }
 ```
-#remember json should be closed properly
-#if there is something which is not present just give the "__":"Not present" in json
-#you are in a process so do not give anything else  and json should be between ``` quotes
-#remember json output should be correctly into json because it will be used in the code further
-#do not change the keys of json and it will be pass from json.loads()
+
 ###Resume###
 
 """
