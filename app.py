@@ -120,9 +120,7 @@ def get_data(job_description, additional_information, extracted_text):
         ],
     }
 
-    # If any errors occurred, include them in the response
-    if error_response["details"]:
-        response["errors"] = error_response["details"]
+    
 
     return response
 
