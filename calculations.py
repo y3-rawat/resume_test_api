@@ -268,19 +268,12 @@ def courses_done2(resume_text, job_description):
             print(f"Attempt course {attempt + 1} failed with error: {e}")
             
     course_error = """{
-        "output": {
-            "course_impact": {
-            "impt": {
-                "An Error Occurred": 5,
-                "An Error Occurred1": 0,
-                "An Error Occurred2": 0
-            },
-            "course_advice": "An Error Occurred At the course part please share the information with the developer1.",
-             "suggestion1": "Something Went Wrong1!",
+        "sugg": {
+            "suggestion1": "Something Went Wrong1!",
             "suggestion2": "Something Went Wrong2!",
             "suggestion3": "Something Went Wrong3!"
             }
-        }
+        
         }"""
     return json.loads(course_error)
 

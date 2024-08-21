@@ -68,8 +68,8 @@ def get_data(job_description, additional_information, extracted_text):
                 return None
         return dict_obj
     
-    sc1 = results["score1"]
-    sc2 = results["score2"]
+    sc2 = results["score1"]
+    sc1 = results["score2"]
     merged_score = {
             "score_card": {
                 **sc1["score_card2"],
@@ -130,16 +130,14 @@ import apis
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    try:
-        job_description = request.args.get('job_description', '')
-        additional_information = request.args.get('additional_information', '')
-        extracted_text = request.args.get('ext-text', '')
-        api_key = request.args.get('api', '')
-        apis.API_func(api_key)
-        output = get_data(job_description, additional_information, extracted_text)
-        return jsonify(output)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
+    job_description = request.args.get('job_description', '')
+    additional_information = request.args.get('additional_information', '')
+    extracted_text = request.args.get('ext-text', '')
+    api_key = request.args.get('api', '')
+    apis.API_func(api_key)
+    output = get_data(job_description, additional_information, extracted_text)
+    return jsonify(output)
+ 
 if __name__ == '__main__':
     app.run(debug=True)

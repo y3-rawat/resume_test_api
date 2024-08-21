@@ -289,7 +289,7 @@ Your goal is to help improve the resume, making it exceptional and removing any 
 The output should be in the correct json  format which follow this format:
 Json should be under (```)
 ```
-b = {
+{
 "sugg":
    { "suggestion1": "what needs to be done to get selected for this job description ",
       "suggestion2": "which project is not making any sense for this job description",
