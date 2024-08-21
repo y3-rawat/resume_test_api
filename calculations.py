@@ -177,6 +177,7 @@ def skills_taken(resume_text, job_description):
             "Having trouble on Finding Recommendations"
             ]
         }
+        
         }
         """
     return json.loads(skills_taken_error)
