@@ -172,7 +172,9 @@ def skills_taken(resume_text, job_description):
             "advice": "An error Occurred At this function"
             },
             "recommendations": [
-            "Please Tell the author There is something wrong in this code"
+            "Please Tell the author There is something wrong in this code",
+            "There is some problem fromm the code",
+            "Having trouble on Finding Recommendations"
             ]
         }
         }
