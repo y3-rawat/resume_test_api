@@ -81,7 +81,7 @@ def get_data(job_description, additional_information, extracted_text):
     merged_course = {
         "output": {
             "course_impact": co1["course_impact"],
-            **co2["sugg"]
+            "sug": co2["sugg"]
         }
         }
 
