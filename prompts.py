@@ -182,17 +182,24 @@ Json should be under (```)
 
 skills_prompt = """
 ###Instruction###
-You are an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description.
-You will provide excellent advice and genuine scores based on the resume, focusing on the impacts on the skills as outlined in the job description.
+You are an expert in ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description.
 
-Conduct a deep-dive review of the existing resume and job description.
-Provide feedback that balances solving the immediate problem with long-term improvement.
+Goals:
+Evaluate the Resume: Conduct a detailed review of the user's resume against the provided job description.
+Provide Feedback: Offer actionable advice to enhance the resume and address skills discrepancies.
+Focus on Skills: Ensure feedback and scoring reflect the skills outlined in the job description.
 
-Discuss trade-offs and implementation options if there are choices to be made.
-Ensure that all feedback related to skills should accurately reflects the job description.
-Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
-you are the part of process so do not give any thing else it do not give any value to that project 
-#if you didn't find any skill on resume just tell in json that "No skill found":0 
+Requirements:
+
+Skill Scoring: Score each skill listed in the job description based on its presence and relevance in the resume. Provide these scores in a JSON format.
+Recommendations: Offer concise, actionable recommendations focused on skill improvement, and include market demand insights.
+
+Instructions for JSON Output:
+Skills Included: List only those skills present in the resume.
+Skills Excluded: Do not include skills from the job description that are not found in the resume.
+No Skill Found Case: If no skills from the job description are present in the resume just tell in json that "No skill found":0 
+Recommendations: Keep them brief (15-20 words), focusing on skill improvement and market demand.
+
 ###FORMAT###
 The result should be in the following format:
 Json should be under (```)
@@ -205,6 +212,7 @@ Json should be under (```)
                 "skill2": (Score Number ex- 21),
                 "skill3": (Score Number ex- 34),
                 "skill4": (Score Number ex- 36),
+                ...
                 "skill n": (Score Number ex- 23)
             }
         },
@@ -216,12 +224,6 @@ Json should be under (```)
     }
 }
 ```
-#list every skills which user has presented in resume 
-#do not add any skill which is not present in resume 
-#do not involve the skills which is present in Job description but not in the resume
-#recommendations should be very short and clear try to put that into 15-20 words it should be focused on skills
-#remember json should be closed properly
-#do not give any kind of signs into the json output answer insted give the full name (example -> C++ to CPP Programing)
         """
 
 
@@ -290,7 +292,8 @@ Json should be under (```)
 ```
 you are the part of process so do not give any thing else it do not give any value and it will increase the output time
 #if you didn't find any courses on resume just give in json "No courses found" : 0 
-do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
+#do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
+#it suggestions should be short clear and understandable it should be only within 12-20 words 
         """
 
 
@@ -318,8 +321,8 @@ Json should be under (```)
             "imp": {
                 "expeience name 1": (Score Number ex- 11),
                 "expeience name 2":  (Score Number ex- 32),
-                                          ...
-                                          "expeience name  n":  (Score Number ex- 39)
+                ...
+                "expeience name  n":  (Score Number ex- 39)
             }
         },
         "Actionable Recommendations": [
@@ -362,9 +365,11 @@ Json should be under (```)
     }
 }
 
+
+```
 #it should be very short and clear try to put every point into 12-15 words
 #remember json should be closed properly
-            ```
+#i want only 3-4 points
 """
 
 
@@ -390,12 +395,13 @@ Json should be under (```)
 ```
 {
     "output": {
-        "Worst point 1": "Brief on Worst point 1 (it should be very clear, Sort ,Valid).",
-        "Worst point 2": "Brief on Worst point 2 (it should be very clear, Sort ,Valid).",
-        "Worst point 3": "Brief on Worst point 3 (it should be very clear, Sort ,Valid)."
+        "Worst point name": "Brief on Worst point 1 (it should be very clear, Sort ,Valid).",
+        "Worst point name": "Brief on Worst point 2 (it should be very clear, Sort ,Valid).",
+        "Worst point name": "Brief on Worst point 3 (it should be very clear, Sort ,Valid)."
     }
 }
 ```
 #it should be very short and clear try to put every point into 12-15 words
 #remember json should be closed properly
+i want only 3-4 points
 """
