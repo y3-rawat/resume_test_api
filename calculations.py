@@ -120,6 +120,7 @@ def resume_final(resume_text, additional_information):
     res2 = results[1]
 
     try:
+        
         res1 = json.loads(res1) if res1 else None
         res2 = json.loads(res2) if res2 else None
         if res1 and res2:
