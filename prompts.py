@@ -1,18 +1,24 @@
 resume_prompt1 = """
 ###Instruction###
-You are an expert in Applicant Tracking Systems (ATS). Your task is to extract specific sections from a provided resume. The extracted sections should be formatted in JSON, following the exact structure outlined below.
 
-###Sections to Extract###
-Separate and extract the following sections from the resume:
+Act as an expert in the field of ATS (Applicant Tracking Systems).
+Your Task is to Saprate every thing from the resume 
+you have to saprate these sections 
+# points should be saprerated by (,)
 
-Skills: Extract all of the technical skills which you can see in the resume.
-Projects: Only return the candidate's projects section.
-Courses: This includes the candidate's graduation details, education, certifications, and courses.
-Role_User_Candidate: Only return the roles or positions held by the candidate in various companies.
-Education: Only return the candidate's education section.
-Output Format
-Please return the extracted data in the correct JSON format. Ensure the JSON is enclosed within triple backticks (```), like this:
+1. skills.
+3. projects.
+4. courses.
+5. education.
+
+###FORMAT###
+
+Please return the extracted data in the correct JSON format:
+# points should be saprerated by (,)
+
+Json should be under (```)
 ```
+
 {
 "skills": "{only return the section of Skills of the Candidate}",
 "projects": "{only return the section of Projects of the Candidate}",
@@ -21,7 +27,10 @@ Please return the extracted data in the correct JSON format. Ensure the JSON is 
 "education": "{only return the section of Education of the Candidate}",
 }
 ```
-
+#remember json should be closed properly
+#if there is something which is not present just give the "__":"Not present" in json
+#you are in a process so do not give anything else  and json should be between ``` quotes
+#remember json output should be correctly into json because it will be used in the code further
 ###Resume###
 
 """
@@ -290,8 +299,7 @@ Json should be under (```)
 ```
 you are the part of process so do not give any thing else it do not give any value and it will increase the output time
 #if you didn't find any courses on resume just give in json "No courses found" : 0 
-#do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
-#it suggestions should be short clear and understandable it should be only within 12-20 words
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
         """
 
 
@@ -319,8 +327,8 @@ Json should be under (```)
             "imp": {
                 "expeience name 1": (Score Number ex- 11),
                 "expeience name 2":  (Score Number ex- 32),
-                ...
-                "expeience name  n":  (Score Number ex- 39)
+                                          ...
+                                          "expeience name  n":  (Score Number ex- 39)
             }
         },
         "Actionable Recommendations": [
@@ -363,11 +371,9 @@ Json should be under (```)
     }
 }
 
-
-```
 #it should be very short and clear try to put every point into 12-15 words
 #remember json should be closed properly
-#i want only 3-4 points
+            ```
 """
 
 
@@ -393,13 +399,12 @@ Json should be under (```)
 ```
 {
     "output": {
-        "Worst point name": "Brief on Worst point 1 (it should be very clear, Sort ,Valid).",
-        "Worst point name": "Brief on Worst point 2 (it should be very clear, Sort ,Valid).",
-        "Worst point name": "Brief on Worst point 3 (it should be very clear, Sort ,Valid)."
+        "Worst point 1": "Brief on Worst point 1 (it should be very clear, Sort ,Valid).",
+        "Worst point 2": "Brief on Worst point 2 (it should be very clear, Sort ,Valid).",
+        "Worst point 3": "Brief on Worst point 3 (it should be very clear, Sort ,Valid)."
     }
 }
 ```
 #it should be very short and clear try to put every point into 12-15 words
 #remember json should be closed properly
-i want only 3-4 points
 """
