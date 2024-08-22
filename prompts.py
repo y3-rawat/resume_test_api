@@ -200,6 +200,10 @@ Skills Excluded: Do not include skills from the job description that are not fou
 No Skill Found Case: If no skills from the job description are present in the resume just tell in json that "No skill found":0 
 Recommendations: Keep them brief (15-20 words), focusing on skill improvement and market demand.
 
+Note:
+ Provide no additional information or analysis beyond the required JSON output.
+
+
 ###FORMAT###
 The result should be in the following format:
 Json should be under (```)
