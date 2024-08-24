@@ -20,13 +20,13 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'projects': lambda: calculations.projects_done(final_resume, job_description),
         'courses1': lambda: calculations.courses_done1(final_resume, job_description),
         'courses2': lambda: calculations.courses_done2(final_resume, job_description),
-        'experience': lambda: calculations.experience_done(final_resume, job_description),
-        'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
-        'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
-        'strengths': lambda: calculations.Strenths(extracted_text, job_description),
-        'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
+        
     }
-    
+    # 'experience': lambda: calculations.experience_done(final_resume, job_description),
+    # 'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
+    # 'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
+    # 'strengths': lambda: calculations.Strenths(extracted_text, job_description),
+    # 'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
     results = {}
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(tasks)) as executor:
