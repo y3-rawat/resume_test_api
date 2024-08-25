@@ -164,7 +164,7 @@ def skills_taken(resume_text, job_description):
             """
 
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                future = executor.submit(final, skill, "skills")
+                future = executor.submit(apis.final, skill, "skills")
                 try:
                     response = future.result(timeout=TIMEOUT_SECONDS)
                 except concurrent.futures.TimeoutError:
