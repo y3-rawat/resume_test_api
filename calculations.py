@@ -100,6 +100,7 @@ def resume_input2(resume_text, additional_information, index):
     #Additional information of candidate#
     {additional_information}
     ###Important Notice###
+    #Do not Ignore Any thing which is present in resume includeing skills experience etc. you know every thing
     # Only add experience which user has taken from the company not from projects"""
     
     success = fetch_data_with_retry(resume_content_prompt, index, MAX_RETRIES)
@@ -145,7 +146,7 @@ def resume_final(resume_text, additional_information):
 import json
 import concurrent.futures
 
-MAX_RETRIES = 3
+
 TIMEOUT_SECONDS = 5  # Timeout period in seconds
 
 def skills_taken(resume_text, job_description):
@@ -235,6 +236,7 @@ def skills_taken(resume_text, job_description):
             ]
         }
     }"""
+
     return json.loads(skills_taken_error)
 
 
