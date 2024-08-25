@@ -20,18 +20,17 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'projects': lambda: calculations.projects_done(final_resume, job_description),
         'courses1': lambda: calculations.courses_done1(final_resume, job_description),
         'courses2': lambda: calculations.courses_done2(final_resume, job_description),
-        
+        'experience': lambda: calculations.experience_done(final_resume, job_description),
+        'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
+        'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
+        'strengths': lambda: calculations.Strenths(extracted_text, job_description),
+        'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
     }
-    # 'experience': lambda: calculations.experience_done(final_resume, job_description),
-    # 'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
-    # 'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
-    # 'strengths': lambda: calculations.Strenths(extracted_text, job_description),
-    # 'weakness': lambda: calculations.Worst_point(extracted_text, job_description),
+    
     results = {}
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(tasks)) as executor:
         future_to_key = {executor.submit(task): key for key, task in tasks.items()}
-        
         for future in concurrent.futures.as_completed(future_to_key):
             key = future_to_key[future]
             try:
@@ -68,14 +67,14 @@ def get_data(job_description, additional_information, extracted_text):
                 return None
         return dict_obj
     
-    # sc2 = results["score1"]
-    # sc1 = results["score2"]
-    # merged_score = {
-    #         "score_card": {
-    #             **sc1["score_card2"],
-    #             **sc2["score_card1"]
-    #             }
-    #         }
+    sc2 = results["score1"]
+    sc1 = results["score2"]
+    merged_score = {
+            "score_card": {
+                **sc1["score_card2"],
+                **sc2["score_card1"]
+                }
+            }
     co1 = results["courses1"]
     co2 = results["courses2"]
     merged_course = {
@@ -87,16 +86,16 @@ def get_data(job_description, additional_information, extracted_text):
 
     # Populate the response, using error messages for any missing data
     response = {
-        # "score_card":merged_score["score_card"],
+        "score_card":merged_score["score_card"],
 
         "project_impact": safe_get(results, 'projects', "output", "project_impact") or error_response["details"].setdefault("project_impact", "Failed to analyze projects"),
         "skill_Score": safe_get(results, 'skills', "output", "skill_Score") or error_response["details"].setdefault("skill_Score", "Failed to analyze skills"),
         "recommendations": safe_get(results, 'skills', "output", "recommendations") or error_response["details"].setdefault("recommendations", "No recommendations available"),
         "course_impact": merged_course["output"],
-        # "experience_relevance": safe_get(results, 'experience', "output", "experience_relevance") or error_response["details"].setdefault("experience_relevance", "Failed to analyze experience"),
-        # "Actionable Recommendations": safe_get(results, 'experience', "output", "Actionable Recommendations") or error_response["details"].setdefault("Actionable Recommendations", "No actionable recommendations available"),
-        # "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
-        # "Weaknesses": safe_get(results, 'weakness', "output") or error_response["details"].setdefault("Weaknesses", "Failed to identify weaknesses"),
+        "experience_relevance": safe_get(results, 'experience', "output", "experience_relevance") or error_response["details"].setdefault("experience_relevance", "Failed to analyze experience"),
+        "Actionable Recommendations": safe_get(results, 'experience', "output", "Actionable Recommendations") or error_response["details"].setdefault("Actionable Recommendations", "No actionable recommendations available"),
+        "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
+        "Weaknesses": safe_get(results, 'weakness', "output") or error_response["details"].setdefault("Weaknesses", "Failed to identify weaknesses"),
         "recommended_People_linkdin": [
             {
                 "name": "Doe",
