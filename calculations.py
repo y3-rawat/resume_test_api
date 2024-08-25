@@ -5,7 +5,9 @@ import prompts
 import threading
 from pymongo import MongoClient
 import pymongo
-
+import json
+import concurrent.futures
+import time
 
 from datetime import datetime
 from dotenv import load_dotenv
@@ -140,6 +142,11 @@ def resume_final(resume_text, additional_information):
         res1 = resume_text
         
     return res1
+import json
+import concurrent.futures
+
+MAX_RETRIES = 3
+TIMEOUT_SECONDS = 5  # Timeout period in seconds
 
 def skills_taken(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
@@ -155,38 +162,90 @@ def skills_taken(resume_text, job_description):
                 {resume_text["skills"]}
             """
 
-            skills_t = apis.final(skill,"skills")
-            add_to_outputs("skills_name", skills_t)
-            
-            skill_splited = skills_t.split("```")[1]
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(final, skill, "skills")
+                try:
+                    response = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt from skills {attempt + 1} timed out")
+                    # Return timeout-specific JSON response
+                    return json.loads("""{
+                        "output": {
+                            "skill_Score": {
+                                "skills_ratio": {
+                                    "time out ": 5,
+                                    "time out 1": 0,
+                                    "Error Occured": 0
+                                },
+                                "advice": "An error Occurred At this function"
+                            },
+                            "recommendations": [
+                                "Please Tell the author There is something wrong in this code",
+                                "There is some problem from the code",
+                                "Having trouble on Finding Recommendations"
+                            ]
+                        }
+                    }""")
+
+            # Process the response as usual
+            add_to_outputs("skills_name", response)
+
+            skill_splited = response.split("```")[1]
             d = json.loads(skill_splited)
             d["output"]
-            
+
             return d
+
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
-    
+            # Return error-specific JSON response
+            return json.loads("""{
+                "output": {
+                    "skill_Score": {
+                        "skills_ratio": {
+                            "Please Put the Complaint there is some error on this function. Skill function is not working correctly": 5,
+                            "Error Continue": 0,
+                            "Error Occured": 0
+                        },
+                        "advice": "An error Occurred At this function"
+                    },
+                    "recommendations": [
+                        "Please Tell the author There is something wrong in this code",
+                        "There is some problem from the code",
+                        "Having trouble on Finding Recommendations"
+                    ]
+                }
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
     skills_taken_error = """{
         "output": {
             "skill_Score": {
-            "skills_ratio": {"Please Put the Complaint there is some error on this function. Skill function is not working correctly": 5,"Error Continue":0,"Error Occured":0},
-            "advice": "An error Occurred At this function"
+                "skills_ratio": {
+                    "Error Occured": 5,
+                    "Error Continue": 0,
+                    "time out ": 0
+                },
+                "advice": "An error Occurred At this function"
             },
             "recommendations": [
-            "Please Tell the author There is something wrong in this code",
-            "There is some problem fromm the code",
-            "Having trouble on Finding Recommendations"
+                "Please Tell the author There is something wrong in this code",
+                "There is some problem from the code",
+                "Having trouble on Finding Recommendations"
             ]
         }
-        
-        }
-        """
+    }"""
     return json.loads(skills_taken_error)
+
 
 
 def projects_done(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None or "projects" not in resume_text:
+                print("Invalid resume_text or missing projects")
+                return None
+
             project = f"""{prompts.project_prompt}
                 ###Job Description###
                 {job_description}
@@ -194,255 +253,570 @@ def projects_done(resume_text, job_description):
                 {resume_text["projects"]}
             """
 
-            Projects = apis.final(project,"projects")
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, project, "projects")
+                try:
+                    Projects = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt from projects {attempt + 1} timed out")
+                    # Return timeout-specific JSON response
+                    return json.loads("""{
+                        "output": {
+                            "project_impact": {
+                                "impact": {
+                                    "time out ": 5,
+                                    "time out 1": 0,
+                                    "Error Occurred": 0
+                                },
+                                "advice": "An error occurred At this function",
+                                "suggestion1": "Please Tell the author There is something wrong in this code",
+                                "suggestion2": "There is some problem from the code",
+                                "suggestion3": "Having trouble on Finding Recommendations"
+                            }
+                        }
+                    }""")
+
             add_to_outputs("project_name", Projects)  # Log the output to MongoDB
+
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
             d["output"]
+
             return d
+
         except Exception as e:
             print(f"Attempt from projects {attempt + 1} failed with error: {e}")
-            
+            # Return error-specific JSON response
+            return json.loads("""{
+                "output": {
+                    "project_impact": {
+                        "impact": {
+                            "An Error Occurred": "5",
+                            "Error Continue": 0,
+                            "Error Continue1": 0
+                        },
+                        "advice": "An Error Occurred At this part.",
+                        "suggestion1": "Something Went Wrong1!",
+                        "suggestion2": "Something Went Wrong2!",
+                        "suggestion3": "Something Went Wrong3!"
+                    }
+                }
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
     project_error = """{
-    "output": {
-        "project_impact": {
-        "impact": {
-            "An Error Occurred": "5","Error Continue":0,"Error Continue1":0
-        },
-        "advice": "An Error Occurred At this part.",
-        "suggestion1": "Something Went Wrong1!",
-        "suggestion2": "Something Went Wrong2!",
-        "suggestion3": "Something Went Wrong3!"
+        "output": {
+            "project_impact": {
+                "impact": {
+                    "Error Occurred": "5",
+                    "Error Continue": 0,
+                    "Error Continue1": 0
+                },
+                "advice": "An Error Occurred At this part.",
+                "suggestion1": "Something Went Wrong1!",
+                "suggestion2": "Something Went Wrong2!",
+                "suggestion3": "Something Went Wrong3!"
+            }
         }
-    }
-    }
-    """
+    }"""
     return json.loads(project_error)
+
+
 
 def courses_done1(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None or "courses" not in resume_text:
+                print("Invalid resume_text or missing courses")
+                return None
+
             course = f"""{prompts.course_prompt1}
                 ###Job Description###
                 {job_description}
                 ###Course_Presented_In_Resume###
                 {resume_text["courses"]}
             """
-            
-            Courses = apis.final(course,"course1")
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, course, "course1")
+                try:
+                    Courses = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt course {attempt + 1} timed out")
+                    # Return timeout-specific JSON response
+                    return json.loads("""{
+                        "course_impact": {
+                            "impt": {
+                                "time out ": 5,
+                                "time out 1": 0,
+                                "Error Occurred": 0
+                            }
+                        }
+                    }""")
+
             add_to_outputs("course_name1", Courses)  # Log the output to MongoDB
+
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
             d["course_impact"]
+
             return d
+
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
-            
-    course_error = """
-    {
-    "course_impact": {
+            # Return error-specific JSON response
+            return json.loads("""{
+                "course_impact": {
+                    "impt": {
+                        "An Error Occurred": 5,
+                        "An Error Occurred1": 0,
+                        "An Error Occurred2": 4
+                    }
+                }
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
+    course_error = """{
+        "course_impact": {
             "impt": {
                 "An Error Occurred": 5,
                 "An Error Occurred1": 0,
                 "An Error Occurred2": 4
             }
         }
-    }
-    """
+    }"""
     return json.loads(course_error)
 
 
 def courses_done2(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None or "courses" not in resume_text:
+                print("Invalid resume_text or missing courses")
+                return None
+
             course = f"""{prompts.course_prompt2}
                 ###Job Description###
                 {job_description}
                 ###Course_Presented_In_Resume###
                 {resume_text["courses"]}
             """
-            
-            Courses = apis.final(course,"course2")
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, course, "course2")
+                try:
+                    Courses = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt course {attempt + 1} timed out")
+                    # Return timeout-specific JSON response
+                    return json.loads("""{
+                        "sugg": {
+                            "suggestion1": "Time out occurred while processing.",
+                            "suggestion2": "Please try again later.",
+                            "suggestion3": "The system encountered a delay."
+                        }
+                    }""")
+
             add_to_outputs("course_name2", Courses)  # Log the output to MongoDB
+
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
             d["sugg"]
+
             return d
+
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
-            
+            # Return error-specific JSON response
+            return json.loads("""{
+                "sugg": {
+                    "suggestion1": "Something Went Wrong1!",
+                    "suggestion2": "Something Went Wrong2!",
+                    "suggestion3": "Something Went Wrong3!"
+                }
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
     course_error = """{
         "sugg": {
             "suggestion1": "Something Went Wrong1!",
             "suggestion2": "Something Went Wrong2!",
             "suggestion3": "Something Went Wrong3!"
-            }
-        
-        }"""
+        }
+    }"""
     return json.loads(course_error)
+
 
 def experience_done(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None or "experience" not in resume_text:
+                print("Invalid resume_text or missing experience")
+                return None
+
             experience = f"""{prompts.exp_prompt}
                 ###Job Description###
                 {job_description}
                 ###Experience_Presented_In_Resume###
                 {resume_text["experience"]}"""
-            experience1 = apis.final(experience,"experience")
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, experience, "experience")
+                try:
+                    experience1 = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt experience {attempt + 1} timed out")
+                    return json.loads("""{
+                        "output": {
+                            "experience_relevance": {
+                                "imp": {
+                                    "time out ": 5,
+                                    "time out 1": 0,
+                                    "Error Occurred": 0
+                                },
+                                "advice": "An error occurred at the experience part. Please share the information with the developer."
+                            },
+                            "Actionable Recommendations": [
+                                "Please inform the author that an error occurred.",
+                                "An error occurred at the experience part. Share the information with the developer.",
+                                "An error occurred at the experience part. Please provide details to the developer."
+                            ]
+                        }
+                    }""")
+
             add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
             d["output"]
             return d
+
         except Exception as e:
             print(f"Attempt experience {attempt + 1} failed with error: {e}")
+            return json.loads("""{
+                "output": {
+                    "experience_relevance": {
+                        "imp": {
+                            "An Error Occurred": 0,
+                            "An Error Occurred": 0,
+                            "An Error Occurred": 0
+                        },
+                        "advice": "An error occurred at the experience part. Please inform the author."
+                    },
+                    "Actionable Recommendations": [
+                        "An error occurred at the experience part. Share the information with the developer.",
+                        "An error occurred at the experience part. Please provide details to the developer.",
+                        "An error occurred at the experience part. Please inform the author."
+                    ]
+                }
+            }""")
 
-    experience_error ="""{
+    # If all retries fail without specific timeout or exception handling
+    experience_error = """{
         "output": {
             "experience_relevance": {
-            "imp": {
-                "An Error Occurred": 0,
-                "An Error Occurred": 0,
-                "An Error Occurred": 0
-
-            },
-            "advice": "An Error Occurred At the course part please share the information with the developer."
+                "imp": {
+                    "An Error Occurred": 0,
+                    "An Error Occurred": 0,
+                    "An Error Occurred": 0
+                },
+                "advice": "An error occurred at the experience part. Please share the information with the developer."
             },
             "Actionable Recommendations": [
-            "An Error Occurred in the course part please share the information with the developer.",
-            "An Error Occurred At the course part please share  information with the developer.",
-            "An Error Occurred on the course part please share the information with the developer.",
-            "An Error Occurred At the course part please share the information with  developer."
+                "An error occurred at the experience part. Share the information with the developer.",
+                "An error occurred at the experience part. Please provide details to the developer.",
+                "An error occurred at the experience part. Please inform the author."
             ]
         }
-        }"""
+    }"""
     return json.loads(experience_error)
+
 
 def Score_cards1(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None:
+                print("Invalid resume_text")
+                return None
+
             Score_card = f"""{prompts.score_card_prompt1}
-            ###Job Description###
-            {job_description}
-            ###Resume###
-            {resume_text}"""
-            score_cards_output = apis.final(Score_card,"scores1")
+                ###Job Description###
+                {job_description}
+                ###Resume###
+                {resume_text}"""
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, Score_card, "scores1")
+                try:
+                    score_cards_output = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt score {attempt + 1} timed out")
+                    return json.loads("""{
+                        "score_card1": {
+                            "ranking": {
+                                "score": 505,
+                                "description": "Time out occurred!",
+                                "reason": "The process took too long.",
+                                "improvementTip": "Please try again later."
+                            },
+                            "keywords": {
+                                "score": 505,
+                                "description": "Time out occurred!",
+                                "reason": "The process took too long.",
+                                "improvementTip": "Please try again later."
+                            }
+                        }
+                    }""")
+
             add_to_outputs("Score_card_name1", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
-            d["score_card1"] #testing the work
+            d["score_card1"]
             return d
+
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")
-    experience_error = """
-            {
-                "score_card1": 
-                {
-
+            return json.loads("""{
+                "score_card1": {
                     "ranking": {
                         "score": 505,
                         "description": "Error Occurred!",
-                        "reason": "Error Occurred!",
-                        "improvementTip": "Error Occurred!"
+                        "reason": "An error occurred.",
+                        "improvementTip": "Check the input or try again."
                     },
                     "keywords": {
                         "score": 505,
                         "description": "Error Occurred!",
-                        "reason": "Error Occurred!",
-                        "improvementTip": "Error Occurred!"
+                        "reason": "An error occurred.",
+                        "improvementTip": "Check the input or try again."
                     }
                 }
-            }"""
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
+    experience_error = """{
+        "score_card1": {
+            "ranking": {
+                "score": 505,
+                "description": "Error Occurred!",
+                "reason": "An error occurred.",
+                "improvementTip": "Check the input or try again."
+            },
+            "keywords": {
+                "score": 505,
+                "description": "Error Occurred!",
+                "reason": "An error occurred.",
+                "improvementTip": "Check the input or try again."
+            }
+        }
+    }"""
     return json.loads(experience_error)
 
 
 def Score_cards2(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None:
+                print("Invalid resume_text")
+                return None
+
             Score_card = f"""{prompts.score_card_prompt2}
-            ###Job Description###
-            {job_description}
-            ###Resume###
-            {resume_text}"""
-            score_cards_output = apis.final(Score_card,"scores2")
+                ###Job Description###
+                {job_description}
+                ###Resume###
+                {resume_text}"""
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, Score_card, "scores2")
+                try:
+                    score_cards_output = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt score {attempt + 1} timed out")
+                    return json.loads("""{
+                        "score_card2": {
+                            "ats": {
+                                "score": 505,
+                                "description": "Time out occurred!",
+                                "reason": "The process took too long.",
+                                "improvementTip": "Please try again later."
+                            },
+                            "jd": {
+                                "score": 505,
+                                "description": "Time out occurred!",
+                                "reason": "The process took too long.",
+                                "improvementTip": "Please try again later."
+                            },
+                            "overall": {
+                                "score": 505,
+                                "description": "Time out occurred!",
+                                "reason": "The process took too long.",
+                                "improvementTip": "Please try again later."
+                            }
+                        }
+                    }""")
+
             add_to_outputs("Score_card_name2", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
-            d["score_card2"] #testing the work
+            d["score_card2"]
             return d
+
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")
-    experience_error = """
-        {
-            "score_card2": {
-                "ats": {
-                    "score": 505,
-                    "description": "Error Occurred!",
-                    "reason": "An Error occurred",
-                    "improvementTip": "An Error occurred"
-                },
-                "jd": {
-                    "score": 505,
-                    "description": "Error Occurred!",
-                    "reason": "Error Occurred!",
-                    "improvementTip": "Error Occurred!"
-                },
-                "overall": {
-                    "score": 505,
-                    "description": "Error Occurred!",
-                    "reason": "Error Occurred!",
-                    "improvementTip": "Error Occurred!"
+            return json.loads("""{
+                "score_card2": {
+                    "ats": {
+                        "score": 505,
+                        "description": "Error Occurred!",
+                        "reason": "An error occurred.",
+                        "improvementTip": "Check the input or try again."
+                    },
+                    "jd": {
+                        "score": 505,
+                        "description": "Error Occurred!",
+                        "reason": "An error occurred.",
+                        "improvementTip": "Check the input or try again."
+                    },
+                    "overall": {
+                        "score": 505,
+                        "description": "Error Occurred!",
+                        "reason": "An error occurred.",
+                        "improvementTip": "Check the input or try again."
+                    }
                 }
-                
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
+    experience_error = """{
+        "score_card2": {
+            "ats": {
+                "score": 505,
+                "description": "Error Occurred!",
+                "reason": "An error occurred.",
+                "improvementTip": "Check the input or try again."
+            },
+            "jd": {
+                "score": 505,
+                "description": "Error Occurred!",
+                "reason": "An error occurred.",
+                "improvementTip": "Check the input or try again."
+            },
+            "overall": {
+                "score": 505,
+                "description": "Error Occurred!",
+                "reason": "An error occurred.",
+                "improvementTip": "Check the input or try again."
             }
-        }"""
+        }
+    }"""
     return json.loads(experience_error)
-
-
-
-
 
 
 def Strenths(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None:
+                print("Invalid resume_text")
+                return None
+
             Strent_prompts = f"""{prompts.Strengths}
-        ###Job Description###
-        {job_description}
-        ###Resume###
-        {resume_text}"""
-            Strenths = apis.final(Strent_prompts,"strength")
+                ###Job Description###
+                {job_description}
+                ###Resume###
+                {resume_text}"""
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, Strent_prompts, "strength")
+                try:
+                    Strenths = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt strengths {attempt + 1} timed out")
+                    return json.loads("""{
+                        "output": {
+                            "Error point 1": "Time out occurred. Please try again later.",
+                            "Error point 2": "Time out occurred. Please try again later.",
+                            "Error point 3": "Time out occurred. Please try again later."
+                        }
+                    }""")
+
             add_to_outputs("Strent_prompts_name", Strenths)  # Log the output to MongoDB
             exp = Strenths.split("```")[1]
             d = json.loads(exp)
             d["output"]
             return d
+
         except Exception as e:
-            print(f"Attempt strenths {attempt + 1} failed with error: {e}")
-    Strenths_error = """{ "output": { "Error point 1": "An error occurred. Please inform the author.", "Error point 2": "An error occurred. Please inform the author.", "Error point 3": "An error occurred. Please inform the author." } }"""
+            print(f"Attempt strengths {attempt + 1} failed with error: {e}")
+            return json.loads("""{
+                "output": {
+                    "Error point 1": "An error occurred. Please inform the author.",
+                    "Error point 2": "An error occurred. Please inform the author.",
+                    "Error point 3": "An error occurred. Please inform the author."
+                }
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
+    Strenths_error = """{
+        "output": {
+            "Error point 1": "An error occurred. Please inform the author.",
+            "Error point 2": "An error occurred. Please inform the author.",
+            "Error point 3": "An error occurred. Please inform the author."
+        }
+    }"""
     return json.loads(Strenths_error)
 
+
 def Worst_point(resume_text, job_description):
-    
     for attempt in range(MAX_RETRIES):
         try:
+            if resume_text is None:
+                print("Invalid resume_text")
+                return None
+
             weekness_ponts = f"""{prompts.Weekness}
-        ###Job Description###
-        {job_description}
-        ###Resume###
-        {resume_text}"""
-            worst_point = apis.final(weekness_ponts,"weekness")
+                ###Job Description###
+                {job_description}
+                ###Resume###
+                {resume_text}"""
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, weekness_ponts, "weekness")
+                try:
+                    worst_point = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt weaknesses {attempt + 1} timed out")
+                    return json.loads("""{
+                        "output": {
+                            "Error point 1": "Time out occurred. Please try again later.",
+                            "Error point 2": "Time out occurred. Please try again later.",
+                            "Error point 3": "Time out occurred. Please try again later."
+                        }
+                    }""")
+
             add_to_outputs("weekness_ponts_name", worst_point)  # Log the output to MongoDB
             exp = worst_point.split("```")[1]
             d = json.loads(exp)
             d["output"]
             return d
-        except Exception as e:
-            print(f"Attempt weekness {attempt + 1} failed with error: {e}")
-    worst_error = """{ "output": { "Error point 1": "An error occurred. Please inform the author.", "Error point 2": "An error occurred. Please inform the author.", "Error point 3": "An error occurred. Please inform the author." } }"""
-    return json.loads(worst_error)
 
+        except Exception as e:
+            print(f"Attempt weaknesses {attempt + 1} failed with error: {e}")
+            return json.loads("""{
+                "output": {
+                    "Error point 1": "An error occurred. Please inform the author.",
+                    "Error point 2": "An error occurred. Please inform the author.",
+                    "Error point 3": "An error occurred. Please inform the author."
+                }
+            }""")
+
+    # If all retries fail without specific timeout or exception handling
+    worst_error = """{
+        "output": {
+            "Error point 1": "An error occurred. Please inform the author.",
+            "Error point 2": "An error occurred. Please inform the author.",
+            "Error point 3": "An error occurred. Please inform the author."
+        }
+    }"""
+    return json.loads(worst_error)
 def end():
     log_to_mongodb_batch(all_outputs)
 

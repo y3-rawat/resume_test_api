@@ -44,17 +44,14 @@ def groq(input):
         api_key = api
     )
     return chat.invoke(input)
+
+
 def final(Input,name):
     
-    # random_num = keys()
-    if 1 == 1:
-        print("Processing from groq")
-        # return groq(Input,groq_keys[keys()[0]]).content
-        output = groq(Input).content
-        print("done",name)
-        return output
-        
-    else:
-        print("calling from gemini")
-        # return gemini(Input,gemmini_api_key[keys()[1]]).content
 
+    print("Processing from groq")
+    
+    output = groq(Input).content
+    print("done",name)
+    return output
+    
