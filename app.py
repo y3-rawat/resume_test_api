@@ -100,21 +100,21 @@ def get_data(job_description, additional_information, extracted_text):
             {
                 "name": "Doe",
                 "title": "Senior Soft... ",
-                "link": "https://example.com/john-doe"
+                "link": f"""site:linkedin.com "microsoft" "Software Engineer" -jobs -job"""
             },
         ],
         "recommendedPeople_twitter": [
             {
                 "name": "John Doe",
                 "title": "Senior Soft... ",
-                "link": "https://example.com/john-doe"
+                "link": f"""site:twitter.com "Software Engineer" "Microsoft" in bio"""
             }
         ],
         "recommendedPeople_instagram": [
             {
                 "name": "John",
                 "title": "Senior Soft... ",
-                "link": "https://example.com/john-doe"
+                "link": """site:instagram.com "Software Engineer" "@Microsoft" -reel -p/"""
             }       
         ],
     }
