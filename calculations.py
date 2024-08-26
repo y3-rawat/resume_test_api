@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 import os
 import uuid
 from pymongo.errors import BulkWriteError
-TIMEOUT_SECONDS = 7  # Timeout period in seconds
+TIMEOUT_SECONDS = 8  # Timeout period in seconds
 load_dotenv()
 db = os.getenv('mongo')
 
@@ -27,7 +27,7 @@ results = [None, None]
 results_lock = threading.Lock()  # Lock to ensure thread-safe access to results
 
 # Maximum retry attempts
-MAX_RETRIES = 2
+MAX_RETRIES = 1
 
 # List to store all outputs for batch insertion
 all_outputs = []

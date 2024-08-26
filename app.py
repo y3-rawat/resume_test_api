@@ -8,7 +8,7 @@ import concurrent.futures
 app = Flask(__name__)
 cors = CORS(app, resources={r"/submit": {"origins": "*"}})
 api = None
-executor = ThreadPoolExecutor(max_workers=4)
+executor = ThreadPoolExecutor(max_workers=5)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -49,7 +49,7 @@ def get_data(job_description, additional_information, extracted_text):
         return jsonify({"error": "Failed to process resume"}), 400
 
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
-    
+    time.sleep(1)
     # print("-----------Mongo DB-----------")
     # calculations.end()
 
@@ -98,27 +98,27 @@ def get_data(job_description, additional_information, extracted_text):
         "Actionable Recommendations": results["experience2"]["Actionable Recommendations"],
         "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
         "Weaknesses": safe_get(results, 'weakness', "output") or error_response["details"].setdefault("Weaknesses", "Failed to identify weaknesses"),
-        "recommended_People_linkdin": [
-            {
-                "name": "Doe",
-                "title": "Senior Soft... ",
-                "link": f"""site:linkedin.com "microsoft" "Software Engineer" -jobs -job"""
-            },
-        ],
-        "recommendedPeople_twitter": [
-            {
-                "name": "John Doe",
-                "title": "Senior Soft... ",
-                "link": f"""site:twitter.com "Software Engineer" "Microsoft" in bio"""
-            }
-        ],
-        "recommendedPeople_instagram": [
-            {
-                "name": "John",
-                "title": "Senior Soft... ",
-                "link": """site:instagram.com "Software Engineer" "@Microsoft" -reel -p/"""
-            }       
-        ],
+        # "recommended_People_linkdin": [
+        #     {
+        #         "name": "Doe",
+        #         "title": "Senior Soft... ",
+        #         "link": f"""site:linkedin.com "microsoft" "Software Engineer" -jobs -job"""
+        #     },
+        # ],
+        # "recommendedPeople_twitter": [
+        #     {
+        #         "name": "John Doe",
+        #         "title": "Senior Soft... ",
+        #         "link": f"""site:twitter.com "Software Engineer" "Microsoft" in bio"""
+        #     }
+        # ],
+        # "recommendedPeople_instagram": [
+        #     {
+        #         "name": "John",
+        #         "title": "Senior Soft... ",
+        #         "link": """site:instagram.com "Software Engineer" "@Microsoft" -reel -p/"""
+        #     }       
+        # ],
     }
 
     # If any errors occurred, include them in the response
@@ -143,6 +143,7 @@ def submit():
     end_time = time.time()
     time_taken = end_time - start_time
     # Print the time taken
+    print("processing Completed")
     print(f"Time taken by get_data: {time_taken:.2f} seconds")
 
     return jsonify(output)
