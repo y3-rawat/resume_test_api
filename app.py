@@ -125,6 +125,7 @@ def get_data(job_description, additional_information, extracted_text):
     if error_response["details"]:
         response["errors"] = error_response["details"]
 
+    print(response)
     return response
 
 import apis
