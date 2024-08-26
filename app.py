@@ -21,6 +21,7 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
         'courses1': lambda: calculations.courses_done1(final_resume, job_description),
         'courses2': lambda: calculations.courses_done2(final_resume, job_description),
         'experience': lambda: calculations.experience_done(final_resume, job_description),
+        'experience2': lambda: calculations.experience_done2(final_resume, job_description),
         'score1': lambda: calculations.Score_cards1(extracted_text, job_description),
         'score2': lambda: calculations.Score_cards2(extracted_text, job_description),
         'strengths': lambda: calculations.Strenths(extracted_text, job_description),
@@ -83,7 +84,8 @@ def get_data(job_description, additional_information, extracted_text):
             **co2["sugg"]
         }
         }
-
+  
+    
     # Populate the response, using error messages for any missing data
     response = {
         "score_card":merged_score["score_card"],
@@ -93,7 +95,7 @@ def get_data(job_description, additional_information, extracted_text):
         "recommendations": safe_get(results, 'skills', "output", "recommendations") or error_response["details"].setdefault("recommendations", "No recommendations available"),
         "course_impact": merged_course["output"],
         "experience_relevance": safe_get(results, 'experience', "output", "experience_relevance") or error_response["details"].setdefault("experience_relevance", "Failed to analyze experience"),
-        "Actionable Recommendations": safe_get(results, 'experience', "output", "Actionable Recommendations") or error_response["details"].setdefault("Actionable Recommendations", "No actionable recommendations available"),
+        "Actionable Recommendations": results["experience2"]["Actionable Recommendations"],
         "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
         "Weaknesses": safe_get(results, 'weakness', "output") or error_response["details"].setdefault("Weaknesses", "Failed to identify weaknesses"),
         "recommended_People_linkdin": [

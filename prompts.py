@@ -219,9 +219,9 @@ Json should be under (```)
             }
         },
         "recommendations": [
-            "recommendation1 on the Skills  ( with the telling about market demand)",
-            "recommendation2 on the Skills  ( with the telling about market demand)",
-            "recommendation3 on the Skills  ( with the telling about market demand)"
+            "recommendation1 on the Skills  ( with the telling about market demand under 10-15 words)",
+            "recommendation2 on the Skills  ( with the telling about market demand under 10-15 words)",
+            "recommendation3 on the Skills  ( with the telling about market demand under 10-15 words)"
         ]
     }
 }
@@ -328,15 +328,11 @@ Json should be under (```)
             "imp": {
                 "expeience name 1": (Score Number ex- 11),
                 "expeience name 2":  (Score Number ex- 32),
-                                          ...
-                                          "expeience name  n":  (Score Number ex- 39)
+                ...
+                "expeience name  n":  (Score Number ex- 39)
             }
-        },
-        "Actionable Recommendations": [
-            "Recommendation1  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
-            "Recommendation2  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
-            "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future)."
-        ]
+        }
+        
     }
 }
         ```
@@ -344,6 +340,40 @@ Json should be under (```)
          #experience is a work done in the company 
          #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
         """
+
+
+
+exp_prompt2 = """
+###Instruction###
+act as an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. 
+Your task is to evaluate a user's resume against a provided job description. You will provide excellent advice based on the resume,
+ focusing on the impacts on the work Experience as outlined in the job description.
+
+Conduct a deep-dive review of the existing resume and job description.
+Provide feedback that balances solving the immediate problem with long-term improvement.
+
+Discuss trade-offs and implementation options if there are choices to be made.
+Ensure that all feedback accurately reflects the job description.
+Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
+
+you are the part of process so do not give any thing else it do not give any value to that project 
+
+###FORMAT###
+The output should be in the following format:
+Json should be under (```)
+```
+{  "Actionable Recommendations": [
+    "Recommendation1  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
+    "Recommendation2  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
+    "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future)."
+]}
+        ```
+        #json format should be valid json
+         #experience is a work done in the company 
+         #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
+        """
+
+
 
 Strengths = """
 ###Instruction###
@@ -374,6 +404,7 @@ Json should be under (```)
 
 #it should be very short and clear try to put every point into 12-15 words
 #remember json should be closed properly
+only give 3-4 points 
             ```
 """
 
@@ -406,6 +437,7 @@ Json should be under (```)
     }
 }
 ```
-#it should be very short and clear try to put every point into 12-15 words
+#it should be very short and clear try to put every point into 12-15 words not more then that
 #remember json should be closed properly
+#only give 3-4 points 
 """

@@ -534,12 +534,8 @@ def experience_done(resume_text, job_description):
                                     "Error Occurred": 0
                                 },
                                 "advice": "An error occurred at the experience part. Please share the information with the developer."
-                            },
-                            "Actionable Recommendations": [
-                                "Please inform the author that an error occurred.",
-                                "An error occurred at the experience part. Share the information with the developer.",
-                                "An error occurred at the experience part. Please provide details to the developer."
-                            ]
+                            }
+                          
                         }
                     }""")
 
@@ -564,12 +560,7 @@ def experience_done(resume_text, job_description):
                             "An Error Occurred": 0
                         },
                         "advice": "An error occurred at the experience part. Please inform the author."
-                    },
-                    "Actionable Recommendations": [
-                        "An error occurred at the experience part. Share the information with the developer.",
-                        "An error occurred at the experience part. Please provide details to the developer.",
-                        "An error occurred at the experience part. Please inform the author."
-                    ]
+                    }
                 }
             }""")
 
@@ -583,12 +574,7 @@ def experience_done(resume_text, job_description):
                     "An Error Occurred": 0
                 },
                 "advice": "An error occurred at the experience part. Please share the information with the developer."
-            },
-            "Actionable Recommendations": [
-                "An error occurred at the experience part. Share the information with the developer.",
-                "An error occurred at the experience part. Please provide details to the developer.",
-                "An error occurred at the experience part. Please inform the author."
-            ]
+            }
         }
     }"""
     end_time = time.time()
@@ -599,6 +585,80 @@ def experience_done(resume_text, job_description):
 
 
     return json.loads(experience_error)
+
+
+
+
+def experience_done2(resume_text, job_description):
+    start_time = time.time()
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            if resume_text is None or "experience" not in resume_text:
+                print("Invalid resume_text or missing experience")
+                return None
+
+            experience = f"""{prompts.exp_prompt}
+                ###Job Description###
+                {job_description}
+                ###Experience_Presented_In_Resume###
+                {resume_text["experience"]}"""
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(apis.final, experience, "experience")
+                try:
+                    experience1 = future.result(timeout=TIMEOUT_SECONDS)
+                except concurrent.futures.TimeoutError:
+                    print(f"Attempt experience {attempt + 1} timed out")
+                    return json.loads("""{
+                       "Actionable Recommendations": [
+                                "Please inform the author that an error occurred.",
+                                "An error occurred at the experience part. Share the information with the developer.",
+                                "An error occurred at the experience part. Please provide details to the developer."
+                            ]
+                        }
+                    """)
+
+            add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
+            exp = experience1.split("```")[1]
+            d = json.loads(exp)
+            d["output"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by experience_done: {time_taken:.2f} seconds")
+            return d
+
+        except Exception as e:
+            print(f"Attempt experience {attempt + 1} failed with error: {e}")
+            return json.loads("""{                
+                    "Actionable Recommendations": [
+                        "An error occurred at the experience part. Share the information with the developer.",
+                        "An error occurred at the experience part. Please provide details to the developer.",
+                        "An error occurred at the experience part. Please inform the author."
+                    ]
+                }""")
+
+    # If all retries fail without specific timeout or exception handling
+    experience_error = """{
+        
+            "Actionable Recommendations": [
+                "An error occurred at the experience part. Share the information with the developer.",
+                "An error occurred at the experience part. Please provide details to the developer.",
+                "An error occurred at the experience part. Please inform the author."
+            ]
+        
+    }"""
+    end_time = time.time()
+
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
+    return json.loads(experience_error)
+
+
 
 
 def Score_cards1(resume_text, job_description):
