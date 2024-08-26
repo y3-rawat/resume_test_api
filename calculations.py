@@ -8,13 +8,12 @@ import pymongo
 import json
 import concurrent.futures
 import time
-
 from datetime import datetime
 from dotenv import load_dotenv
 import os
 import uuid
 from pymongo.errors import BulkWriteError
-
+TIMEOUT_SECONDS = 3  # Timeout period in seconds
 load_dotenv()
 db = os.getenv('mongo')
 
@@ -28,7 +27,7 @@ results = [None, None]
 results_lock = threading.Lock()  # Lock to ensure thread-safe access to results
 
 # Maximum retry attempts
-MAX_RETRIES = 2
+MAX_RETRIES = 5
 
 # List to store all outputs for batch insertion
 all_outputs = []
@@ -110,6 +109,7 @@ def resume_input2(resume_text, additional_information, index):
         print("Failed to process resume_text")
 
 def resume_final(resume_text, additional_information):
+    start_time = time.time()
     thread1 = threading.Thread(target=resume_input1, args=(resume_text, additional_information, 0))
     thread2 = threading.Thread(target=resume_input2, args=(resume_text, additional_information, 1))
 
@@ -141,15 +141,17 @@ def resume_final(resume_text, additional_information):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         res1 = resume_text
-        
+    
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
     return res1
-import json
-import concurrent.futures
 
 
-TIMEOUT_SECONDS = 3  # Timeout period in seconds
 
 def skills_taken(resume_text, job_description):
+    start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None or "skills" not in resume_text:
@@ -170,6 +172,7 @@ def skills_taken(resume_text, job_description):
                 except concurrent.futures.TimeoutError:
                     print(f"Attempt from skills {attempt + 1} timed out")
                     # Return timeout-specific JSON response
+                    
                     return json.loads("""{
                         "output": {
                             "skill_Score": {
@@ -194,12 +197,22 @@ def skills_taken(resume_text, job_description):
             skill_splited = response.split("```")[1]
             d = json.loads(skill_splited)
             d["output"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            
+            # Print the time taken
+            print(f"Time taken by skills Taken: {time_taken:.2f} seconds")
 
             return d
 
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
             # Return error-specific JSON response
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
             return json.loads("""{
                 "output": {
                     "skill_Score": {
@@ -236,12 +249,17 @@ def skills_taken(resume_text, job_description):
             ]
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
 
     return json.loads(skills_taken_error)
 
 
 
 def projects_done(resume_text, job_description):
+    start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None or "projects" not in resume_text:
@@ -283,7 +301,10 @@ def projects_done(resume_text, job_description):
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
             d["output"]
-
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Projects_done: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -321,11 +342,18 @@ def projects_done(resume_text, job_description):
             }
         }
     }"""
+
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
     return json.loads(project_error)
 
 
 
 def courses_done1(resume_text, job_description):
+    start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None or "courses" not in resume_text:
@@ -361,6 +389,10 @@ def courses_done1(resume_text, job_description):
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
             d["course_impact"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Course Done 1: {time_taken:.2f} seconds")
 
             return d
 
@@ -387,10 +419,17 @@ def courses_done1(resume_text, job_description):
             }
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
     return json.loads(course_error)
 
 
 def courses_done2(resume_text, job_description):
+    start_time = time.time()
+
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None or "courses" not in resume_text:
@@ -424,7 +463,10 @@ def courses_done2(resume_text, job_description):
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
             d["sugg"]
-
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by course done2: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -446,10 +488,17 @@ def courses_done2(resume_text, job_description):
             "suggestion3": "Something Went Wrong3!"
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
     return json.loads(course_error)
 
 
 def experience_done(resume_text, job_description):
+    start_time = time.time()
+
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None or "experience" not in resume_text:
@@ -490,6 +539,10 @@ def experience_done(resume_text, job_description):
             exp = experience1.split("```")[1]
             d = json.loads(exp)
             d["output"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by experience_done: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -530,10 +583,16 @@ def experience_done(resume_text, job_description):
             ]
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
     return json.loads(experience_error)
 
 
 def Score_cards1(resume_text, job_description):
+    start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None:
@@ -573,6 +632,10 @@ def Score_cards1(resume_text, job_description):
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
             d["score_card1"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Score Card: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -611,10 +674,16 @@ def Score_cards1(resume_text, job_description):
             }
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
     return json.loads(experience_error)
 
 
 def Score_cards2(resume_text, job_description):
+    start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None:
@@ -660,6 +729,10 @@ def Score_cards2(resume_text, job_description):
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
             d["score_card2"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Score Card 2: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -710,10 +783,16 @@ def Score_cards2(resume_text, job_description):
             }
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
     return json.loads(experience_error)
 
 
 def Strenths(resume_text, job_description):
+    start_time = time.time()
+
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None:
@@ -744,6 +823,10 @@ def Strenths(resume_text, job_description):
             exp = Strenths.split("```")[1]
             d = json.loads(exp)
             d["output"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Strenths: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -768,6 +851,7 @@ def Strenths(resume_text, job_description):
 
 
 def Worst_point(resume_text, job_description):
+    start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
             if resume_text is None:
@@ -798,6 +882,10 @@ def Worst_point(resume_text, job_description):
             exp = worst_point.split("```")[1]
             d = json.loads(exp)
             d["output"]
+            end_time = time.time()
+            time_taken = end_time - start_time
+            # Print the time taken
+            print(f"Time taken by Worst point: {time_taken:.2f} seconds")
             return d
 
         except Exception as e:
@@ -818,6 +906,11 @@ def Worst_point(resume_text, job_description):
             "Error point 3": "An error occurred. Please inform the author."
         }
     }"""
+    time_taken = end_time - start_time
+    # Print the time taken
+    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+
+
     return json.loads(worst_error)
 # def end():
 #     log_to_mongodb_batch(all_outputs)

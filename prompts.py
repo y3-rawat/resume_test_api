@@ -22,11 +22,12 @@ Json should be under (```)
 {
 "skills": "{only return the section of Skills of the Candidate}",
 "projects": "{only return the section of Projects of the Candidate}",
-"courses": "{only return the course of the Candidate }"# this includes His Graduation , Education, Certification, Courses.
+"courses": "{only return the course of the Candidate }"
 "role_user_candidate": "{only return the Roles (which position in company) for the Candidate}"
 "education": "{only return the section of Education of the Candidate}",
 }
 ```
+# this includes His Graduation , Education, Certification, Courses.
 #remember json should be closed properly
 #if there is something which is not present just give the "__":"Not present" in json
 #you are in a process so do not give anything else  and json should be between ``` quotes
@@ -141,7 +142,7 @@ Json should be under (```)
 }
 ```
 #remember json should be closed properly
-#you are in a process so do not give anything else  and json should be between ``` quotes
+#you are in a process so do not give anything else  and json should be between ``` quotes and nothing else
 """
 
 

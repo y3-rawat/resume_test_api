@@ -140,7 +140,6 @@ def submit():
     output = get_data(job_description, additional_information, extracted_text)
     end_time = time.time()
     time_taken = end_time - start_time
-    
     # Print the time taken
     print(f"Time taken by get_data: {time_taken:.2f} seconds")
 
