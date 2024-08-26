@@ -147,7 +147,7 @@ import json
 import concurrent.futures
 
 
-TIMEOUT_SECONDS = 5  # Timeout period in seconds
+TIMEOUT_SECONDS = 3  # Timeout period in seconds
 
 def skills_taken(resume_text, job_description):
     for attempt in range(MAX_RETRIES):
@@ -819,6 +819,6 @@ def Worst_point(resume_text, job_description):
         }
     }"""
     return json.loads(worst_error)
-def end():
-    log_to_mongodb_batch(all_outputs)
+# def end():
+#     log_to_mongodb_batch(all_outputs)
 

@@ -8,7 +8,7 @@ import concurrent.futures
 app = Flask(__name__)
 cors = CORS(app, resources={r"/submit": {"origins": "*"}})
 api = None
-executor = ThreadPoolExecutor(max_workers=9)
+executor = ThreadPoolExecutor(max_workers=4)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -48,9 +48,9 @@ def get_data(job_description, additional_information, extracted_text):
         return jsonify({"error": "Failed to process resume"}), 400
 
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
-    time.sleep(1)
-    print("-----------Mongo DB-----------")
-    calculations.end()
+    
+    # print("-----------Mongo DB-----------")
+    # calculations.end()
 
     # Define default error response
     error_response = {
@@ -135,7 +135,15 @@ def submit():
     extracted_text = request.args.get('ext-text', '')
     api_key = request.args.get('api', '')
     apis.API_func(api_key)
+    start_time = time.time()
+
     output = get_data(job_description, additional_information, extracted_text)
+    end_time = time.time()
+    time_taken = end_time - start_time
+    
+    # Print the time taken
+    print(f"Time taken by get_data: {time_taken:.2f} seconds")
+
     return jsonify(output)
  
 if __name__ == '__main__':
