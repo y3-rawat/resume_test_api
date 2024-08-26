@@ -141,7 +141,7 @@ def resume_final(resume_text, additional_information):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         res1 = resume_text
-    
+    end_time = time.time()
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -208,6 +208,7 @@ def skills_taken(resume_text, job_description):
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
             # Return error-specific JSON response
+            end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -249,6 +250,8 @@ def skills_taken(resume_text, job_description):
             ]
         }
     }"""
+    end_time = time.time()
+
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -342,6 +345,7 @@ def projects_done(resume_text, job_description):
             }
         }
     }"""
+    end_time = time.time()
 
     time_taken = end_time - start_time
     # Print the time taken
@@ -419,6 +423,8 @@ def courses_done1(resume_text, job_description):
             }
         }
     }"""
+    end_time = time.time()
+
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -488,6 +494,8 @@ def courses_done2(resume_text, job_description):
             "suggestion3": "Something Went Wrong3!"
         }
     }"""
+    end_time = time.time()
+
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -583,6 +591,8 @@ def experience_done(resume_text, job_description):
             ]
         }
     }"""
+    end_time = time.time()
+
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -674,6 +684,8 @@ def Score_cards1(resume_text, job_description):
             }
         }
     }"""
+    end_time = time.time()
+
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -783,6 +795,8 @@ def Score_cards2(resume_text, job_description):
             }
         }
     }"""
+    end_time = time.time()
+
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
@@ -906,6 +920,7 @@ def Worst_point(resume_text, job_description):
             "Error point 3": "An error occurred. Please inform the author."
         }
     }"""
+    end_time = time.time()
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
