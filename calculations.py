@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 import os
 import uuid
 from pymongo.errors import BulkWriteError
-TIMEOUT_SECONDS = 5  # Timeout period in seconds
+TIMEOUT_SECONDS = 7  # Timeout period in seconds
 load_dotenv()
 db = os.getenv('mongo')
 

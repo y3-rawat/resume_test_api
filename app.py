@@ -96,27 +96,27 @@ def get_data(job_description, additional_information, extracted_text):
         "Actionable Recommendations": safe_get(results, 'experience', "output", "Actionable Recommendations") or error_response["details"].setdefault("Actionable Recommendations", "No actionable recommendations available"),
         "Strengths": safe_get(results, 'strengths', "output") or error_response["details"].setdefault("Strengths", "Failed to identify strengths"),
         "Weaknesses": safe_get(results, 'weakness', "output") or error_response["details"].setdefault("Weaknesses", "Failed to identify weaknesses"),
-        # "recommended_People_linkdin": [
-        #     {
-        #         "name": "Doe",
-        #         "title": "Senior Soft... ",
-        #         "link": f"""site:linkedin.com "microsoft" "Software Engineer" -jobs -job"""
-        #     },
-        # ],
-        # "recommendedPeople_twitter": [
-        #     {
-        #         "name": "John Doe",
-        #         "title": "Senior Soft... ",
-        #         "link": f"""site:twitter.com "Software Engineer" "Microsoft" in bio"""
-        #     }
-        # ],
-        # "recommendedPeople_instagram": [
-        #     {
-        #         "name": "John",
-        #         "title": "Senior Soft... ",
-        #         "link": """site:instagram.com "Software Engineer" "@Microsoft" -reel -p/"""
-        #     }       
-        # ],
+        "recommended_People_linkdin": [
+            {
+                "name": "Doe",
+                "title": "Senior Soft... ",
+                "link": f"""site:linkedin.com "microsoft" "Software Engineer" -jobs -job"""
+            },
+        ],
+        "recommendedPeople_twitter": [
+            {
+                "name": "John Doe",
+                "title": "Senior Soft... ",
+                "link": f"""site:twitter.com "Software Engineer" "Microsoft" in bio"""
+            }
+        ],
+        "recommendedPeople_instagram": [
+            {
+                "name": "John",
+                "title": "Senior Soft... ",
+                "link": """site:instagram.com "Software Engineer" "@Microsoft" -reel -p/"""
+            }       
+        ],
     }
 
     # If any errors occurred, include them in the response
