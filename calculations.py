@@ -598,7 +598,7 @@ def experience_done2(resume_text, job_description):
                 print("Invalid resume_text or missing experience")
                 return None
 
-            experience = f"""{prompts.exp_prompt}
+            experience = f"""{prompts.exp_prompt2}
                 ###Job Description###
                 {job_description}
                 ###Experience_Presented_In_Resume###
