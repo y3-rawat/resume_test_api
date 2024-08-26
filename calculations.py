@@ -27,7 +27,7 @@ results = [None, None]
 results_lock = threading.Lock()  # Lock to ensure thread-safe access to results
 
 # Maximum retry attempts
-MAX_RETRIES = 5
+MAX_RETRIES = 2
 
 # List to store all outputs for batch insertion
 all_outputs = []
