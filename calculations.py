@@ -417,7 +417,6 @@ def courses_done1(resume_text, job_description):
             merge = {
                 "course_impact": {
                     "impt": d["ci"]
-                        
                     }
                 }
             return merge

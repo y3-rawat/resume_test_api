@@ -350,8 +350,9 @@ Json should be under (```)
 }
 ```
 #json format should be valid json
-    #experience is a work done in the company 
-    #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
+#experience is a work done in the company 
+#suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
+#only give 3-4 points
 """
 
 
