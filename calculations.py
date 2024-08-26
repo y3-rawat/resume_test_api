@@ -196,14 +196,23 @@ def skills_taken(resume_text, job_description):
 
             skill_splited = response.split("```")[1]
             d = json.loads(skill_splited)
-            d["output"]
+            d["sr"]
+            d["rec"]
+            merged = {
+                    "output": {
+                        "skill_Score": {
+                            "skills_ratio": d["sr"],
+                        },
+                        "recommendations": d["rec"]
+                    }
+                }
             end_time = time.time()
             time_taken = end_time - start_time
             
             # Print the time taken
             print(f"Time taken by skills Taken: {time_taken:.2f} seconds")
 
-            return d
+            return merged
 
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
@@ -303,12 +312,21 @@ def projects_done(resume_text, job_description):
 
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
-            d["output"]
+            md = {
+                "output": {
+                    "project_impact": {
+                        "impact":d["imp1"],                        
+                        "suggestion1": d["s1"],
+                        "suggestion2": d["s2"],
+                        "suggestion3": d["s3"]
+                    }
+                }
+            }
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Projects_done: {time_taken:.2f} seconds")
-            return d
+            return md
 
         except Exception as e:
             print(f"Attempt from projects {attempt + 1} failed with error: {e}")
@@ -392,13 +410,17 @@ def courses_done1(resume_text, job_description):
 
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
-            d["course_impact"]
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Course Done 1: {time_taken:.2f} seconds")
-
-            return d
+            merge = {
+                "course_impact": {
+                    "impt": d["ci"]
+                        
+                    }
+                }
+            return merge
 
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
@@ -468,12 +490,19 @@ def courses_done2(resume_text, job_description):
 
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
-            d["sugg"]
+            
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by course done2: {time_taken:.2f} seconds")
-            return d
+            merged = {
+            "sugg":
+            { "suggestion1":d["s1"],
+                "suggestion2": d["s2"],
+                "suggestion3": d["s3"]
+                }
+            }
+            return merged
 
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
@@ -542,12 +571,17 @@ def experience_done(resume_text, job_description):
             add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
-            d["output"]
+            
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by experience_done: {time_taken:.2f} seconds")
-            return d
+            merged =  {
+                "output": {
+                    "experience_relevance":d["imp"]
+                }
+            }
+            return merged
 
         except Exception as e:
             print(f"Attempt experience {attempt + 1} failed with error: {e}")
@@ -622,7 +656,6 @@ def experience_done2(resume_text, job_description):
             add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
-            d["output"]
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
@@ -701,12 +734,20 @@ def Score_cards1(resume_text, job_description):
             add_to_outputs("Score_card_name1", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
-            d["score_card1"]
+
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Score Card: {time_taken:.2f} seconds")
-            return d
+            
+            merge_score = {
+                "score_card1": 
+                {
+                "ranking": d["ranking"],
+                "keywords":d["keywords"]
+                }
+                }
+            return merge_score
 
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")
@@ -800,12 +841,23 @@ def Score_cards2(resume_text, job_description):
             add_to_outputs("Score_card_name2", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
-            d["score_card2"]
+            
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Score Card 2: {time_taken:.2f} seconds")
-            return d
+                            
+            mg_score = {
+                "score_card2": 
+                {
+                    "ats":d["ats"],
+                    "jd": 
+                       d["jd"],
+                    "overall": 
+                        d["overall"]
+                }
+                }
+            return mg_score
 
         except Exception as e:
             print(f"Attempt score {attempt + 1} failed with error: {e}")

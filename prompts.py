@@ -73,24 +73,21 @@ The output should be in the following format:
 Json should be under (```)
 ```
 {
-  "score_card1": 
-  {
+"ranking": 
+{
+    "score": "What is the Resume Ranking Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+    "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+    "reason": "Reasion under 12 words",
+    "improvementTip": "Small tip on Ranking under 12 words"
+},
+"keywords":
+{
+    "score": "What is the Keywords Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+    "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+    "reason": "Reasion under 12 words",
+    "improvementTip": "Small tip on keywords under 12 words"
+}
 
-  "ranking": 
-        {
-          "score": "What is the Resume Ranking Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
-          "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip on Ranking under 12 words"
-        },
-  "keywords":
-        {
-          "score": "What is the Keywords Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
-          "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip on keywords under 12 words"
-        }
-  }
 }
 
 
@@ -111,33 +108,30 @@ you are the part of process so do not give any thing else it do not give any val
 The output should be in the following format:
 Json should be under (```)
 ```
- 
-
 {
-  "score_card2": 
-  {
-    "ats":
-        {
-          "score":" What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
-          "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip under 12 words"
-        },
-    "jd": 
-        {
-          "score": "What is the Job Description match Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
-          "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip on aligning resume with jd under 12 words"
-        },
-    "overall": 
-        {
-          "score": "What is the Overall Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
-          "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
-          "reason": "Reasion under 12 words",
-          "improvementTip": "Small tip on aligning everything under 12 words"
-        }
-  }
+
+"ats":
+{
+    "score":" What is the ATS Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+    "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+    "reason": "Reasion under 12 words",
+    "improvementTip": "Small tip under 12 words"
+},
+"jd": 
+{
+    "score": "What is the Job Description match Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+    "description": " Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+    "reason": "Reasion under 12 words",
+    "improvementTip": "Small tip on aligning resume with jd under 12 words"
+},
+"overall": 
+{
+    "score": "What is the Overall Score of this resume compared to job description (Score Number ex- 30, 40, 50)",
+    "description": "Example -> Moderate ATS compatibility potential (will be change according to the score)", 
+    "reason": "Reasion under 12 words",
+    "improvementTip": "Small tip on aligning everything under 12 words"
+}
+
 }
 ```
 #remember json should be closed properly
@@ -164,28 +158,25 @@ The output should be in the following format:
 Json should be under (```)
 ```
 {
-    "output": {
-        "project_impact": {
-            "impact": {
-                "project1": (Score Number ex- 34),
-                "project2": (Score Number ex- 27),
-                "project3": (Score Number ex- 71),
-                "project4": (Score Number ex- 52),
-                ....
-                "project n": (Score Number ex- 99)
-            },
-            "suggestion1": "What needs to be done to get selected for this job description? Highlight the business impact of specific projects.",
-            "suggestion2": "Which project is not making any sense for this job description? Highlight the business impact of specific projects.",
-            "suggestion3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
-        }
-    }
-}            
-            ```
-            points to be remember 
-            #suggestions should be very short and clear try to put that into 15-20 words do not repeat things this part should be strongly focus on projects
-            #suggestion should be seem like candidate get know something new and valueable
-             #only give the name of project and number nothting  and those which are less relevent to the job description give them less values and which are not giving any value give them 0 you can apply negetive too
-            #remember json should be closed properly
+"imp1": {
+    "project_name1": (Score Number ex- 34),
+    "project_name2": (Score Number ex- 27),
+    "project_name3": (Score Number ex- 71),
+    "project_name4": (Score Number ex- 52),
+    ....
+    "project n": (Score Number ex- 99)
+    },
+    "s1": "What needs to be done to get selected for this job description? Highlight the business impact of specific projects.",
+    "s2": "Which project is not making any sense for this job description? Highlight the business impact of specific projects.",
+    "s3": "What keywords should be added in these projects to enhance their relevance? Highlight the business impact of specific projects."
+}      
+    ```
+    points to be remember 
+    do not change s1,s2,s3 keys you have do change values
+    #suggestions should be very short and clear try to put that into 15-20 words do not repeat things this part should be strongly focus on projects
+    #suggestion should be seem like candidate get know something new and valueable
+        #only give the name of project and number nothting  and those which are less relevent to the job description give them less values and which are not giving any value give them 0 you can apply negetive too
+    #remember json should be closed properly
 """
 
 
@@ -206,23 +197,18 @@ you are the part of process so do not give any thing else it do not give any val
 The result should be in the following format:
 Json should be under (```)
 ```
-{
-    "output": {
-        "skill_Score": {
-            "skills_ratio": {
-                "skill1": (Score Number ex- 71),
-                "skill2": (Score Number ex- 21),
-                "skill3": (Score Number ex- 34),
-                "skill4": (Score Number ex- 36),
-                "skill n": (Score Number ex- 23)
-            }
-        },
-        "recommendations": [
-            "recommendation1 on the Skills  ( with the telling about market demand under 10-15 words)",
-            "recommendation2 on the Skills  ( with the telling about market demand under 10-15 words)",
-            "recommendation3 on the Skills  ( with the telling about market demand under 10-15 words)"
-        ]
-    }
+{ "sr": {
+    "skill1": (Score Number ex- 71),
+    "skill2": (Score Number ex- 21),
+    "skill3": (Score Number ex- 34),
+    "skill4": (Score Number ex- 36),
+    "skill n": (Score Number ex- 23)
+},
+"rec": [
+    "recommendation1 on the Skills  ( with the telling about market demand under 10-15 words)",
+    "recommendation2 on the Skills  ( with the telling about market demand under 10-15 words)",
+    "recommendation3 on the Skills  ( with the telling about market demand under 10-15 words)"
+]    
 }
 ```
 #list every skills which user has presented in resume 
@@ -254,16 +240,15 @@ Json should be under (```)
 ```
 {
 
-  "course_impact": {
-      "impt": {
-          "course1": (Score Number ex- 11),
-          "course2": (Score Number ex- 72),
-          "course3": (Score Number ex- 19),
-          ...
-          "couse n ": (Score Number ex- 14)
-      }
+"ci": {
+    "course1": (Score Number ex- 11),
+    "course2": (Score Number ex- 72),
+    "course3": (Score Number ex- 19),
+    ...
+    "couse n ": (Score Number ex- 14)
+}
           
-    }
+    
 }
 ```
 you are the part of process so do not give any thing else it do not give any value and it will increase the output time
@@ -289,13 +274,13 @@ Your goal is to help improve the resume, making it exceptional and removing any 
 The output should be in the correct json  format which follow this format:
 Json should be under (```)
 ```
+
 {
-"sugg":
-   { "suggestion1": "what needs to be done to get selected for this job description ",
-      "suggestion2": "which project is not making any sense for this job description",
-      "suggestion3": "what keywords you should add in this projects "
-    }
+"s1": "what needs to be done to get selected for this job description ",
+"s2": "which project is not making any sense for this job description",
+"s3": "what keywords you should add in this projects "
 }
+
 ```
 you are the part of process so do not give any thing else it do not give any value and it will increase the output time
 #if you didn't find any courses on resume just give in json "No courses found" : 0 
@@ -322,23 +307,18 @@ The output should be in the following format:
 Json should be under (```)
 ```
 {
-    "output": {
-        "experience_relevance": {
-            "imp": {
-                "expeience name 1": (Score Number ex- 11),
-                "expeience name 2":  (Score Number ex- 32),
-                ...
-                "expeience name  n":  (Score Number ex- 39)
-            }
-        }
-        
-    }
+"imp": {
+    "expeience name 1": (Score Number ex- 11),
+    "expeience name 2":  (Score Number ex- 32),
+    ...
+    "expeience name  n":  (Score Number ex- 39)
 }
-        ```
-        #json format should be valid json
-         #experience is a work done in the company 
-         #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
-        """
+}
+```
+#json format should be valid json
+    #experience is a work done in the company 
+    #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
+"""
 
 
 
@@ -361,16 +341,18 @@ you are the part of process so do not give any thing else it do not give any val
 The output should be in the following format:
 Json should be under (```)
 ```
-{  "Actionable Recommendations": [
+{ 
+ "Actionable Recommendations": [
     "Recommendation1  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
     "Recommendation2  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future).",
     "Recommendation3  to  the person what will make the resume stand out from others on the job at future ( with the telling about market demand on future)."
-]}
-        ```
-        #json format should be valid json
-         #experience is a work done in the company 
-         #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
-        """
+]
+}
+```
+#json format should be valid json
+    #experience is a work done in the company 
+    #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
+"""
 
 
 
