@@ -18,7 +18,6 @@ Please return the extracted data in the correct JSON format:
 
 Json should be under (```)
 ```
-
 {
 "skills": "{only return the section of Skills of the Candidate}",
 "projects": "{only return the section of Projects of the Candidate}",
