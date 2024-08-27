@@ -212,7 +212,7 @@ def skills_taken(resume_text, job_description):
             # Print the time taken
             print(f"Time taken by skills Taken: {time_taken:.2f} seconds")
 
-            return merged
+            return json.loads(str(merged))
 
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
