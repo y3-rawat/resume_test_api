@@ -208,8 +208,8 @@ def resume_final(resume_text, additional_information):
 
     try:
         
-        res1 = json.loads(res1) if res1 else None
-        res2 = json.loads(res2) if res2 else None
+        res1 = json.loads(res1) if res1 else "non"
+        res2 = json.loads(res2) if res2 else "non"
         if res1 and res2:
             res1["experience"] = res2["experience"]
 
