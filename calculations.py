@@ -540,15 +540,12 @@ def courses_done2(resume_text, job_description):
 
     for attempt in range(MAX_RETRIES):
         try:
-           
-
             course = f"""{prompts.course_prompt2}
                 ###Job Description###
                 {job_description}
                 ###Course_Presented_In_Resume###
                 {resume_text["courses"]}
             """
-
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future = executor.submit(apis.final, course, "course2")
                 try:
