@@ -78,13 +78,14 @@ def get_data(job_description, additional_information, extracted_text):
             }
     co1 = results["courses1"]
     co2 = results["courses2"]
-    merged_course = {
-        "output": {
-            "course_impact": co1["course_impact"],
-            **co2["sugg"]
-        }
-        }
-  
+
+    merged_cours = f"""{{
+        "output": {{
+            "course_impact": {json.dumps(co1["course_impact"])},
+            {json.dumps(**co2["sugg"])}
+        }}
+        }}"""
+    merged_course = json.loads(merged_cours)
     
     # Populate the response, using error messages for any missing data
     response = {
