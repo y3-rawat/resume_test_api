@@ -554,11 +554,9 @@ def courses_done2(resume_text, job_description):
                     print(f"Attempt course {attempt + 1} timed out")
                     # Return timeout-specific JSON response
                     return json.loads("""{
-                        
                             "s1": "Time out occurred while processing.",
                             "s2": "Please try again later.",
                             "s3": "The system encountered a delay."
-                        
                     }""")
 
             add_to_outputs("course_name2", Courses)  # Log the output to MongoDB
@@ -577,20 +575,20 @@ def courses_done2(resume_text, job_description):
             print(f"Attempt course {attempt + 1} failed with error: {e}")
             # Return error-specific JSON response
             return json.loads("""{
-                "sugg": {
+                
                     "s1": "Something Went Wrong1!",
                     "s2": "Something Went Wrong2!",
                     "s3": "Something Went Wrong3!"
-                }
+                
             }""")
 
     # If all retries fail without specific timeout or exception handling
     course_error = """{
-        "sugg": {
+        
             "s1": "Something Went Wrong1!",
             "s2": "Something Went Wrong2!",
             "s3": "Something Went Wrong3!"
-        }
+        
     }"""
     end_time = time.time()
 
