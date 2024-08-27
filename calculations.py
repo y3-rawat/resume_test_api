@@ -360,10 +360,7 @@ def projects_done(resume_text, job_description):
     start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
-            if resume_text is None or "projects" not in resume_text:
-                print("Invalid resume_text or missing projects")
-                return None
-
+           
             project = f"""{prompts.project_prompt}
                 ###Job Description###
                 {job_description}
@@ -543,9 +540,7 @@ def courses_done2(resume_text, job_description):
 
     for attempt in range(MAX_RETRIES):
         try:
-            if resume_text is None or "courses" not in resume_text:
-                print("Invalid resume_text or missing courses")
-                return None
+           
 
             course = f"""{prompts.course_prompt2}
                 ###Job Description###
