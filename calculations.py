@@ -60,6 +60,7 @@ def log_to_mongodb_batch(outputs):
 
 def add_to_outputs(name, response):
     document = {
+        
         "_id": str(uuid.uuid4()),
         "name": name,
         "result": response,
