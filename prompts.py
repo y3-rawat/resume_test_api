@@ -282,6 +282,7 @@ Json should be under (```)
 }
 
 ```
+#suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal and only give 3-4 suggestions
 you are the part of process so do not give any thing else it do not give any value and it will increase the output time
 #if you didn't find any courses on resume just give in json "No courses found" : 0 
 do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
@@ -383,10 +384,10 @@ Json should be under (```)
         "Strenght point 3": "Brief on Strenght point 3 (it should be very clear, Sort ,Valid)."
     }
 }
+#suggestions should be very short and clear try to put that into 10-15 words and it should be focused on what can be achive in short period nothing should sound ideal
 
-#it should be very short and clear try to put every point into 12-15 words
 #remember json should be closed properly
-only give 3-4 points 
+
             ```
 """
 
