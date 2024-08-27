@@ -13,23 +13,54 @@ from dotenv import load_dotenv
 import os
 import uuid
 from pymongo.errors import BulkWriteError
-TIMEOUT_SECONDS = 8  # Timeout period in seconds
-load_dotenv()
-db = os.getenv('mongo')
+
+'''
+ChatGroq -> model library with integrated functionality of langchain
+json-> to convert text into json 
+apis -> where my model is calling
+prompts -> All of my prompts for conversation 
+threading -> for the parallel processing
+pymongo -> for mongo db insertion 
+concurrent.futures -> part of parallel processing 
+time -> for time calculation
+datetime -> for mongo db insertion timeing status
+load_dotenv -> taking env file
+os -> to get env
+uuid -> used for mongo db unique key identifire
+pymongo errors -> type of except error for mongo db
+'''
+
+
+'''
+----------Timout Seconds----------
+why -> sometimes model is running for more then 1 minutes which is not possible for lambda function that's why using custom time constrant to ensure model do not exceed lambda funciton
+'''
+TIMEOUT_SECONDS = 8  # it is a model running time 
+
 
 # MongoDB setup
-client = MongoClient(db)  # Replace with your MongoDB connection string
+load_dotenv()
+db = os.getenv('mongo')
+client = MongoClient(db)  
 db = client['db']
 collection = db['Model output Data']
 
-# Shared list to store results
-results = [None, None]
+
+'''
+--------- threading.Lock()----------
+why -> So that while adding data into the list called all_output  
+every data did not append at the same time during the parallel processing 
+that's why threading.Lock() lock the resourses and only allow one thread to access the code at a time 
+'''
 results_lock = threading.Lock()  # Lock to ensure thread-safe access to results
 
 # Maximum retry attempts
-MAX_RETRIES = 1
+MAX_RETRIES = 1 # so that it stop after 8 seconds
 
-# List to store all outputs for batch insertion
+'''
+-------- Mongo DB insertion Code ------
+Below Code is a part where i want to insert data into mongo db without any problem 
+'''
 all_outputs = []
 all_outputs_lock = threading.Lock()
 
@@ -57,18 +88,34 @@ def log_to_mongodb_batch(outputs):
     except Exception as e:
         print(f"Failed to log to MongoDB: {e}")
 
-
 def add_to_outputs(name, response):
-    document = {
-        
-        "_id": str(uuid.uuid4()),
-        "name": name,
-        "result": response,
-        'timestamp': datetime.now()
-    }
-    with all_outputs_lock:
-        all_outputs.append(document)
+    # document = {
+    #     "_id": str(uuid.uuid4()),
+    #     "name": name,
+    #     "result": response,
+    #     'timestamp': datetime.now()
+    # }
+    # with all_outputs_lock:
+    #     all_outputs.append(document)
+    pass
+    """
+    Working on Reducing the load from the api and set up mongo db inserting at the js side where i will able to put everything without loosing time 
+    """
+"""
+-------- Mongo Db insertion End---------
+"""
 
+
+"""
+---------fetch_data_with_retry()----------
+Design this code initally So that Pdf text Can be Divided into json
+Why -> At initial Stage Model was getting difficulty to understand the Resume and Job Description which Causes me trouble on some Resumes (specially which resumes are Large in content or Job desciption Model offen Get confused)
+
+fetch_data_with_retry() is just a function which is extracting the text from the resume with only one try
+and putting into the list in which i will get the indexed output from the function.
+
+"""
+results = [None, None]
 def fetch_data_with_retry(prompt, index, retry_count):
     for attempt in range(retry_count):
         try:
@@ -82,6 +129,42 @@ def fetch_data_with_retry(prompt, index, retry_count):
             print(f"Attempt from resume {attempt + 1} failed with error: {e}")
     return False
 
+
+"""
+----resume_input1----
+this fucntion is creating a final prompt
+and taking data from the function 
+(Why not return)
+becuase i have put data into the list so i don't need to return anything 
+-----Why Need to make it too much complex in nature--------
+-> This is the primary Part in the Flow if it will not give me any result then every thing will be corrupted.
+-> there are ways to do it more efficiently but now it is a main part of the process any small error will lead to problem ( that's why didn't try to change from the Biggning)
+
+-- Detail about the Code --
+
+- resume_final() is a Main Function which is doing multitasking resume_input1 and resume_input2 are other fucntions which are giving me 
+the output
+
+resume_input1 ->  give me all of the things including projects, skills, courses etc.
+resume_input2 -> only giving me experience 
+
+Why -> 
+1. sometimes experience was very large which cause the trouble of time on the serverless function 
+2. by doing this time get reduced 
+
+Future Thoughts -
+
+1. there will be another api which will tell me the count of sections on the resume 
+for ex-
+skills : 30,
+experience : 300,
+courses: 10,
+
+then which has too much thing to extract will get on the resume2 other will be on the resume1 which will lead to reduce the time with more optimization
+
+----Start of Resume Extraction----
+
+"""
 def resume_input1(resume_text1, additional_information, index):
     resume_content_prompt1 = f"""{prompts.resume_prompt1}
     {resume_text1}
@@ -149,7 +232,10 @@ def resume_final(resume_text, additional_information):
 
     return res1
 
+"""
+--- End of features from Resume Extraction ---
 
+"""
 
 def skills_taken(resume_text, job_description):
     start_time = time.time()
@@ -173,7 +259,6 @@ def skills_taken(resume_text, job_description):
                 except concurrent.futures.TimeoutError:
                     print(f"Attempt from skills {attempt + 1} timed out")
                     # Return timeout-specific JSON response
-                    
                     return json.loads("""{
                         "output": {
                             "skill_Score": {
@@ -199,21 +284,21 @@ def skills_taken(resume_text, job_description):
             d = json.loads(skill_splited)
             d["sr"]
             d["rec"]
-            merged = {
-                    "output": {
-                        "skill_Score": {
-                            "skills_ratio": d["sr"],
-                        },
-                        "recommendations": d["rec"]
-                    }
-                }
+            merged = f"""{{
+                    "output": {{
+                        "skill_Score": {{
+                            "skills_ratio": {json.dumps(d["sr"])}
+                        }},
+                        "recommendations": {json.dumps(d["rec"])}
+                    }}
+                }}"""
             end_time = time.time()
             time_taken = end_time - start_time
             
             # Print the time taken
             print(f"Time taken by skills Taken: {time_taken:.2f} seconds")
 
-            return json.loads(str(merged))
+            return json.loads(merged)
 
         except Exception as e:
             print(f"Attempt from skills {attempt + 1} failed with error: {e}")
