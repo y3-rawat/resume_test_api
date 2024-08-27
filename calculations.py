@@ -605,10 +605,7 @@ def experience_done(resume_text, job_description):
 
     for attempt in range(MAX_RETRIES):
         try:
-            if resume_text is None or "experience" not in resume_text:
-                print("Invalid resume_text or missing experience")
-                return None
-
+           
             experience = f"""{prompts.exp_prompt}
                 ###Job Description###
                 {job_description}
@@ -695,9 +692,7 @@ def experience_done2(resume_text, job_description):
 
     for attempt in range(MAX_RETRIES):
         try:
-            if resume_text is None or "experience" not in resume_text:
-                print("Invalid resume_text or missing experience")
-                return None
+            
 
             experience = f"""{prompts.exp_prompt2}
                 ###Job Description###

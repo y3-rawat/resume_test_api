@@ -45,11 +45,9 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
 
 def get_data(job_description, additional_information, extracted_text):
     final_resume = calculations.resume_final(extracted_text, additional_information)
-    if final_resume is None:
-        return jsonify({"error": "Failed to process resume"}), 400
-
+   
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
-    time.sleep(1)
+    # time.sleep(1)
     # print("-----------Mongo DB-----------")
     # calculations.end()
 
