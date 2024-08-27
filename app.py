@@ -83,9 +83,9 @@ def get_data(job_description, additional_information, extracted_text):
     merged_cours = f"""{{
         "output": {{
             "course_impact": {json.dumps(co1["course_impact"])},
-            "suggestion1":{co2["s1"]},
-            "suggestion2": {co2["s2"]},
-            "suggestion3": {co2["s3"]}
+            "suggestion1":{json.dumps(co2["s1"])},
+            "suggestion2": {json.dumps(co2["s2"])},
+            "suggestion3": {json.dumps(co2["s3"])}
             
         }}
         }}"""
