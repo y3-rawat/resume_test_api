@@ -464,9 +464,7 @@ def courses_done1(resume_text, job_description):
     start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
-            if resume_text is None or "courses" not in resume_text:
-                print("Invalid resume_text or missing courses")
-                return None
+            
 
             course = f"""{prompts.course_prompt1}
                 ###Job Description###
@@ -534,7 +532,7 @@ def courses_done1(resume_text, job_description):
 
     time_taken = end_time - start_time
     # Print the time taken
-    print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
+    print(f"Time taken by corses error: {time_taken:.2f} seconds")
 
 
     return json.loads(course_error)
