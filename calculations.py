@@ -395,22 +395,22 @@ def projects_done(resume_text, job_description):
 
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
-            md = {
-                "output": {
-                    "project_impact": {
-                        "impact":d["imp1"],                        
-                        "suggestion1": d["s1"],
-                        "suggestion2": d["s2"],
-                        "suggestion3": d["s3"]
-                    }
-                }
-            }
+            md = f"""{{
+                "output": {{
+                    "project_impact": {{
+                        "impact":{json.dumps(d["imp1"])},                        
+                        "suggestion1": {json.dumps(d["s1"])},
+                        "suggestion2": {json.dumps(d["s2"])},
+                        "suggestion3": {json.dumps(d["s3"])}
+                    }}
+                }}
+            }}"""
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Projects_done: {time_taken:.2f} seconds")
-            return md
-
+            return json.loads(md)
+        
         except Exception as e:
             print(f"Attempt from projects {attempt + 1} failed with error: {e}")
             # Return error-specific JSON response
@@ -461,8 +461,6 @@ def courses_done1(resume_text, job_description):
     start_time = time.time()
     for attempt in range(MAX_RETRIES):
         try:
-            
-
             course = f"""{prompts.course_prompt1}
                 ###Job Description###
                 {job_description}
@@ -495,12 +493,12 @@ def courses_done1(resume_text, job_description):
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Course Done 1: {time_taken:.2f} seconds")
-            merge = {
-                "course_impact": {
-                    "impt": d["ci"]
-                    }
-                }
-            return merge
+            merge = f"""{{
+                "course_impact": {{
+                    "impt": {d["ci"]}
+                    }}
+                }}"""
+            return json.loads(merge)
 
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
@@ -530,8 +528,6 @@ def courses_done1(resume_text, job_description):
     time_taken = end_time - start_time
     # Print the time taken
     print(f"Time taken by corses error: {time_taken:.2f} seconds")
-
-
     return json.loads(course_error)
 
 
@@ -588,7 +584,6 @@ def courses_done2(resume_text, job_description):
             "s1": "Something Went Wrong1!",
             "s2": "Something Went Wrong2!",
             "s3": "Something Went Wrong3!"
-        
     }"""
     end_time = time.time()
 
@@ -640,12 +635,12 @@ def experience_done(resume_text, job_description):
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by experience_done: {time_taken:.2f} seconds")
-            merged =  {
-                "output": {
-                    "experience_relevance":d["imp"]
-                }
-            }
-            return merged
+            merged =  f"""{{
+                "output":{ {
+                    "experience_relevance":{d["imp"]}
+                }}
+            }}"""
+            return json.loads(merged)
 
         except Exception as e:
             print(f"Attempt experience {attempt + 1} failed with error: {e}")
@@ -689,11 +684,8 @@ def experience_done(resume_text, job_description):
 
 def experience_done2(resume_text, job_description):
     start_time = time.time()
-
     for attempt in range(MAX_RETRIES):
         try:
-            
-
             experience = f"""{prompts.exp_prompt2}
                 ###Job Description###
                 {job_description}
