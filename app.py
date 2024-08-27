@@ -78,7 +78,6 @@ def get_data(job_description, additional_information, extracted_text):
             }
     co1 = results["courses1"]
     co2 = results["courses2"]
-    print(co2)
 
     merged_cours = f"""{{
         "output": {{
@@ -91,7 +90,7 @@ def get_data(job_description, additional_information, extracted_text):
         }}"""
     
     merged_course = json.loads(merged_cours)
-    
+    print(results["experience2"],",xe")
     # Populate the response, using error messages for any missing data
     response = {
         "score_card":merged_score["score_card"],
