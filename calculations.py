@@ -554,11 +554,11 @@ def courses_done2(resume_text, job_description):
                     print(f"Attempt course {attempt + 1} timed out")
                     # Return timeout-specific JSON response
                     return json.loads("""{
-                        "sugg": {
-                            "suggestion1": "Time out occurred while processing.",
-                            "suggestion2": "Please try again later.",
-                            "suggestion3": "The system encountered a delay."
-                        }
+                        
+                            "s1": "Time out occurred while processing.",
+                            "s2": "Please try again later.",
+                            "s3": "The system encountered a delay."
+                        
                     }""")
 
             add_to_outputs("course_name2", Courses)  # Log the output to MongoDB
@@ -570,32 +570,26 @@ def courses_done2(resume_text, job_description):
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by course done2: {time_taken:.2f} seconds")
-            merged = {
-            "sugg":
-            { "suggestion1":d["s1"],
-                "suggestion2": d["s2"],
-                "suggestion3": d["s3"]
-                }
-            }
-            return merged
+            
+            return d
 
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
             # Return error-specific JSON response
             return json.loads("""{
                 "sugg": {
-                    "suggestion1": "Something Went Wrong1!",
-                    "suggestion2": "Something Went Wrong2!",
-                    "suggestion3": "Something Went Wrong3!"
+                    "s1": "Something Went Wrong1!",
+                    "s2": "Something Went Wrong2!",
+                    "s3": "Something Went Wrong3!"
                 }
             }""")
 
     # If all retries fail without specific timeout or exception handling
     course_error = """{
         "sugg": {
-            "suggestion1": "Something Went Wrong1!",
-            "suggestion2": "Something Went Wrong2!",
-            "suggestion3": "Something Went Wrong3!"
+            "s1": "Something Went Wrong1!",
+            "s2": "Something Went Wrong2!",
+            "s3": "Something Went Wrong3!"
         }
     }"""
     end_time = time.time()
