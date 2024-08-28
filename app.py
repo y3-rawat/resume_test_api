@@ -133,8 +133,14 @@ def get_data(job_description, additional_information, extracted_text):
 
 import apis
 
+@app.route('/test',methods = ['POST'])
+def test():
+    a = "hellow world"
+    return jsonify(a)
+
 @app.route('/submit', methods=['POST'])
 def submit():
+
 
     job_description = request.args.get('job_description', '')
     additional_information = request.args.get('additional_information', '')
