@@ -4,3 +4,4 @@ langchain-groq
 python-dotenv
 numpy
 pymongo
+gunicorn
