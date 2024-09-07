@@ -5,11 +5,11 @@ from concurrent.futures import ThreadPoolExecutor
 import calculations
 import concurrent.futures
 import json
-import fetchPeoples
 app = Flask(__name__)
 cors = CORS(app, resources={r"/submit": {"origins": "*"}})
 api = None
 executor = ThreadPoolExecutor(max_workers=5)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
@@ -43,13 +43,21 @@ def run_parallel_tasks(final_resume, job_description, extracted_text):
     
     return results
 
-def get_data(job_description, additional_information, extracted_text,company,position):
+def get_data(job_description, additional_information, extracted_text):
     final_resume = calculations.resume_final(extracted_text, additional_information)
+   
     results = run_parallel_tasks(final_resume, job_description, extracted_text)
+    # time.sleep(1)
+    # print("-----------Mongo DB-----------")
+    # calculations.end()
+
+    # Define default error response
     error_response = {
         "error": "An error occurred while processing the data",
         "details": {}
     }
+
+    # Helper function to safely get nested dictionary values
     def safe_get(dict_obj, *keys):
         for key in keys:
             if dict_obj is not None and isinstance(dict_obj, dict) and key in dict_obj:
@@ -99,7 +107,6 @@ def get_data(job_description, additional_information, extracted_text,company,pos
         #         "title": "Senior Soft... ",
         #         "link": f"""site:linkedin.com "microsoft" "Software Engineer" -jobs -job"""
         #     },
-        # https://cr.linkedin.com/in/c4rlosgs
         # ],
         # "recommendedPeople_twitter": [
         #     {
@@ -115,17 +122,13 @@ def get_data(job_description, additional_information, extracted_text,company,pos
         #         "link": """site:instagram.com "Software Engineer" "@Microsoft" -reel -p/"""
         #     }       
         # ],
-
-        'recommended_People_linkdin': fetchPeoples.linkedin(company,position),
-        'recommendedPeople_twitter': fetchPeoples.twitter(company,position),
-        'recommendedPeople_instagram': fetchPeoples.instagram(company,position)
-    
     }
-    
+
     # If any errors occurred, include them in the response
     if error_response["details"]:
         response["errors"] = error_response["details"]
 
+    print(response)
     return response
 
 import apis
@@ -134,18 +137,21 @@ import apis
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.json
-    job_description = data.get('job_description', '')
-    additional_information = data.get('additional_information', '')
-    extracted_text = data.get('extractedText', '')
-    api_key = data.get('api', '')
-    company = data.get('company', '')
-    position = data.get('position', '')
-    print("----------------------   -------------",company,position,api_key,"-----------------------------------")
+    job_description = request.args.get('job_description', '')
+    additional_information = request.args.get('additional_information', '')
+    extracted_text = request.args.get('ext-text', '')
+    api_key = request.args.get('api', '')
     apis.API_func(api_key)
-    
-    output = get_data(job_description, additional_information, extracted_text,company,position)
+    start_time = time.time()
+
+    output = get_data(job_description, additional_information, extracted_text)
+    end_time = time.time()
+    time_taken = end_time - start_time
+    # Print the time taken
+    print("processing Completed")
+    print(f"Time taken by get_data: {time_taken:.2f} seconds")
+
     return jsonify(output)
  
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

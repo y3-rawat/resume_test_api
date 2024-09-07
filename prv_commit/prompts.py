@@ -239,14 +239,16 @@ The output should be in the correct json  format which follow this format:
 Json should be under (```)
 ```
 {
-"course_impact": {
-    "impt": {
+
+"ci": {
     "course1": (Score Number ex- 11),
     "course2": (Score Number ex- 72),
     "course3": (Score Number ex- 19),
+    ...
     "couse n ": (Score Number ex- 14)
 }
-}
+          
+    
 }
 ```
 you are the part of process so do not give any thing else it do not give any value and it will increase the output time
@@ -289,38 +291,34 @@ do not give any sign into the name insted give the full name (example - C++ to C
 
 exp_prompt = """
 ###Instruction###
-Act as an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's work experience section of the resume against a provided job description. You will provide genuine scores based on the work experience, focusing solely on the professional experience as outlined in the job description.
+act as an expert in the field of ATS (Applicant Tracking Systems) and job descriptions. Your task is to evaluate a user's resume against a provided job description. You will provide excellent advice and genuine scores based on the resume, focusing on the impacts on the work Experience as outlined in the job description.
 
-Conduct a deep-dive review of the existing work experience and job description.
-Ensure that all feedback accurately reflects the job description requirements.
-Your goal is to help improve the work experience section of the resume, making it exceptional and relevant to the job.
+Conduct a deep-dive review of the existing resume and job description.
+Provide feedback that balances solving the immediate problem with long-term improvement.
 
-You are part of a process, so do not provide any additional information that doesn't add value to the evaluation.
-If you don't find any work experience on the resume, just return "No experience found": 0 in the JSON.
-Do not use abbreviations in experience names; instead, use full names (example: use "CPP Programming" instead of "C++").
+Discuss trade-offs and implementation options if there are choices to be made.
+Ensure that all feedback accurately reflects the job description.
+Your goal is to help improve the resume, making it exceptional and removing any vulnerabilities.
 
+you are the part of process so do not give any thing else it do not give any value to that project 
+if you didn't find any experience on resume just give in json "No expereince found":0
+do not give any sign into the name insted give the full name (example - C++ to CPP Programing)
 ###FORMAT###
 The output should be in the following format:
 Json should be under (```)
 ```
 {
-    "output":{
-    "experience_relevance":{"imp": {
-        "expeience name 1": (Score Number ex- 11),
-        "expeience name 2":  (Score Number ex- 32),
-        ...
-        "expeience name  n":  (Score Number ex- 39)
-    }
-    }
-    }
+"imp": {
+    "expeience name 1": (Score Number ex- 11),
+    "expeience name 2":  (Score Number ex- 32),
+    ...
+    "expeience name  n":  (Score Number ex- 39)
 }
-
-
-
+}
 ```
-Only give the Experience present in the resume Not any other experience
-Work experience is a work done in the company Not on the college or any other place or projects
-
+#json format should be valid json
+    #experience is a work done in the company 
+    #suggestions should be very short and clear try to put that into 15-20 words and it should be focused on what can be achive in short period nothing should sound ideal
 """
 
 

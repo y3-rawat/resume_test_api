@@ -3,11 +3,16 @@ import json
 import apis
 import prompts
 import threading
+from pymongo import MongoClient
+import pymongo
+import json
 import concurrent.futures
 import time
 from datetime import datetime
 from dotenv import load_dotenv
-
+import os
+import uuid
+from pymongo.errors import BulkWriteError
 
 '''
 ChatGroq -> model library with integrated functionality of langchain
@@ -15,12 +20,14 @@ json-> to convert text into json
 apis -> where my model is calling
 prompts -> All of my prompts for conversation 
 threading -> for the parallel processing
+pymongo -> for mongo db insertion 
 concurrent.futures -> part of parallel processing 
 time -> for time calculation
 datetime -> for mongo db insertion timeing status
 load_dotenv -> taking env file
 os -> to get env
 uuid -> used for mongo db unique key identifire
+pymongo errors -> type of except error for mongo db
 '''
 
 
@@ -28,9 +35,15 @@ uuid -> used for mongo db unique key identifire
 ----------Timout Seconds----------
 why -> sometimes model is running for more then 1 minutes which is not possible for lambda function that's why using custom time constrant to ensure model do not exceed lambda funciton
 '''
-TIMEOUT_SECONDS = 200  # it is a model running time 
+TIMEOUT_SECONDS = 8  # it is a model running time 
 
 
+# MongoDB setup
+load_dotenv()
+db = os.getenv('mongo')
+client = MongoClient(db)  
+db = client['db']
+collection = db['Model output Data']
 
 
 '''
@@ -48,12 +61,66 @@ MAX_RETRIES = 1 # so that it stop after 8 seconds
 -------- Mongo DB insertion Code ------
 Below Code is a part where i want to insert data into mongo db without any problem 
 '''
-results = [None, None]
+all_outputs = []
+all_outputs_lock = threading.Lock()
 
+def log_to_mongodb_batch(outputs):
+    try:
+        if outputs:
+            # Generate unique IDs for each document
+            for output in outputs:
+                output['_id'] = str(uuid.uuid4())
+
+            # Use bulk write with ordered=False to continue processing on error
+            result = collection.bulk_write([
+                pymongo.UpdateOne(
+                    {'_id': output['_id']},
+                    {'$set': output},
+                    upsert=True
+                ) for output in outputs
+            ], ordered=False)
+
+            print(f"Successfully processed {result.upserted_count + result.modified_count} documents")
+            if result.bulk_api_result.get('writeErrors'):
+                print(f"Encountered {len(result.bulk_api_result['writeErrors'])} write errors")
+    except BulkWriteError as bwe:
+        print(f"Bulk write error: {bwe.details}")
+    except Exception as e:
+        print(f"Failed to log to MongoDB: {e}")
+
+def add_to_outputs(name, response):
+    # document = {
+    #     "_id": str(uuid.uuid4()),
+    #     "name": name,
+    #     "result": response,
+    #     'timestamp': datetime.now()
+    # }
+    # with all_outputs_lock:
+    #     all_outputs.append(document)
+    pass
+    """
+    Working on Reducing the load from the api and set up mongo db inserting at the js side where i will able to put everything without loosing time 
+    """
+"""
+-------- Mongo Db insertion End---------
+"""
+
+
+"""
+---------fetch_data_with_retry()----------
+Design this code initally So that Pdf text Can be Divided into json
+Why -> At initial Stage Model was getting difficulty to understand the Resume and Job Description which Causes me trouble on some Resumes (specially which resumes are Large in content or Job desciption Model offen Get confused)
+
+fetch_data_with_retry() is just a function which is extracting the text from the resume with only one try
+and putting into the list in which i will get the indexed output from the function.
+
+"""
+results = [None, None]
 def fetch_data_with_retry(prompt, index, retry_count):
     for attempt in range(retry_count):
         try:
             response = apis.final(prompt,"resume")
+            add_to_outputs("resume", response)  # Add to batch instead of immediate insertion
             data = response.split("```")[1]
             with results_lock:
                 results[index] = data
@@ -210,6 +277,9 @@ def skills_taken(resume_text, job_description):
                         }
                     }""")
 
+            # Process the response as usual
+            add_to_outputs("skills_name", response)
+
             skill_splited = response.split("```")[1]
             d = json.loads(skill_splited)
             d["sr"]
@@ -321,6 +391,8 @@ def projects_done(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("project_name", Projects)  # Log the output to MongoDB
+
             projects_splitted = Projects.split("```")[1]
             d = json.loads(projects_splitted)
             md = f"""{{
@@ -413,15 +485,20 @@ def courses_done1(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("course_name1", Courses)  # Log the output to MongoDB
+
             course_splitted = Courses.split("```")[1]
-            print(course_splitted,"course_splitted")
             d = json.loads(course_splitted)
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by Course Done 1: {time_taken:.2f} seconds")
-            
-            return d
+            merge = f"""{{
+                "course_impact": {{
+                    "impt": {d["ci"]}
+                    }}
+                }}"""
+            return json.loads(merge)
 
         except Exception as e:
             print(f"Attempt course {attempt + 1} failed with error: {e}")
@@ -477,6 +554,8 @@ def courses_done2(resume_text, job_description):
                             "s2": "Please try again later.",
                             "s3": "The system encountered a delay."
                     }""")
+
+            add_to_outputs("course_name2", Courses)  # Log the output to MongoDB
 
             course_splitted = Courses.split("```")[1]
             d = json.loads(course_splitted)
@@ -548,17 +627,20 @@ def experience_done(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
-            print(exp,"checking calculations")
             d = json.loads(exp)
             
             end_time = time.time()
             time_taken = end_time - start_time
             # Print the time taken
             print(f"Time taken by experience_done: {time_taken:.2f} seconds")
-            print("experience_done")
-            
-            return d
+            merged =  f"""{{
+                "output":{ {
+                    "experience_relevance":{d["imp"]}
+                }}
+            }}"""
+            return json.loads(merged)
 
         except Exception as e:
             print(f"Attempt experience {attempt + 1} failed with error: {e}")
@@ -567,8 +649,8 @@ def experience_done(resume_text, job_description):
                     "experience_relevance": {
                         "imp": {
                             "An Error Occurred": 0,
-                            "An Error Occurred1": 0,
-                            "An Error Occurred2": 0
+                            "An Error Occurred": 0,
+                            "An Error Occurred": 0
                         },
                         "advice": "An error occurred at the experience part. Please inform the author."
                     }
@@ -581,8 +663,8 @@ def experience_done(resume_text, job_description):
             "experience_relevance": {
                 "imp": {
                     "An Error Occurred": 0,
-                    "An Error Occurred2": 0,
-                    "An Error Occurred1": 0
+                    "An Error Occurred": 0,
+                    "An Error Occurred": 0
                 },
                 "advice": "An error occurred at the experience part. Please share the information with the developer."
             }
@@ -625,6 +707,7 @@ def experience_done2(resume_text, job_description):
                         }
                     """)
 
+            add_to_outputs("experience_name", experience1)  # Log the output to MongoDB
             exp = experience1.split("```")[1]
             d = json.loads(exp)
             end_time = time.time()
@@ -702,6 +785,7 @@ def Score_cards1(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("Score_card_name1", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
 
@@ -808,6 +892,7 @@ def Score_cards2(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("Score_card_name2", score_cards_output)  # Log the output to MongoDB
             exp = score_cards_output.split("```")[1]
             d = json.loads(exp)
             
@@ -854,7 +939,7 @@ def Score_cards2(resume_text, job_description):
             }""")
 
     # If all retries fail without specific timeout or exception handling
-    score2_error = """{
+    experience_error = """{
         "score_card2": {
             "ats": {
                 "score": 505,
@@ -882,7 +967,7 @@ def Score_cards2(resume_text, job_description):
     # Print the time taken
     print(f"Time taken by Final Resume: {time_taken:.2f} seconds")
 
-    return json.loads(score2_error)
+    return json.loads(experience_error)
 
 
 def Strenths(resume_text, job_description):
@@ -914,6 +999,7 @@ def Strenths(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("Strent_prompts_name", Strenths)  # Log the output to MongoDB
             exp = Strenths.split("```")[1]
             d = json.loads(exp)
             d["output"]
@@ -972,6 +1058,7 @@ def Worst_point(resume_text, job_description):
                         }
                     }""")
 
+            add_to_outputs("weekness_ponts_name", worst_point)  # Log the output to MongoDB
             exp = worst_point.split("```")[1]
             d = json.loads(exp)
             d["output"]
@@ -1006,4 +1093,6 @@ def Worst_point(resume_text, job_description):
 
 
     return json.loads(worst_error)
+# def end():
+#     log_to_mongodb_batch(all_outputs)
 
